@@ -24,6 +24,12 @@
 - En amparos el tipo de consulta es obligatorio (el microcopy trae mensaje de error); en penal es opcional.
 - Tokens nuevos: `--error` (#A3261C, 7,4:1) y `--borde-campo` (#767D8C, 4,1:1 sobre blanco).
 
+**Revisión del líder**
+- Revisé el endpoint: validación en servidor, texto plano, asunto saneado, sin datos personales en logs y flag chequeado en runtime. Correcto.
+- Agregué un control de origen: un POST desde otro dominio (`Origin` distinto) recibe 403. Test nuevo en `contacto-servidor.test.mjs` (flag apagado → 404; otro origen → 403). Total: 11 tests.
+- `CONTACTO_EMAIL=true` activado **solo** en las previews de la rama `feat/formulario` (ambos proyectos) para probar en Vercel; producción sigue apagada.
+- Sin rate limiting propio: BotID + honeypot + límite diario de Resend. Si aparece spam humano, se agrega una regla de rate limit en el firewall de Vercel.
+
 **Pendiente**
 - Probar en un preview con el flag: que las rewrites de `vercel.json` convivan con las rutas del adapter, el envío real por Resend con el dominio verificado y que BotID rechace un curl.
 - Con el flag apagado, el JS del formulario igual se genera en `_astro/`, pero ninguna página lo carga.
