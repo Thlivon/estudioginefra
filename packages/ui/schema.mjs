@@ -34,6 +34,10 @@ export function legalService({ site, sitio, areas, sitioHermano }) {
       addressCountry: d.pais,
       ...(d.codigoPostal && { postalCode: d.codigoPostal }),
     },
+    geo: { '@type': 'GeoCoordinates', latitude: d.geo.latitud, longitude: d.geo.longitud },
+    hasMap: estudio.mapa,
+    image: absoluta(site, '/og.jpg'),
+    logo: absoluta(site, '/favicon.svg'),
     ...(sitio.guardia24 && {
       openingHoursSpecification: { '@type': 'OpeningHoursSpecification', dayOfWeek: dias, opens: '00:00', closes: '23:59' },
     }),

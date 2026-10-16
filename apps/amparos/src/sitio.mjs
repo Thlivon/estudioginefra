@@ -12,6 +12,7 @@ const llamarNumero = { etiqueta: tel, etiquetaMovil: 'Llamar ahora' };
 
 export const sitio = {
   id: 'amparos',
+  colorTema: '#10232a', // barra del navegador en mobile (--tinta)
   ordenCtas: 'whatsapp-primero',
   mensajeWhatsappPorDefecto:
     'Hola, quiero consultar por un amparo de salud. Les envío el rechazo de mi prepaga u obra social y la orden médica. (Web amparos)',

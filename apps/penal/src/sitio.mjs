@@ -10,6 +10,7 @@ const contacto = { texto: 'Contacto', href: '/contacto/' };
 
 export const sitio = {
   id: 'penal',
+  colorTema: '#0e1726', // barra del navegador en mobile (--tinta)
   ordenCtas: 'llamar-primero',
   mensajeWhatsappPorDefecto:
     'Hola, escribo desde la web de Ginefra & Asociados. Necesito hablar con un abogado penalista, es urgente.',

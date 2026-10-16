@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-10-16 · Hito 7 · `feat/seo`
+
+**Hecho**
+- `robots.txt` por sitio según `INDEXAR`: en pruebas `Disallow: /`; en producción `Allow: /` + `Sitemap:` con la URL del dominio de producción.
+- Sitemap con `@astrojs/sitemap` (`sitemap-index.xml`) en ambos sitios; excluye `/contacto/enviado/` (la 404 ya queda fuera).
+- Imagen para compartir por sitio (`public/og.jpg`, 1200×630): penal con Comodoro Py y "Abogado penalista con guardia 24 horas"; amparos con "Amparos de salud contra prepagas y obras sociales". Pesan 75 KB y 36 KB (WhatsApp descarta las vistas previas pesadas).
+- Meta Open Graph y Twitter en el Layout (título, descripción, URL canónica, imagen absoluta, `es_AR`), `apple-touch-icon` por sitio y `theme-color` con la tinta de cada sitio.
+- `LegalService`: código postal B1754, coordenadas (-34.6737681, -58.5733949; OpenStreetMap, coincidencia exacta de la altura), `hasMap`, `image` y `logo`.
+
+**Decisiones**
+- Las imágenes OG se generaron una vez (HTML con las fuentes y la foto del sitio, capturado con Chrome) y se commitean como estáticas: sin generación en el build ni dependencias nuevas para eso.
+- Una imagen OG por sitio, no por página: alcanza para WhatsApp y redes; se agrega por página si hace falta.
+
+**Notas**
+- `npm audit` reporta un ReDoS en `path-to-regexp` dentro de `@vercel/routing-utils` (dependencia de `@astrojs/vercel`). Solo se usa al compilar las rutas de `vercel.json` en el build, nunca con datos de visitantes: sin impacto. La única corrección propuesta es bajar el adapter a una versión vieja, así que se deja.
+
+**Pendiente (lanzamiento)**
+- Verificar ambos dominios en Google Search Console (registro TXT en Cloudflare) y enviar los sitemaps.
+- Actualizar en Google Business Profile la web, el teléfono y la categoría.
+
 ## 2026-10-16 · Hito 6 · `feat/formulario`
 
 **Hecho**

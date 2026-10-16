@@ -22,3 +22,9 @@ const hostHermano = hermano
   ? relacionados.withRelatedProject({ projectName: hermano.project.name, defaultHost: '' })
   : '';
 export const sitioHermano = hostHermano ? `${hostHermano}/` : 'http://localhost:4321/';
+
+// robots.txt: en pruebas bloquea todo; en producción permite y apunta al sitemap.
+export const robotsTxt = (url) =>
+  indexar
+    ? `User-agent: *\nAllow: /\n\nSitemap: ${new URL('/sitemap-index.xml', url).href}\n`
+    : 'User-agent: *\nDisallow: /\n';
