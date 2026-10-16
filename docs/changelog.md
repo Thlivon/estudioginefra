@@ -1,5 +1,33 @@
 # Changelog
 
+## 2026-10-15 · Hito 3 · `feat/copy`
+
+**Hecho**
+- Copy Penal: 6 áreas, guía "qué hacer si detienen a un familiar", FAQ, páginas (inicio, local, equipo, contacto, privacidad, 404), bios del equipo y `docs/copy/microcopy-penal.md`.
+- Copy Amparos: 4 áreas reescritas desde el sitio actual, guía "qué hacer si la prepaga rechaza la cobertura", FAQ, páginas (inicio, equipo, contacto, privacidad, 404) y `docs/copy/microcopy-amparos.md`.
+- ~24.000 palabras en total. 27 archivos de contenido con YAML válido; ambos sitios compilan.
+
+**Revisión**
+- Integré los campos de amparos de cada abogado (`enfoque.amparos`, `areas.amparos`) en `packages/ui/contenido/equipo/` y eliminé el archivo intermedio.
+- Verifiqué las citas legales de amparos (Leyes 26.682, 24.901, 26.396, 23.660/23.661, PMO oncológico) y la guía penal: correctas. No hay hechos inventados (años, casos, títulos, testimonios).
+- Sin cambios de tono: el copy mantiene los claims del sitio actual (48/72 h, 100 % confidencial) con el apego flexible elegido.
+
+**Para el hito 4/5 (Constructor)**
+- Los agentes agregaron campos al modelo de §5: `ctaIntermedio`, `ctaFinal`, `equipoFrase`, `dondeEstamos` (inicio penal); `estudio`, `areasLocal` (local); `canales`, `visitanos`, `confidencialidad` (contacto); `urgencia` (404). El cuerpo de `local.md` trae dos H2 que la plantilla separa. Algunos textos llevan enlaces Markdown en línea.
+- Sección del formulario en privacidad marcada con `<!-- solo-con-formulario -->`.
+
+**Pendiente: datos del estudio (`{A CONFIRMAR}`)**
+- Colegio de las matrículas; horario de atención presencial; costo de la primera consulta y formas de pago.
+- Bios: universidad, egreso, matriculación, posgrados, trayectoria de ambos; año de fundación del estudio; qué áreas atiende Ricardo.
+- Cómo llegar al estudio y tiempo habitual de llegada a comisarías.
+- Plazo de conservación de consultas del formulario.
+
+**Pendiente: validación jurídica del abogado (`{VERIFICAR}`)**
+- Plazos de aprehensión, detención, art. 308 y prisión preventiva (CPP PBA).
+- Horario del allanamiento (CPP PBA y federal); estado del sistema acusatorio federal en Comodoro Py; juicio por jurados (Ley 14.543).
+- Régimen Penal Tributario (montos y extinción por pago); sedes penales de La Matanza.
+- Plazos de respuesta de prepagas según la Superintendencia de Servicios de Salud.
+
 ## 2026-10-15 · Hito 2 · `feat/estructura`
 
 **Hecho**

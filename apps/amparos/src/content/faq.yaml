@@ -1,0 +1,50 @@
+# Preguntas generales del sitio amparos (loader file()).
+# paginas: inicio | contacto
+
+- id: "obra-social-o-prepaga"
+  pregunta: "¿El amparo de salud sirve si tengo obra social y no prepaga?"
+  respuesta: "Sí. Las obras sociales nacionales, sindicales o de personal de dirección, están obligadas por las Leyes 23.660 y 23.661 a cubrir el Programa Médico Obligatorio y las prestaciones de discapacidad de la Ley 24.901, igual que las prepagas por la Ley 26.682. Si tu obra social rechaza, demora o recorta un tratamiento indicado, el amparo con medida cautelar es la misma herramienta y tramita en el fuero Civil y Comercial Federal."
+  paginas: ["inicio"]
+  orden: 1
+
+- id: "reclamo-previo"
+  pregunta: "¿Tengo que reclamar antes a la prepaga para presentar un amparo?"
+  respuesta: "Necesitás que la prepaga haya rechazado el pedido, lo haya autorizado a medias o no haya respondido. No hace falta agotar largos reclamos administrativos ni pasar antes por la Superintendencia de Servicios de Salud. Con el pedido hecho y la negativa o el silencio documentados, ya podemos ir a la Justicia. Si todavía no pediste la cobertura por escrito, te decimos cómo hacerlo para dejar constancia."
+  paginas: ["inicio", "contacto"]
+  orden: 2
+
+- id: "prepaga-no-cumple"
+  pregunta: "¿Qué pasa si la prepaga no cumple la orden del juez?"
+  respuesta: "Lo denunciamos en el mismo expediente y pedimos sanciones conminatorias: multas diarias que corren hasta que la prepaga cumpla. Una orden judicial no es optativa, y su incumplimiento puede derivar incluso en una denuncia penal por desobediencia. En la práctica, cuando la empresa ve la orden y las multas acumulándose, la cobertura aparece."
+  paginas: ["inicio"]
+  orden: 3
+
+- id: "seguir-con-mi-medico"
+  pregunta: "¿Puedo seguir con mi médico si no está en la cartilla de la prepaga?"
+  respuesta: "En muchos casos, sí. La regla es que la prepaga ofrezca sus propios prestadores, pero si no tiene profesionales adecuados para tu caso, o si cambiar de médico o de terapeutas pone en riesgo un tratamiento en curso, la Justicia puede ordenar que la cobertura incluya a tus profesionales. La continuidad del tratamiento es un argumento muy fuerte y lo planteamos desde la demanda."
+  paginas: ["inicio"]
+  orden: 4
+
+- id: "baja-por-reclamar"
+  pregunta: "¿Me pueden dar de baja de la prepaga por presentar un amparo?"
+  respuesta: "No. La Ley 26.682 solo permite que la prepaga rescinda el contrato si dejás de pagar como mínimo tres cuotas consecutivas o si falseaste la declaración jurada. Reclamar tus derechos, en la prepaga o en la Justicia, no es una causa de baja. Seguí pagando la cuota con normalidad y guardá los comprobantes: así la empresa no tiene ninguna excusa."
+  paginas: ["inicio", "contacto"]
+  orden: 5
+
+- id: "honorarios"
+  pregunta: "¿Cuánto cuesta un abogado para un amparo de salud?"
+  respuesta: "La consulta inicial de viabilidad es confidencial: nos mandás el rechazo y la orden médica y te decimos si el caso tiene camino. Si es viable, trabajamos con un costo de inicio accesible y el cobro principal de los honorarios contra el resultado del proceso. Así podés iniciar el reclamo sin que el costo del juicio sea un obstáculo en el peor momento."
+  paginas: ["inicio", "contacto"]
+  orden: 6
+
+- id: "como-enviar-documentacion"
+  pregunta: "¿Cómo les envío la documentación para evaluar mi caso?"
+  respuesta: "Lo más rápido es por WhatsApp al 11 5126-1499: una foto clara de cada papel alcanza. Mandanos el rechazo o la constancia del pedido sin respuesta, la orden médica, el informe del médico tratante y la credencial. Si algo falta, no te frenes: escribinos igual con lo que tengas y te decimos qué conseguir. Toda la información que nos envíes se trata en forma confidencial."
+  paginas: ["contacto"]
+  orden: 7
+
+- id: "ir-al-estudio"
+  pregunta: "¿Tengo que ir al estudio para iniciar el amparo?"
+  respuesta: "No hace falta. La evaluación se hace por WhatsApp o por teléfono: nos mandás la documentación, la revisamos y te decimos cómo seguir. Los amparos contra prepagas y obras sociales nacionales tramitan en el fuero federal con expediente electrónico, así que gran parte del trabajo no requiere que te muevas de tu casa. Si preferís una reunión presencial, la coordinamos con turno en nuestro estudio de San Justo."
+  paginas: ["contacto"]
+  orden: 8
