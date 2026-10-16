@@ -14,6 +14,12 @@
 
 **Verificación**
 - Local (build con el formulario encendido): sin violaciones de CSP; fuentes, estilos, script del formulario y carga de BotID funcionan.
+- Preview de Vercel (formulario encendido solo en la rama `feat/seguridad`): las 7 cabeceras llegan con los valores esperados; el challenge real de BotID carga (200) y deja pasar al navegador (un POST vacío da 400 por validación, no 403); Web Analytics registra la visita (`/_vercel/insights/view` 200). Sin violaciones de CSP del sitio.
+- La única violación en la preview es la barra de comentarios de Vercel (`vercel.live/feedback.js`), que Vercel inyecta solo en previews: no existe en producción.
+
+**Pendiente**
+- Confirmar en Vercel (pestaña Analytics de cada proyecto) que Web Analytics figure habilitado.
+- Puntaje en securityheaders.com sobre el dominio de pruebas después del merge.
 
 ## 2026-10-16 · Hito 7 · `feat/seo`
 
