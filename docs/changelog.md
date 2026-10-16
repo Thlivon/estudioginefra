@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-10-16 · Hito 8 · `feat/seguridad`
+
+**Hecho**
+- **CSP** con `security.csp` de Astro (`packages/ui/seguridad.mjs`): `<meta>` en cada página con `default-src 'self'`, `img-src 'self' data:`, `font-src`/`connect-src 'self'`, `object-src 'none'`, `base-uri`/`form-action 'self'`, y `script-src`/`style-src` = `'self'` + hashes de lo que genera Astro. Ningún origen externo.
+- **Cabeceras** en el `vercel.json` de cada app (todas las rutas): HSTS (2 años, subdominios), `Content-Security-Policy: frame-ancestors 'self'` (no se puede en `<meta>`), `X-Frame-Options: SAMEORIGIN`, `nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (cámara, micrófono, ubicación, pagos, USB y Topics apagados) y `Cross-Origin-Opener-Policy: same-origin`.
+- **Vercel Web Analytics**: `/_vercel/insights/script.js` (sin cookies, `defer`), solo en deployments de Vercel.
+- Ajustes para cumplir la CSP: el sprite de íconos usa una clase en lugar de `style="..."`, y Shiki (resaltado de código, sin uso en el sitio) queda desactivado.
+
+**Decisiones**
+- `frame-ancestors 'self'` y `SAMEORIGIN` (no `'none'`/`DENY`): BotID enmarca su propia ruta del mismo dominio; otros sitios igual no pueden embeber las páginas.
+- Sin `preload` de HSTS: es un compromiso difícil de revertir; se evalúa después del lanzamiento.
+
+**Verificación**
+- Local (build con el formulario encendido): sin violaciones de CSP; fuentes, estilos, script del formulario y carga de BotID funcionan.
+- Preview de Vercel (formulario encendido solo en la rama `feat/seguridad`): las 7 cabeceras llegan con los valores esperados; el challenge real de BotID carga (200) y deja pasar al navegador (un POST vacío da 400 por validación, no 403); Web Analytics registra la visita (`/_vercel/insights/view` 200). Sin violaciones de CSP del sitio.
+- La única violación en la preview es la barra de comentarios de Vercel (`vercel.live/feedback.js`), que Vercel inyecta solo en previews: no existe en producción.
+
+**Pendiente**
+- Confirmar en Vercel (pestaña Analytics de cada proyecto) que Web Analytics figure habilitado.
+- Puntaje en securityheaders.com sobre el dominio de pruebas después del merge.
+
 ## 2026-10-16 · Hito 7 · `feat/seo`
 
 **Hecho**
