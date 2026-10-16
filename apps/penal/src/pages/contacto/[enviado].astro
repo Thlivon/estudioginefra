@@ -1,0 +1,17 @@
+---
+// /contacto/enviado/: solo existe con CONTACTO_EMAIL=true (ruta dinámica para poder no generarla).
+import LayoutPenal from '../../layouts/LayoutPenal.astro';
+import PlantillaEnviado from '@ginefra/ui/plantillas/PlantillaEnviado.astro';
+import { contactoEmail } from '@ginefra/ui/site.mjs';
+import { sitio } from '../../sitio.mjs';
+
+export function getStaticPaths() {
+  return contactoEmail ? [{ params: { enviado: 'enviado' } }] : [];
+}
+
+const t = sitio.plantillas.enviado;
+---
+
+<LayoutPenal title={t.title} description={t.texto} mensajeWhatsapp={t.mensajeWhatsapp} noindex>
+  <PlantillaEnviado sitio={sitio} />
+</LayoutPenal>

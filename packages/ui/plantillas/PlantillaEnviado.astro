@@ -1,0 +1,56 @@
+---
+// Confirmación del formulario (/contacto/enviado/, noindex). Botón de llamar por si es urgente.
+import Migas from '../componentes/Migas.astro';
+import Hero from '../componentes/Hero.astro';
+import BotonContacto from '../componentes/BotonContacto.astro';
+import Icono from '../componentes/Icono.astro';
+
+interface Props {
+  sitio: any;
+}
+const { sitio } = Astro.props;
+const t = sitio.plantillas.enviado;
+const tipos = sitio.ordenCtas === 'whatsapp-primero' ? ['whatsapp', 'llamar'] : ['llamar', 'whatsapp'];
+const botones = tipos
+  .filter((tipo) => t.botones[tipo])
+  .map((tipo, i) => ({
+    tipo,
+    variante: i === 0 ? 'primario' : 'secundario',
+    etiqueta: t.botones[tipo].etiqueta,
+    ariaLabel: sitio.aria[tipo],
+    mensaje: tipo === 'whatsapp' ? (t.mensajeWhatsapp ?? sitio.mensajeWhatsappPorDefecto) : undefined,
+  }));
+---
+
+<Migas items={[{ nombre: sitio.plantillas.migas.contacto, href: '/contacto/' }, { nombre: t.h1, href: '/contacto/enviado/' }]} />
+<Hero variante="compacto" h1={t.h1} bajada={t.texto} />
+<div class="contenedor enviado">
+  {t.caja && <p class="enviado__caja">{t.caja}</p>}
+  <div class="enviado__botones">
+    {botones.map((b) => <BotonContacto {...b} />)}
+  </div>
+  <a class="enlace-flecha" href="/">{t.volver} <Icono nombre="flecha" tamano={18} /></a>
+</div>
+
+<style>
+  .enviado {
+    display: grid;
+    gap: var(--esp-5);
+    justify-items: start;
+    max-width: 40rem;
+    padding-block: var(--esp-6) var(--esp-seccion);
+  }
+  .enviado__caja {
+    font-size: var(--paso-1);
+  }
+  .enviado__botones {
+    display: grid;
+    gap: var(--esp-2);
+  }
+  @media (min-width: 48em) {
+    .enviado__botones {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+</style>

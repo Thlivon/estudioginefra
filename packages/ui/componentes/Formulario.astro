@@ -1,0 +1,331 @@
+---
+// Formulario de contacto (docs/estructura.md §3.7 variante B). Solo se renderiza con CONTACTO_EMAIL=true.
+// Sin JS: POST nativo a /api/contacto/ (validación HTML + servidor; si falla, vuelve con #error-envio).
+// Con JS: el script de abajo envía con fetch, muestra errores por campo y protege el envío con BotID.
+import BotonContacto from './BotonContacto.astro';
+import { CAMPO_TRAMPA } from '../contacto.mjs';
+import { enLinea } from '../texto.mjs';
+
+interface Props {
+  sitio: any;
+  /** Opciones del select: áreas del sitio + "Otra" */
+  opciones: string[];
+}
+const { sitio, opciones } = Astro.props;
+const f = sitio.plantillas.formulario;
+const c = f.campos;
+const describe = (id: string, ayuda?: string) => [ayuda && `f-${id}-ayuda`, `f-${id}-error`].filter(Boolean).join(' ');
+---
+
+<section class="seccion" id="formulario" aria-labelledby="formulario-titulo">
+  <div class="contenedor">
+    <div class="encabezado-seccion">
+      <h2 id="formulario-titulo">{f.titulo}</h2>
+      <p>{f.bajada}</p>
+    </div>
+
+    <div class="form">
+      <div class:list={['form__aviso', { 'form__aviso--destacado': f.aviso.destacado }]}>
+        <p>{f.aviso.texto}</p>
+        {f.aviso.boton && <BotonContacto tipo="llamar" etiqueta={f.aviso.boton} ariaLabel={sitio.aria.llamar} />}
+      </div>
+
+      <div id="error-envio" class="form__error-general" tabindex="-1" data-error-general>
+        <p>{f.errorGeneral}</p>
+      </div>
+
+      <form method="post" action="/api/contacto/" data-formulario>
+        <p class="form__leyenda">{f.leyenda}</p>
+
+        <div class="campo">
+          <label for="f-nombre">{c.nombre.etiqueta}<span aria-hidden="true"> *</span><span class="solo-lectores"> (obligatorio)</span></label>
+          <input
+            id="f-nombre"
+            name="nombre"
+            type="text"
+            autocomplete="name"
+            required
+            minlength="2"
+            maxlength="100"
+            placeholder={c.nombre.placeholder}
+            aria-describedby={describe('nombre')}
+          />
+          <p class="campo__error" id="f-nombre-error" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="f-telefono">{c.telefono.etiqueta}<span aria-hidden="true"> *</span><span class="solo-lectores"> (obligatorio)</span></label>
+          <input
+            id="f-telefono"
+            name="telefono"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            required
+            maxlength="25"
+            pattern={String.raw`[0-9 \(\)\+\.\-]{8,25}`}
+            title={c.telefono.errorFormato ?? c.telefono.error}
+            placeholder={c.telefono.placeholder}
+            aria-describedby={describe('telefono', c.telefono.ayuda)}
+          />
+          {c.telefono.ayuda && <p class="campo__ayuda" id="f-telefono-ayuda">{c.telefono.ayuda}</p>}
+          <p class="campo__error" id="f-telefono-error" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="f-email">{c.email.etiqueta}</label>
+          <input
+            id="f-email"
+            name="email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            maxlength="254"
+            placeholder={c.email.placeholder}
+            aria-describedby={describe('email')}
+          />
+          <p class="campo__error" id="f-email-error" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="f-tipo">
+            {c.tipo.etiqueta}
+            {
+              c.tipo.obligatorio && (
+                <>
+                  <span aria-hidden="true"> *</span>
+                  <span class="solo-lectores"> (obligatorio)</span>
+                </>
+              )
+            }
+          </label>
+          <select id="f-tipo" name="tipo" required={c.tipo.obligatorio} aria-describedby={describe('tipo')}>
+            <option value="">{c.tipo.vacio}</option>
+            {opciones.map((o) => <option value={o}>{o}</option>)}
+          </select>
+          <p class="campo__error" id="f-tipo-error" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="f-mensaje">{c.mensaje.etiqueta}<span aria-hidden="true"> *</span><span class="solo-lectores"> (obligatorio)</span></label>
+          <textarea
+            id="f-mensaje"
+            name="mensaje"
+            rows="6"
+            required
+            minlength="10"
+            maxlength="2000"
+            placeholder={c.mensaje.placeholder}
+            aria-describedby={describe('mensaje', c.mensaje.ayuda)}></textarea>
+          {c.mensaje.ayuda && <p class="campo__ayuda" id="f-mensaje-ayuda">{c.mensaje.ayuda}</p>}
+          <p class="campo__error" id="f-mensaje-error" hidden></p>
+        </div>
+
+        <div class="campo campo--casilla">
+          <input id="f-privacidad" name="privacidad" type="checkbox" required aria-describedby={describe('privacidad')} />
+          <label for="f-privacidad"><Fragment set:html={enLinea(c.privacidad.etiqueta)} /><span aria-hidden="true"> *</span><span class="solo-lectores"> (obligatorio)</span></label>
+          <p class="campo__error" id="f-privacidad-error" hidden></p>
+        </div>
+
+        <div class="campo-trampa" aria-hidden="true">
+          <label for={`f-${CAMPO_TRAMPA}`}>{c.trampa.etiqueta}</label>
+          <input id={`f-${CAMPO_TRAMPA}`} name={CAMPO_TRAMPA} type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <button class="form__enviar" type="submit">{f.enviar}</button>
+        {f.nota && <p class="form__nota">{f.nota}</p>}
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initBotId } from 'botid/client/core';
+
+  // BotID agrega sus encabezados a los fetch a esta ruta. En `astro dev` no hay proxy del desafío (las rewrites de
+  // vercel.json solo existen en Vercel) y el fetch protegido fallaría: ahí no se inicia y el servidor responde humano.
+  if (!import.meta.env.DEV) initBotId({ protect: [{ path: '/api/contacto/', method: 'POST' }] });
+
+  const form = document.querySelector<HTMLFormElement>('[data-formulario]');
+  const general = document.querySelector<HTMLElement>('[data-error-general]');
+  const boton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  const limpiar = () => {
+    general?.classList.remove('visible');
+    form?.querySelectorAll<HTMLElement>('.campo__error').forEach((p) => {
+      p.hidden = true;
+      p.textContent = '';
+    });
+    form?.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+  };
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    limpiar();
+    if (boton) {
+      boton.disabled = true;
+      boton.setAttribute('aria-busy', 'true');
+    }
+    try {
+      const r = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>),
+      });
+      const datos = await r.json().catch(() => ({ ok: false }));
+      if (datos.ok) {
+        location.assign('/contacto/enviado/');
+        return;
+      }
+      const errores: Record<string, string> = datos.errores ?? {};
+      let primero: HTMLElement | null = null;
+      for (const [campo, mensaje] of Object.entries(errores)) {
+        const p = document.getElementById(`f-${campo}-error`);
+        const control = document.getElementById(`f-${campo}`);
+        if (!p || !control) continue;
+        p.textContent = mensaje;
+        p.hidden = false;
+        control.setAttribute('aria-invalid', 'true');
+        primero ??= control;
+      }
+      if (primero) primero.focus();
+      else {
+        general?.classList.add('visible');
+        general?.focus();
+      }
+    } catch {
+      general?.classList.add('visible');
+      general?.focus();
+    } finally {
+      if (boton) {
+        boton.disabled = false;
+        boton.removeAttribute('aria-busy');
+      }
+    }
+  });
+</script>
+
+<style>
+  .form {
+    display: grid;
+    gap: var(--esp-5);
+    max-width: 40rem;
+  }
+  .form__aviso {
+    display: grid;
+    gap: var(--esp-3);
+    justify-items: start;
+    color: var(--texto-suave);
+  }
+  .form__aviso--destacado {
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-left: 3px solid var(--acento);
+    border-radius: var(--radio-2);
+    color: var(--texto);
+    font-weight: 600;
+  }
+  .form__error-general {
+    display: none;
+    padding: var(--esp-4);
+    border: 1px solid var(--error);
+    border-left-width: 3px;
+    border-radius: var(--radio-2);
+    background: var(--superficie);
+    color: var(--error);
+    font-weight: 600;
+  }
+  .form__error-general:target,
+  .form__error-general.visible {
+    display: block;
+  }
+  form {
+    display: grid;
+    gap: var(--esp-5);
+  }
+  .form__leyenda,
+  .form__nota,
+  .campo__ayuda {
+    font-size: var(--paso--1);
+    color: var(--texto-suave);
+  }
+  .campo {
+    display: grid;
+    gap: var(--esp-2);
+  }
+  label {
+    font-weight: 600;
+  }
+  input:not([type='checkbox']),
+  select,
+  textarea {
+    width: 100%;
+    min-height: var(--tactil);
+    padding: var(--esp-3);
+    border: 1px solid var(--borde-campo);
+    border-radius: var(--radio-1);
+    background: var(--superficie);
+    color: var(--texto);
+    font: inherit;
+  }
+  textarea {
+    resize: vertical;
+  }
+  ::placeholder {
+    color: var(--texto-suave);
+    opacity: 0.85;
+  }
+  [aria-invalid='true'] {
+    border-color: var(--error);
+    border-width: 2px;
+  }
+  .campo__error {
+    color: var(--error);
+    font-size: var(--paso--1);
+    font-weight: 600;
+  }
+  .campo--casilla {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    column-gap: var(--esp-3);
+  }
+  .campo--casilla label {
+    font-weight: 400;
+  }
+  .campo--casilla .campo__error {
+    grid-column: 1 / -1;
+  }
+  input[type='checkbox'] {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.15rem 0 0;
+    accent-color: var(--acento-texto);
+  }
+  .campo-trampa {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .form__enviar {
+    justify-self: start;
+    min-height: var(--tactil);
+    padding: var(--esp-2) var(--esp-6);
+    border: 0;
+    border-radius: var(--radio-1);
+    background: var(--acento);
+    color: var(--sobre-acento);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .form__enviar:hover {
+    background: color-mix(in srgb, var(--acento) 85%, var(--papel));
+  }
+  .form__enviar:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+</style>

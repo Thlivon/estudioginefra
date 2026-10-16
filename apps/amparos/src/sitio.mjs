@@ -150,6 +150,56 @@ export const sitio = {
       visitanos: 'Visitanos',
       faq: 'Preguntas frecuentes',
     },
+    // Formulario de contacto (hito 6, solo con CONTACTO_EMAIL=true). microcopy-amparos.md §9.
+    formulario: {
+      sitioAsunto: 'Amparos de salud',
+      titulo: 'Preferís escribirnos',
+      bajada:
+        'Dejanos tus datos y una breve descripción, y te contactamos. Para evaluar el caso con documentos, lo más rápido sigue siendo WhatsApp.',
+      aviso: { texto: 'Si tenés una cirugía o un tratamiento con fecha cercana, escribinos directo por WhatsApp.', destacado: false },
+      leyenda: 'Los campos con * son obligatorios.',
+      campos: {
+        nombre: { etiqueta: 'Nombre y apellido', placeholder: 'Ej.: María González', error: 'Escribí tu nombre para que sepamos a quién responder.' },
+        telefono: {
+          etiqueta: 'Teléfono',
+          placeholder: 'Ej.: 11 5555-5555',
+          ayuda: 'Preferentemente con WhatsApp.',
+          error: 'Necesitamos un teléfono para contactarte.',
+        },
+        email: { etiqueta: 'Correo electrónico (opcional)', placeholder: 'tu@correo.com', error: 'Revisá el formato del correo: falta la @ o el dominio.' },
+        tipo: {
+          etiqueta: '¿Qué te rechazó la prepaga u obra social?',
+          vacio: 'Elegí una opción',
+          otra: 'Otra consulta',
+          obligatorio: true,
+          error: 'Elegí el tipo de consulta.',
+        },
+        mensaje: {
+          etiqueta: 'Contanos tu caso',
+          placeholder: 'Qué indicó tu médico, qué respondió la prepaga y si hay una fecha límite.',
+          ayuda: 'No incluyas datos médicos detallados: los documentos te los pedimos después.',
+          error: 'Contanos brevemente qué pasó.',
+        },
+        privacidad: {
+          etiqueta: 'Leí y acepto la [política de privacidad](/privacidad/) y autorizo el uso de mis datos para responder esta consulta.',
+          error: 'Para enviar la consulta tenés que aceptar la política de privacidad.',
+        },
+        trampa: { etiqueta: 'No completes este campo' },
+      },
+      enviar: 'Enviar consulta',
+      errorGeneral: 'No pudimos enviar tu consulta. Escribinos por WhatsApp o llamanos.',
+      enlaceTerciario: 'o dejanos tu consulta',
+    },
+    enviado: {
+      title: 'Consulta enviada · Ginefra & Asociados',
+      h1: 'Recibimos tu consulta',
+      texto: 'Gracias por escribirnos. Vamos a revisar tu mensaje y te contactamos al teléfono que nos dejaste.',
+      caja: '¿Tenés una fecha límite o el tratamiento no puede esperar? Mandanos ya el rechazo y la orden médica por WhatsApp.',
+      botones: { whatsapp: { etiqueta: 'Enviar por WhatsApp' }, llamar: { etiqueta: 'Llamar' } },
+      mensajeWhatsapp:
+        'Hola, ya envié una consulta por el formulario y quiero agregar documentación de mi caso. (Web amparos · Formulario)',
+      volver: 'Volver al inicio',
+    },
     error404: {
       atajos: 'Quizás buscabas',
       campoArea: 'titulo',

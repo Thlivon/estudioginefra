@@ -28,6 +28,10 @@
   --sombra-1: 0 1px 2px rgb(14 23 38 / 0.06), 0 4px 12px rgb(14 23 38 / 0.06);
   --sombra-2: 0 2px 4px rgb(14 23 38 / 0.08), 0 12px 32px rgb(14 23 38 / 0.12);
 
+  /* Formularios (comunes a los dos sitios): error 7,4:1 y borde de campo 4,1:1 sobre blanco */
+  --error: #a3261c;
+  --borde-campo: #767d8c;
+
   --tactil: 48px;
   --alto-header: 64px;
   --alto-barra: 60px;
