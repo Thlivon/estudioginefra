@@ -1,15 +1,125 @@
 ---
-// Provisoria: el inicio de amparos se construye en el hito 5.
-import '@ginefra/ui/estilos/amparos.css';
-import Layout from '@ginefra/ui/componentes/Layout.astro';
+// Inicio amparos: los 9 bloques de docs/estructura.md §3.2.
+import { getCollection, getEntry } from 'astro:content';
+import LayoutAmparos from '../layouts/LayoutAmparos.astro';
 import Hero from '@ginefra/ui/componentes/Hero.astro';
+import TarjetaArea from '@ginefra/ui/componentes/TarjetaArea.astro';
+import Pasos from '@ginefra/ui/componentes/Pasos.astro';
+import Checklist from '@ginefra/ui/componentes/Checklist.astro';
+import BotonContacto from '@ginefra/ui/componentes/BotonContacto.astro';
+import TarjetaAbogado from '@ginefra/ui/componentes/TarjetaAbogado.astro';
+import FAQ from '@ginefra/ui/componentes/FAQ.astro';
+import BloqueCTA from '@ginefra/ui/componentes/BloqueCTA.astro';
+import Icono from '@ginefra/ui/componentes/Icono.astro';
+import { botones } from '@ginefra/ui/enlaces.mjs';
+import { webSite } from '@ginefra/ui/schema.mjs';
 import { sitio } from '../sitio.mjs';
+
+const pagina = (await getEntry('paginas', 'inicio'))!;
+const inicio = pagina.data;
+const t = sitio.plantillas.inicio;
+const areas = (await getCollection('areas')).sort((a, b) => a.data.orden - b.data.orden);
+const equipo = (await getCollection('equipo')).sort((a, b) => a.data.orden - b.data.orden);
+const faq = (await getCollection('faq', (f) => f.data.paginas.includes('inicio'))).sort((a, b) => a.data.orden - b.data.orden);
+const html = pagina.rendered?.html ?? '';
+
+const ctasHero = botones(sitio, 'heroInicio', inicio.mensajeWhatsapp);
+const ctas = botones(sitio, 'contenido', inicio.mensajeWhatsapp);
+const enviarDocumentacion = botones(sitio, 'documentacion', inicio.mensajeWhatsapp).find((b) => b.tipo === 'whatsapp')!;
+const iconosSellos = ['balanza', 'escudo', 'candado'];
+const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i] ?? 'check', texto }));
+const guia = sitio.plantillas.error404.guia;
 ---
 
-<Layout
-  title="Ginefra & Asociados | Amparos de salud"
-  description="Estudio Ginefra & Asociados: amparos de salud y medidas cautelares frente a prepagas y obras sociales."
-  sitio={sitio}
+<LayoutAmparos
+  title={inicio.seo.title}
+  description={inicio.seo.description}
+  mensajeWhatsapp={inicio.mensajeWhatsapp}
+  schema={[webSite({ site: Astro.site })]}
 >
-  <Hero variante="texto" h1="Ginefra & Asociados" bajada="Amparos de salud. Sitio en construcción." />
-</Layout>
+  <!-- 1 · Hero de texto -->
+  <Hero variante="texto" h1={inicio.h1} bajada={inicio.bajada} ctas={ctasHero} sellos={sellos} />
+
+  <!-- 2 · ¿Qué te rechazaron? -->
+  <section class="seccion" aria-labelledby="coberturas">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2 id="coberturas">{t.areas.titulo}</h2>
+        <p>{t.areas.texto}</p>
+      </div>
+      <ul class="grilla grilla--2" role="list">
+        {
+          areas.map((a) => (
+            <li>
+              <TarjetaArea titulo={a.data.titulo} href={`/${a.id}/`} icono={a.data.icono} vinetas={a.data.situaciones.slice(0, 3)} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · Cómo funciona el amparo -->
+  <section class="seccion" aria-labelledby="como-funciona">
+    <div class="contenedor">
+      <h2 id="como-funciona" class="titulo-bloque">{t.pasos}</h2>
+      <Pasos items={inicio.pasos ?? []} />
+    </div>
+  </section>
+
+  <!-- 4 · Qué necesitamos para empezar -->
+  <section class="seccion" aria-labelledby="documentacion">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2 id="documentacion">{t.documentacion.titulo}</h2>
+        <p>{t.documentacion.texto}</p>
+      </div>
+      <Checklist items={inicio.documentacion ?? []} variante="destacado">
+        <BotonContacto {...enviarDocumentacion} />
+      </Checklist>
+      <a class="enlace-flecha" href={guia.href}>{guia.texto} <Icono nombre="flecha" tamano={18} /></a>
+    </div>
+  </section>
+
+  <!-- 5 y 6 · Consulta y honorarios · Litigio federal (H2 del cuerpo) -->
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="prosa" set:html={html} />
+    </div>
+  </section>
+
+  <!-- 7 · Equipo -->
+  <section class="seccion" aria-labelledby="equipo">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2 id="equipo">{t.equipo.titulo}</h2>
+        <p>{t.equipo.texto}</p>
+      </div>
+      <div class="grilla grilla--2 equipo">
+        {equipo.map((p) => <TarjetaAbogado persona={p} sitio="amparos" />)}
+      </div>
+      <a class="enlace-flecha" href="/equipo/">Conocé al equipo <Icono nombre="flecha" tamano={18} /></a>
+    </div>
+  </section>
+
+  <!-- 8 · Preguntas frecuentes -->
+  <section class="seccion" aria-labelledby="preguntas">
+    <div class="contenedor">
+      <h2 id="preguntas" class="titulo-bloque">{t.faq}</h2>
+      <FAQ items={faq.map((f) => f.data)} schema />
+    </div>
+  </section>
+
+  <!-- 9 · CTA final -->
+  <BloqueCTA id="cta-final" titulo={t.ctaFinal.titulo} texto={t.ctaFinal.texto} ctas={ctas} />
+</LayoutAmparos>
+
+<style>
+  .enlace-flecha {
+    margin-top: var(--esp-4);
+  }
+  .equipo {
+    gap: var(--esp-6);
+    margin-bottom: var(--esp-4);
+  }
+</style>

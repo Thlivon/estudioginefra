@@ -1,0 +1,58 @@
+---
+// Migas de pan + BreadcrumbList con los mismos ítems. "Inicio" va siempre primero.
+import JsonLd from './JsonLd.astro';
+import { breadcrumbList } from '../schema.mjs';
+
+interface Props {
+  items: { nombre: string; href: string }[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="migas contenedor" aria-label="Estás en">
+  <ol role="list">
+    <li><a href="/">Inicio</a></li>
+    {
+      items.map((i, n) => (
+        <li>
+          <span class="migas__sep" aria-hidden="true">
+            ›
+          </span>
+          {n === items.length - 1 ? <span aria-current="page">{i.nombre}</span> : <a href={i.href}>{i.nombre}</a>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<JsonLd datos={breadcrumbList(Astro.site, items)} />
+
+<style>
+  .migas {
+    padding-top: var(--esp-4);
+    font-size: var(--paso--1);
+    color: var(--texto-suave);
+  }
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  li {
+    display: flex;
+    align-items: center;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+    color: var(--texto-suave);
+  }
+  .migas__sep {
+    padding-inline: var(--esp-2);
+    color: var(--acento-texto);
+  }
+  [aria-current] {
+    color: var(--texto);
+    font-weight: 500;
+  }
+</style>

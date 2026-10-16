@@ -1,0 +1,13 @@
+---
+import { getEntry } from 'astro:content';
+import LayoutAmparos from '../layouts/LayoutAmparos.astro';
+import Plantilla404 from '@ginefra/ui/plantillas/Plantilla404.astro';
+import { sitio } from '../sitio.mjs';
+
+const pagina = (await getEntry('paginas', '404'))!;
+const { seo, mensajeWhatsapp } = pagina.data;
+---
+
+<LayoutAmparos title={seo.title} description={seo.description} mensajeWhatsapp={mensajeWhatsapp} noindex>
+  <Plantilla404 pagina={pagina} sitio={sitio} />
+</LayoutAmparos>

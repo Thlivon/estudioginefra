@@ -3,7 +3,6 @@
 // El tema (penal.css / amparos.css) lo importa cada app.
 import '../estilos/base.css';
 import { Font } from 'astro:assets';
-import simbolo from '../marca/propuesta-2-simbolo.svg?raw';
 import { indexar, sitioHermano } from '../site.mjs';
 import { legalService } from '../schema.mjs';
 import Sprite from './Sprite.astro';
@@ -30,10 +29,6 @@ interface Props {
 const { title, description, sitio, areas = [], ordenCtas, noindex = false, schema = [] } = Astro.props;
 const mensajeWhatsapp = Astro.props.mensajeWhatsapp ?? sitio.mensajeWhatsappPorDefecto;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-// Favicon provisorio: símbolo de la propuesta 2 con color fijo (en la pestaña no hay currentColor que heredar).
-const favicon = `data:image/svg+xml,${encodeURIComponent(
-  simbolo.replace('<svg ', `<svg style="color:#0e1726;background:#f7f5f0" `),
-)}`;
 ---
 
 <!doctype html>
@@ -46,7 +41,7 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
     <link rel="canonical" href={canonical} />
     {(!indexar || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#0e1726" />
-    <link rel="icon" href={favicon} type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <Font cssVariable="--fuente-titulos" preload />
     <Font cssVariable="--fuente-texto" preload />
     <JsonLd datos={legalService({ site: Astro.site, sitio, areas, sitioHermano })} />

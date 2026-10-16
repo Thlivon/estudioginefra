@@ -15,3 +15,18 @@ test('wa.me sin "+" y con el texto codificado', () => {
     'https://wa.me/5491151261499?text=Hola%2C%20%C2%BFest%C3%A1n%3F%20Nombre%3A%20___%20%C2%B7%20Ginefra%20%26%20Asociados%20%231',
   );
 });
+
+test('botones: orden del sitio, contexto por defecto y etiquetas invertidas', async () => {
+  const { botones } = await import('./enlaces.mjs');
+  const sitio = {
+    ordenCtas: 'llamar-primero',
+    mensajeWhatsappPorDefecto: 'Hola',
+    aria: { llamar: 'Llamar', whatsapp: 'WhatsApp' },
+    textos: {
+      contenido: { llamar: { etiqueta: 'L' }, whatsapp: { etiqueta: 'W' } },
+      invertido: { contenido: { llamar: { etiqueta: 'L2' }, whatsapp: { etiqueta: 'W2' } } },
+    },
+  };
+  assert.deepEqual(botones(sitio, 'hero').map((b) => [b.tipo, b.variante, b.etiqueta]), [['llamar', 'primario', 'L'], ['whatsapp', 'secundario', 'W']]);
+  assert.deepEqual(botones(sitio, 'hero', 'x', 'whatsapp-primero').map((b) => b.etiqueta), ['W2', 'L2']);
+});

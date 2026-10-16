@@ -1,26 +1,44 @@
 ---
-// Persona del equipo. Versión `resumen` (inicio): foto, nombre, rol, matrícula y enfoque del sitio.
-// La versión `completa` (página de equipo: bio y botones por abogado) se suma en el hito 5.
-import type { CollectionEntry } from 'astro:content';
+// Persona del equipo.
+// `resumen` (inicio): foto, nombre, rol, matrícula y enfoque del sitio.
+// `completa` (página de equipo): además bio (Trayectoria), áreas que atiende, botones a su número y enlace al otro sitio.
+import { render, type CollectionEntry } from 'astro:content';
 import { Picture } from 'astro:assets';
+import BotonContacto, { type Props as Boton } from './BotonContacto.astro';
 
 interface Props {
   persona: CollectionEntry<'equipo'>;
   sitio: 'penal' | 'amparos';
-  variante?: 'resumen';
+  variante?: 'resumen' | 'completa';
   nivelTitulo?: 'h2' | 'h3';
+  /** completa: áreas que atiende, ya resueltas a título y enlace */
+  areas?: { titulo: string; href: string }[];
+  botones?: Boton[];
+  titulos?: { trayectoria: string; areas: string };
+  /** completa: línea final con enlace al otro sitio */
+  cruzado?: { antes?: string; texto: string; href: string };
+  invertir?: boolean;
+  /** completa: la primera foto de la página es el LCP, se carga sin lazy */
+  prioridad?: boolean;
 }
-const { persona, sitio, nivelTitulo: Titulo = 'h3' } = Astro.props;
+const { persona, sitio, variante = 'resumen', areas = [], botones = [], titulos, cruzado, invertir = false, prioridad = false } = Astro.props;
+const Titulo = Astro.props.nivelTitulo ?? (variante === 'completa' ? 'h2' : 'h3');
+const Sub = Titulo === 'h2' ? 'h3' : 'h4';
 const { nombre, rol, matricula, foto, fotoAlt, enfoque } = persona.data;
+const completa = variante === 'completa';
+const { Content } = completa ? await render(persona) : { Content: null };
 ---
 
-<article class="abogado">
+<article class:list={['abogado', `abogado--${variante}`, { 'abogado--invertida': invertir }]} id={completa ? persona.id : undefined}>
   <Picture
     src={foto}
     alt={fotoAlt}
     formats={['avif', 'webp']}
-    width={352}
-    height={440}
+    width={completa ? 720 : 352}
+    height={completa ? 900 : 440}
+    widths={completa ? [360, 540, 720] : undefined}
+    sizes={completa ? 'min(calc(100vw - 2rem), 360px)' : undefined}
+    priority={prioridad}
     fit="cover"
     position="top"
     fallbackFormat="jpg"
@@ -31,6 +49,39 @@ const { nombre, rol, matricula, foto, fotoAlt, enfoque } = persona.data;
     <p class="abogado__rol">{rol}</p>
     <p class="abogado__matricula">Matrícula T° {matricula.tomo} F° {matricula.folio}</p>
     <p class="abogado__enfoque">{enfoque[sitio]}</p>
+    {
+      completa && (
+        <>
+          {botones.length > 0 && (
+            <div class="abogado__botones">
+              {botones.map((b) => (
+                <BotonContacto {...b} />
+              ))}
+            </div>
+          )}
+          <Sub>{titulos?.trayectoria}</Sub>
+          <div class="abogado__bio">{Content && <Content />}</div>
+          {areas.length > 0 && (
+            <>
+              <Sub>{titulos?.areas}</Sub>
+              <ul class="abogado__areas" role="list">
+                {areas.map((a) => (
+                  <li>
+                    <a href={a.href}>{a.titulo}</a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {cruzado && (
+            <p class="abogado__cruzado">
+              {cruzado.antes}
+              <a href={cruzado.href}>{cruzado.texto}</a>
+            </p>
+          )}
+        </>
+      )
+    }
   </div>
 </article>
 
@@ -68,10 +119,72 @@ const { nombre, rol, matricula, foto, fotoAlt, enfoque } = persona.data;
     margin-top: var(--esp-2);
     color: var(--texto-suave);
   }
+
+  /* Completa */
+  .abogado--completa {
+    grid-template-columns: 1fr;
+    gap: var(--esp-5);
+  }
+  .abogado--completa :global(.abogado__foto) {
+    max-width: 22.5rem;
+  }
+  .abogado--completa .abogado__texto {
+    gap: var(--esp-2);
+    max-width: var(--ancho-texto);
+  }
+  .abogado--completa .abogado__enfoque {
+    font-size: var(--paso-1);
+    color: var(--texto);
+  }
+  .abogado--completa h3,
+  .abogado--completa h4 {
+    margin-top: var(--esp-5);
+  }
+  .abogado__botones {
+    display: grid;
+    gap: var(--esp-2);
+    margin-top: var(--esp-3);
+  }
+  .abogado__bio {
+    display: grid;
+    gap: var(--esp-3);
+    color: var(--texto-suave);
+  }
+  .abogado__areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--esp-4);
+  }
+  .abogado__areas a,
+  .abogado__cruzado a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+  }
+  .abogado__cruzado {
+    margin-top: var(--esp-4);
+    padding-top: var(--esp-3);
+    border-top: 1px solid var(--linea);
+  }
+
   @media (min-width: 48em) {
     .abogado {
       grid-template-columns: 11rem 1fr;
       gap: var(--esp-5);
+    }
+    .abogado--completa {
+      grid-template-columns: 22.5rem 1fr;
+      gap: var(--esp-7);
+    }
+    .abogado--invertida {
+      grid-template-columns: 1fr 22.5rem;
+    }
+    .abogado--invertida :global(.abogado__foto) {
+      order: 2;
+    }
+    .abogado__botones {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 </style>

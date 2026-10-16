@@ -1,0 +1,149 @@
+---
+// Contacto (docs/estructura.md §3.7, variante A). El formulario (variante B) entra en el hito 6 detrás de CONTACTO_EMAIL.
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Migas from '../componentes/Migas.astro';
+import Hero from '../componentes/Hero.astro';
+import BloqueContacto, { type Canal } from '../componentes/BloqueContacto.astro';
+import Checklist from '../componentes/Checklist.astro';
+import DatosEstudio from '../componentes/DatosEstudio.astro';
+import FAQ from '../componentes/FAQ.astro';
+import JsonLd from '../componentes/JsonLd.astro';
+import { botones } from '../enlaces.mjs';
+import { estudio } from '../estudio.mjs';
+import { pagina as paginaSchema } from '../schema.mjs';
+import { contactoEmail } from '../site.mjs';
+import { bloque, enLinea } from '../texto.mjs';
+
+interface Props {
+  pagina: CollectionEntry<'paginas'>;
+  sitio: any;
+}
+const { pagina, sitio } = Astro.props;
+const d = pagina.data;
+const t = sitio.plantillas.contacto;
+const url = '/contacto/';
+const html = pagina.rendered?.html ?? '';
+const faq = (await getCollection('faq', (f) => f.data.paginas.includes('contacto'))).sort((a, b) => a.data.orden - b.data.orden);
+const { principal, ricardo } = estudio.telefonos;
+const textoCanal = (id: string) => d.canales?.[id] ?? t.textosCanales?.[id] ?? '';
+
+// Un canal por botón del sitio (en su orden), más Ricardo e Instagram.
+const canalesSitio: Canal[] = botones(sitio, 'contactoCanal', d.mensajeWhatsapp).map((b, i) => ({
+  titulo: t.titulosCanales[b.tipo],
+  icono: b.tipo === 'llamar' ? 'telefono' : 'whatsapp',
+  dato: principal.visible,
+  texto: textoCanal(b.tipo),
+  botones: [{ ...b, variante: i === 0 ? 'primario' : 'secundario' }],
+}));
+const mensajeRicardo = sitio.mensajeRicardo(d.mensajeWhatsapp, 'Contacto');
+const canales: Canal[] = [
+  ...canalesSitio,
+  {
+    titulo: t.titulosCanales.ricardo,
+    icono: 'persona',
+    dato: ricardo.visible,
+    texto: textoCanal('ricardo'),
+    botones: botones(sitio, 'contactoRicardo', mensajeRicardo).map((b) => ({
+      ...b,
+      numero: 'ricardo' as const,
+      variante: 'secundario' as const,
+      ariaLabel: b.tipo === 'llamar' ? sitio.aria.ricardo : 'Escribir por WhatsApp a Ricardo Ginefra',
+    })),
+  },
+  ...(sitio.mostrarInstagram
+    ? [
+        {
+          titulo: t.titulosCanales.instagram,
+          icono: 'instagram',
+          dato: `@${estudio.instagram.usuario}`,
+          texto: textoCanal('instagram'),
+          enlace: {
+            texto: t.verInstagram,
+            href: estudio.instagram.url,
+            ariaLabel: `${t.verInstagram} @${estudio.instagram.usuario} (se abre en una pestaña nueva)`,
+          },
+        },
+      ]
+    : []),
+];
+const visitanos = d.visitanos ? `<p>${enLinea(d.visitanos)}</p>` : bloque(html, 'visitanos');
+const confidencialidad = d.confidencialidad ? `<p>${enLinea(d.confidencialidad)}</p>` : bloque(html, 'confidencialidad');
+---
+
+<Migas items={[{ nombre: sitio.plantillas.migas.contacto, href: url }]} />
+<Hero variante="compacto" h1={d.h1} bajada={d.bajada} />
+
+<BloqueContacto titulo={t.canales} canales={canales} />
+
+{/* Hito 6: con CONTACTO_EMAIL=true, el formulario (H2 "Preferís escribirnos") va en este lugar. */}
+{contactoEmail && <div id="formulario"></div>}
+
+<section class="seccion" aria-labelledby="primer-mensaje">
+  <div class="contenedor">
+    <div class="encabezado-seccion">
+      <h2 id="primer-mensaje">{t.primerMensaje}</h2>
+      {t.primerMensajeTexto && <p>{t.primerMensajeTexto}</p>}
+    </div>
+    {d.primerMensaje && <Checklist items={d.primerMensaje} />}
+    {
+      d.documentacion && (
+        <div class="documentacion">
+          <h3>{t.documentacion}</h3>
+          <Checklist items={d.documentacion} />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="visitanos">
+  <div class="contenedor visitanos">
+    <div class="prosa">
+      <h2 id="visitanos">{t.visitanos}</h2>
+      <Fragment set:html={visitanos} />
+    </div>
+    <DatosEstudio horarios={sitio.footer.horarios} />
+  </div>
+</section>
+
+{
+  faq.length > 0 && (
+    <section class="seccion" aria-labelledby="preguntas">
+      <div class="contenedor">
+        <h2 id="preguntas" class="titulo-bloque">
+          {t.faq}
+        </h2>
+        <FAQ items={faq.map((f) => f.data)} schema />
+      </div>
+    </section>
+  )
+}
+
+<div class="contenedor confidencialidad prosa">
+  <Fragment set:html={confidencialidad} />
+</div>
+
+<JsonLd datos={paginaSchema({ site: Astro.site, tipo: 'ContactPage', url, nombre: d.h1, descripcion: d.seo.description })} />
+
+<style>
+  .documentacion {
+    display: grid;
+    gap: var(--esp-4);
+    margin-top: var(--esp-6);
+  }
+  .visitanos {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .confidencialidad {
+    padding-block: var(--esp-6) var(--esp-seccion);
+    border-top: 1px solid var(--linea);
+    font-size: var(--paso--1);
+  }
+  @media (min-width: 48em) {
+    .visitanos {
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--esp-7);
+    }
+  }
+</style>

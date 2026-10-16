@@ -80,22 +80,27 @@ Todos `.astro`, sin JS de cliente. Menú mobile, desplegable de áreas y FAQ con
 
 | Componente | Notas |
 |---|---|
-| `Layout` | Meta, canonical, `noindex`, fuentes, favicon, JSON-LD `LegalService`, Header, Footer, barra y flotante, slot `head`. Recibe la config del sitio (`apps/*/src/sitio.mjs`) y las áreas. En penal se usa a través de `apps/penal/src/layouts/LayoutPenal.astro` (tema + áreas). |
+| `Layout` | Meta, canonical, `noindex`, fuentes, favicon, JSON-LD `LegalService`, Header, Footer, barra y flotante, slot `head`. Recibe la config del sitio (`apps/*/src/sitio.mjs`) y las áreas. Cada app lo usa a través de su envoltorio (`layouts/LayoutPenal.astro`, `layouts/LayoutAmparos.astro`: tema + áreas). |
 | `Header` | < 68em: logo, botón primario corto y menú; ≥ 68em: una fila con desplegable y los dos CTA. |
 | `Footer` | Contacto → Áreas → Estudio en el DOM (lo urgente primero); en desktop se ordena Estudio · Áreas · Contacto. Fila legal con matrículas, privacidad y enlace al sitio hermano. |
 | `BarraContactoMovil` / `BotonWhatsAppFlotante` | Barra 50/50 en < 768 px; flotante en ≥ 768 px. |
 | `BotonContacto` | Arma `tel:`/`wa.me` desde `estudio.mjs`. Si el `aria-label` del microcopy no contiene el texto visible, lo agrega como texto oculto (WCAG 2.5.3). |
 | `Hero` | `imagen` (dirección de arte con `getImage`: recorte 2:3 en mobile, foto completa en desktop, AVIF/WebP, `fetchpriority="high"`), `texto`, `compacto`. |
-| `Sellos`, `TarjetaArea` (`area` / `situacion` / `relacionada`), `Pasos` (`corto` / `guia`), `Checklist` (`si` / `no` / `destacado`), `BloqueCTA` (`urgente` / `suave`), `TarjetaAbogado` (`resumen`), `FAQ` (opción `schema`), `Icono` + `Sprite`, `JsonLd` | Según `docs/estructura.md` §4. |
+| `Migas` | Migas visibles + `BreadcrumbList` con los mismos ítems. |
+| `BloqueContacto` | Tarjetas de canal de la página de contacto (H3, dato, para qué sirve, botones). |
+| `DatosEstudio` | Dirección, horarios y "Cómo llegar" (inicio penal, página local, contacto). |
+| `Sellos`, `TarjetaArea` (`area` / `situacion` / `relacionada`), `Pasos` (`corto` / `guia`), `Checklist` (`si` / `no` / `destacado`), `BloqueCTA` (`urgente` / `suave`), `TarjetaAbogado` (`resumen` / `completa`), `FAQ` (opción `schema`), `Icono` + `Sprite`, `JsonLd` | Según `docs/estructura.md` §4. |
 
 Íconos: sprite propio de trazo fino (1,5 px en caja de 24). El nombre `balanza` del frontmatter (defensa en juicio) se dibuja como fachada de tribunal, sin balanza.
 
-## Logo: cómo elegir
+## Plantillas (`packages/ui/plantillas/`)
 
-Abrí `/propuestas-logo/` en el sitio de pruebas (página temporal con `noindex`). Muestra las tres propuestas sobre papel y sobre tinta, en tamaño de header y de favicon:
+`PlantillaArea`, `PlantillaGuia`, `PlantillaEquipo`, `PlantillaContacto`, `PlantillaPrivacidad` y `Plantilla404`. Reciben la entrada de contenido y la config del sitio; los títulos fijos de bloque y las etiquetas de botón salen de `sitio.plantillas` y `sitio.textos` de cada app (microcopy). Inicio y página local son propios de cada app. Las colecciones de contenido se definen una vez en `packages/ui/colecciones.ts`.
 
-1. **Monograma**: "G" y "&" entrelazados en marco fino.
-2. **Wordmark**: "GINEFRA" en versalitas espaciadas, filete y "& ASOCIADOS". *En uso provisorio.*
-3. **Columna**: columna de líneas finas y wordmark.
+## Logo
 
-Las letras son trazados propios (sin fuentes externas) y usan `currentColor`. Para adoptar otra: cambiar el import del logo en `Header.astro`, `Footer.astro` y el símbolo del favicon en `Layout.astro`, y borrar `propuestas-logo.astro` y las propuestas descartadas.
+Elegido en el hito 5: **wordmark** ("GINEFRA" en versalitas espaciadas, filete y "& ASOCIADOS"). Letras dibujadas a mano como trazados (sin fuentes externas), con `currentColor`.
+
+- `packages/ui/marca/logo-horizontal.svg`: header y footer (se importa como componente SVG).
+- `packages/ui/marca/logo-simbolo.svg`: "G" sobre filete, para espacios chicos.
+- `apps/*/public/favicon.svg`: el símbolo recortado, con color fijo (tinta de cada sitio) y papel en pestañas oscuras (`prefers-color-scheme`).

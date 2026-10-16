@@ -1,22 +1,25 @@
 ---
 // Proceso numerado. `corto`: columnas en desktop; `guia`: vertical, con texto largo.
+// `inicio` permite partir la lista (p. ej. un CTA entre el paso 2 y el 3) sin perder la numeración.
+import { enLinea } from '../texto.mjs';
 interface Props {
   items: { titulo: string; texto: string }[];
   variante?: 'corto' | 'guia';
   nivelTitulo?: 'h2' | 'h3';
+  inicio?: number;
 }
-const { items, variante = 'corto', nivelTitulo: Titulo = 'h3' } = Astro.props;
+const { items, variante = 'corto', nivelTitulo: Titulo = 'h3', inicio = 1 } = Astro.props;
 ---
 
-<ol class:list={['pasos', `pasos--${variante}`]} role="list">
+<ol class:list={['pasos', `pasos--${variante}`]} role="list" start={inicio !== 1 ? inicio : undefined}>
   {
     items.map((p, i) => (
       <li>
         <span class="pasos__numero" aria-hidden="true">
-          {String(i + 1).padStart(2, '0')}
+          {String(i + inicio).padStart(2, '0')}
         </span>
         <Titulo class="pasos__titulo">{p.titulo}</Titulo>
-        <p>{p.texto}</p>
+        <p set:html={enLinea(p.texto)} />
       </li>
     ))
   }

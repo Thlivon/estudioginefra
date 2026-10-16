@@ -1,0 +1,201 @@
+---
+// Guía urgente (docs/estructura.md §3.4). La página de cada app la envuelve en su Layout.
+import { getEntry, getEntries, render, type CollectionEntry } from 'astro:content';
+import Migas from '../componentes/Migas.astro';
+import Hero from '../componentes/Hero.astro';
+import Checklist from '../componentes/Checklist.astro';
+import BloqueCTA from '../componentes/BloqueCTA.astro';
+import BotonContacto from '../componentes/BotonContacto.astro';
+import Pasos from '../componentes/Pasos.astro';
+import FAQ from '../componentes/FAQ.astro';
+import TarjetaArea from '../componentes/TarjetaArea.astro';
+import Icono from '../componentes/Icono.astro';
+import JsonLd from '../componentes/JsonLd.astro';
+import { botones } from '../enlaces.mjs';
+import { article } from '../schema.mjs';
+import { fecha } from '../texto.mjs';
+
+interface Props {
+  guia: CollectionEntry<'guias'>;
+  sitio: any;
+}
+const { guia, sitio } = Astro.props;
+const d = guia.data;
+const t = sitio.plantillas.guia;
+const url = `/${guia.id}/`;
+const autor = (await getEntry(d.autor))!;
+const relacionadas = (await getEntries(d.areasRelacionadas)).sort((a, b) => a.data.orden - b.data.orden);
+const ctaFinal = d.ctaFinal ?? t.ctaFinal;
+const ctas = botones(sitio, 'contenido', d.mensajeWhatsapp);
+const ctasResumen = botones(sitio, 'guiaResumen', d.mensajeWhatsapp);
+const pasoWhatsapp = {
+  tipo: 'whatsapp' as const,
+  mensaje: d.mensajeWhatsapp,
+  etiqueta: t.ctaPaso2.etiqueta,
+  variante: t.ctaPaso2.variante,
+  ariaLabel: sitio.aria.whatsapp,
+};
+const { Content } = await render(guia);
+const indice = [
+  { id: 'pasos', texto: t.pasos },
+  { id: 'no-hacer', texto: t.noHacer },
+  { id: 'derechos', texto: t.derechos },
+  { id: 'tener-a-mano', texto: t.tenerAMano },
+  { id: 'preguntas', texto: t.faq },
+  { id: 'relacionadas', texto: t.relacionadas },
+];
+const meta = t.autor({
+  nombre: autor.data.nombre,
+  tomo: autor.data.matricula.tomo,
+  folio: autor.data.matricula.folio,
+  fecha: fecha(d.actualizado),
+});
+---
+
+<Migas items={[{ nombre: t.migas, href: url }]} />
+<Hero variante="compacto" h1={d.h1} meta={meta} />
+
+<div class="contenedor"><div class="guia__inicio">
+  <Checklist items={d.resumen} variante="destacado" titulo={t.resumen} etiqueta="Resumen en 30 segundos">
+    <div class="guia__botones">
+      {ctasResumen.map((c) => <BotonContacto {...c} />)}
+    </div>
+  </Checklist>
+
+  <details class="indice">
+    <summary>{t.indice}<Icono nombre="chevron" tamano={20} /></summary>
+    <ol>
+      {
+        indice.map((i) => (
+          <li>
+            <a href={`#${i.id}`}>{i.texto}</a>
+          </li>
+        ))
+      }
+    </ol>
+  </details>
+</div></div>
+
+<section class="seccion" aria-labelledby="pasos">
+  <div class="contenedor">
+    <h2 id="pasos" class="titulo-bloque">{t.pasos}</h2>
+    <Pasos items={d.pasos.slice(0, 2)} variante="guia" />
+    <div class="guia__cta-paso">
+      {t.ctaPaso2.texto && <p>{t.ctaPaso2.texto}</p>}
+      <BotonContacto {...pasoWhatsapp} />
+    </div>
+    <Pasos items={d.pasos.slice(2)} variante="guia" inicio={3} />
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="no-hacer">
+  <div class="contenedor">
+    <h2 id="no-hacer" class="titulo-bloque">{t.noHacer}</h2>
+    <Checklist items={d.noHacer} variante="no" />
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="derechos">
+  <div class="contenedor">
+    <h2 id="derechos" class="titulo-bloque">{t.derechos}</h2>
+    <div class="prosa"><Content /></div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="tener-a-mano">
+  <div class="contenedor">
+    <h2 id="tener-a-mano" class="titulo-bloque">{t.tenerAMano}</h2>
+    <Checklist items={d.tenerAMano} />
+    <div class="guia__botones guia__botones--aire">
+      {ctas.map((c) => <BotonContacto {...c} />)}
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="preguntas">
+  <div class="contenedor">
+    <h2 id="preguntas" class="titulo-bloque">{t.faq}</h2>
+    <FAQ items={d.faq} schema />
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="relacionadas">
+  <div class="contenedor">
+    <h2 id="relacionadas" class="titulo-bloque">{t.relacionadas}</h2>
+    <ul class="grilla grilla--3" role="list">
+      {
+        relacionadas.map((r) => (
+          <li>
+            <TarjetaArea variante="relacionada" titulo={r.data.titulo} resumen={r.data.resumen} href={`/${r.id}/`} icono={r.data.icono} />
+          </li>
+        ))
+      }
+      {
+        t.extrasRelacionadas.map((e) => (
+          <li>
+            <TarjetaArea variante="relacionada" titulo={e.texto} href={e.href} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+{ctaFinal && <BloqueCTA id="cta-final" titulo={ctaFinal.titulo} texto={ctaFinal.texto} ctas={ctas} />}
+
+<JsonLd datos={article({ site: Astro.site, guia: d, url, autorId: autor.id })} />
+
+<style>
+  .guia__inicio {
+    display: grid;
+    gap: var(--esp-4);
+    max-width: 48rem;
+    padding-top: var(--esp-6);
+  }
+  .guia__botones {
+    display: grid;
+    gap: var(--esp-2);
+  }
+  .guia__botones--aire {
+    margin-top: var(--esp-6);
+  }
+  .indice {
+    border-block: 1px solid var(--linea);
+  }
+  .indice summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--tactil);
+    font-weight: 600;
+  }
+  .indice summary :global(.icono) {
+    color: var(--acento-texto);
+  }
+  .indice[open] summary :global(.icono) {
+    transform: rotate(180deg);
+  }
+  .indice ol {
+    padding: 0 0 var(--esp-4) 1.25em;
+  }
+  .indice a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+  }
+  .guia__cta-paso {
+    display: grid;
+    gap: var(--esp-3);
+    justify-items: start;
+    margin-block: var(--esp-6);
+    padding: var(--esp-5);
+    border-left: 3px solid var(--acento);
+    background: var(--superficie);
+  }
+  @media (min-width: 48em) {
+    .guia__botones {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+// Página de área de práctica (docs/estructura.md §3.3). La página de cada app la envuelve en su Layout.
+import { getEntries, render, type CollectionEntry } from 'astro:content';
+import Migas from '../componentes/Migas.astro';
+import Hero from '../componentes/Hero.astro';
+import Checklist from '../componentes/Checklist.astro';
+import BloqueCTA from '../componentes/BloqueCTA.astro';
+import BotonContacto from '../componentes/BotonContacto.astro';
+import Pasos from '../componentes/Pasos.astro';
+import FAQ from '../componentes/FAQ.astro';
+import TarjetaArea from '../componentes/TarjetaArea.astro';
+import Icono from '../componentes/Icono.astro';
+import JsonLd from '../componentes/JsonLd.astro';
+import { botones } from '../enlaces.mjs';
+import { service } from '../schema.mjs';
+
+interface Props {
+  area: CollectionEntry<'areas'>;
+  sitio: any;
+}
+const { area, sitio } = Astro.props;
+const d = area.data;
+const t = sitio.plantillas.area;
+const url = `/${area.id}/`;
+const orden = d.ordenCtas ?? sitio.ordenCtas;
+const ctasHero = botones(sitio, 'heroArea', d.mensajeWhatsapp, orden);
+const ctas = botones(sitio, 'contenido', d.mensajeWhatsapp, orden);
+const enviarDocumentacion = botones(sitio, 'documentacion', d.mensajeWhatsapp).find((b) => b.tipo === 'whatsapp')!;
+const relacionadas = (await getEntries(d.relacionadas)).sort((a, b) => a.data.orden - b.data.orden);
+const ctaFinal = d.ctaFinal ?? t.ctaFinal?.[area.id];
+const { Content } = await render(area);
+---
+
+<Migas items={[{ nombre: d.titulo, href: url }]} />
+<Hero variante="compacto" h1={d.h1} bajada={d.bajada} ctas={ctasHero} />
+
+<section class="seccion" aria-labelledby="situaciones">
+  <div class="contenedor">
+    <h2 id="situaciones" class="titulo-bloque">{t.situaciones}</h2>
+    <Checklist items={d.situaciones} />
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="como">
+  <div class="contenedor">
+    <h2 id="como" class="titulo-bloque">{t.cuerpo}</h2>
+    <div class="prosa"><Content /></div>
+  </div>
+</section>
+
+{d.ctaIntermedio && <BloqueCTA id="ahora" titulo={d.ctaIntermedio.titulo} texto={d.ctaIntermedio.texto} ctas={ctas} />}
+{
+  !d.ctaIntermedio && d.documentacion && (
+    <section class="seccion" aria-labelledby="documentacion">
+      <div class="contenedor">
+        <div class="encabezado-seccion">
+          <h2 id="documentacion">{t.documentacion.titulo}</h2>
+          <p>{t.documentacion.texto}</p>
+        </div>
+        <Checklist items={d.documentacion} variante="destacado">
+          <BotonContacto {...enviarDocumentacion} />
+        </Checklist>
+      </div>
+    </section>
+  )
+}
+
+<section class="seccion" aria-labelledby="pasos">
+  <div class="contenedor">
+    <h2 id="pasos" class="titulo-bloque">{t.pasos}</h2>
+    <Pasos items={d.pasos} />
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="preguntas">
+  <div class="contenedor">
+    <h2 id="preguntas" class="titulo-bloque">{t.faq}</h2>
+    <FAQ items={d.faq} schema />
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="relacionadas">
+  <div class="contenedor">
+    <h2 id="relacionadas" class="titulo-bloque">{t.relacionadas}</h2>
+    <ul class="grilla grilla--3" role="list">
+      {
+        relacionadas.map((r) => (
+          <li>
+            <TarjetaArea variante="relacionada" titulo={r.data.titulo} resumen={r.data.resumen} href={`/${r.id}/`} icono={r.data.icono} />
+          </li>
+        ))
+      }
+      {
+        t.extrasRelacionadas.map((e) => (
+          <li>
+            <TarjetaArea variante="relacionada" titulo={e.texto} href={e.href} />
+          </li>
+        ))
+      }
+    </ul>
+    <a class="enlace-flecha" href="/contacto/">{t.verCanales} <Icono nombre="flecha" tamano={18} /></a>
+  </div>
+</section>
+
+{ctaFinal && <BloqueCTA id="cta-final" titulo={ctaFinal.titulo} texto={ctaFinal.texto} ctas={ctas} />}
+
+<JsonLd datos={service({ site: Astro.site, area: d, url, areaServed: sitio.areaServed })} />
+
+<style>
+  .grilla {
+    margin-bottom: var(--esp-5);
+  }
+</style>

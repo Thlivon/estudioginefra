@@ -250,3 +250,69 @@ summary::-webkit-details-marker {
   background: var(--papel);
   color: var(--texto);
 }
+
+/* ── Piezas de página compartidas ───────────── */
+
+.titulo-bloque {
+  margin-bottom: var(--esp-6);
+}
+.grilla {
+  display: grid;
+  gap: var(--esp-4);
+}
+.grilla > li {
+  display: grid;
+}
+@media (min-width: 48em) {
+  .grilla--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grilla--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 68em) {
+  .grilla--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.enlace-flecha {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: var(--tactil);
+  font-weight: 600;
+}
+
+/* Texto largo que viene de Markdown */
+.prosa {
+  display: grid;
+  gap: var(--esp-4);
+  max-width: var(--ancho-texto);
+}
+.prosa h2 {
+  margin-top: var(--esp-6);
+}
+.prosa h3 {
+  margin-top: var(--esp-5);
+}
+.prosa > :first-child {
+  margin-top: 0;
+}
+.prosa p,
+.prosa li {
+  color: var(--c-suave);
+}
+.prosa strong {
+  color: var(--c-texto);
+  font-weight: 600;
+}
+.prosa ul,
+.prosa ol {
+  display: grid;
+  gap: var(--esp-2);
+  padding-left: 1.25em;
+}
+.prosa li::marker {
+  color: var(--c-enlace);
+}

@@ -1,0 +1,59 @@
+---
+// Caja con dirección, horarios y "Cómo llegar". Se usa en inicio, página local y contacto.
+import Icono from './Icono.astro';
+import { estudio } from '../estudio.mjs';
+
+interface Props {
+  horarios: string[];
+}
+const { horarios } = Astro.props;
+---
+
+<ul class="datos" role="list">
+  <li>
+    <Icono nombre="ubicacion" />
+    <div>
+      <address>{estudio.direccion.visible}</address>
+      <a href={estudio.mapa} target="_blank" rel="noopener" aria-label="Cómo llegar al estudio en Google Maps (se abre en una pestaña nueva)"
+        >Cómo llegar</a
+      >
+    </div>
+  </li>
+  {
+    horarios.map((h, i) => (
+      <li>
+        <Icono nombre={i === 0 ? 'reloj' : 'persona'} />
+        <span>{h}</span>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .datos {
+    display: grid;
+    gap: var(--esp-4);
+    align-content: start;
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-2);
+  }
+  li {
+    display: flex;
+    gap: var(--esp-3);
+    align-items: flex-start;
+  }
+  li :global(.icono) {
+    color: var(--acento-texto);
+  }
+  address {
+    font-style: normal;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+    font-weight: 600;
+  }
+</style>

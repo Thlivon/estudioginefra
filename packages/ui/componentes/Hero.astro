@@ -14,8 +14,10 @@ interface Props {
   imagen?: ImageMetadata;
   imagenAlt?: string;
   sellos?: { icono: string; texto: string }[];
+  /** Línea chica debajo del H1 (autor, fecha de actualización) */
+  meta?: string;
 }
-const { variante, h1, bajada, ctas = [], imagen, imagenAlt = '', sellos } = Astro.props;
+const { variante, h1, bajada, ctas = [], imagen, imagenAlt = '', sellos, meta } = Astro.props;
 
 // Dirección de arte: en mobile, recorte vertical al centro de la fachada; en desktop, la foto completa.
 // (<Picture> no admite fuentes por media query, por eso getImage.)
@@ -63,6 +65,7 @@ const oscuro = variante !== 'compacto';
   }
   <div class="contenedor hero__contenido">
     <h1 id="hero-titulo">{h1}</h1>
+    {meta && <p class="hero__meta">{meta}</p>}
     {bajada && <p class="hero__bajada">{bajada}</p>}
     {
       ctas.length > 0 && (
@@ -134,8 +137,15 @@ const oscuro = variante !== 'compacto';
     align-content: center;
   }
 
+  .hero__meta {
+    font-size: var(--paso--1);
+    color: var(--c-suave);
+  }
   .hero--compacto {
     border-bottom: 1px solid var(--linea);
+  }
+  .hero--compacto .hero__contenido {
+    padding-block: var(--esp-5) var(--esp-6);
   }
   .hero--compacto h1 {
     font-size: var(--paso-3);
@@ -150,6 +160,9 @@ const oscuro = variante !== 'compacto';
   @media (min-width: 48em) {
     .hero__contenido {
       padding-block: var(--esp-seccion);
+    }
+    .hero--compacto .hero__contenido {
+      padding-block: var(--esp-6) var(--esp-7);
     }
     .hero__ctas {
       display: flex;

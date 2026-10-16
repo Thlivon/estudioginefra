@@ -36,7 +36,16 @@ export const sitio = {
     menu: { llamar: { etiqueta: 'Llamar ahora' }, whatsapp: { etiqueta: 'WhatsApp' } },
     barra: { llamar: { etiqueta: 'Llamar ahora' }, whatsapp: { etiqueta: 'WhatsApp' } },
     contenido: { llamar: { etiqueta: tel, etiquetaMovil: 'Llamar ahora' }, whatsapp: { etiqueta: 'Escribir por WhatsApp' } },
+    contactoCanal: { llamar: { etiqueta: 'Llamar ahora' }, whatsapp: { etiqueta: 'Abrir WhatsApp' } },
+    contactoRicardo: { llamar: { etiqueta: 'Llamar' }, whatsapp: { etiqueta: 'WhatsApp' } },
+    // Delitos económicos: WhatsApp primero (ordenCtas en el frontmatter).
+    invertido: {
+      contenido: { whatsapp: { etiqueta: 'Consultar por WhatsApp' }, llamar: { etiqueta: 'Llamar' } },
+      barra: { whatsapp: { etiqueta: 'WhatsApp' }, llamar: { etiqueta: 'Llamar' } },
+    },
   },
+  // Botones de Ricardo: mismo mensaje de la página, dirigido a él.
+  mensajeRicardo: (mensaje) => mensaje.replace(/^Hola,/, 'Hola Ricardo,'),
   flotante: { aria: 'Escribir por WhatsApp a la guardia penal', titulo: 'Escribinos por WhatsApp' },
 
   footer: {
@@ -47,5 +56,54 @@ export const sitio = {
     horarios: ['Guardia penal 24 h, todos los días', 'Atención en el estudio con turno previo'],
     areasExtra: [guia, local],
     enlaceCruzado: '¿Buscás amparos de salud?',
+  },
+
+  // Títulos y etiquetas fijas de las plantillas (microcopy-penal.md §5 y §6).
+  plantillas: {
+    migas: { equipo: 'Equipo', contacto: 'Contacto', privacidad: 'Política de privacidad', local: local.texto },
+    area: {
+      situaciones: 'Situaciones que atendemos',
+      cuerpo: 'Cómo te defendemos',
+      pasos: 'Paso a paso',
+      faq: 'Preguntas frecuentes',
+      relacionadas: 'También te puede servir',
+      extrasRelacionadas: [guia, local],
+      verCanales: 'Ver todos los canales',
+    },
+    guia: {
+      migas: guia.texto,
+      autor: ({ nombre, tomo, folio, fecha }) => `Por ${nombre}, abogado · T° ${tomo} F° ${folio} · Actualizado ${fecha}`,
+      resumen: 'Lo urgente, en 30 segundos',
+      indice: 'En esta guía',
+      pasos: 'Paso a paso',
+      ctaPaso2: { etiqueta: 'Mandanos los datos por WhatsApp', variante: 'texto' },
+      noHacer: 'Qué NO hacer',
+      derechos: 'Tus derechos',
+      tenerAMano: 'Qué tener a mano para llamarnos',
+      faq: 'Preguntas frecuentes',
+      relacionadas: 'Áreas relacionadas',
+      extrasRelacionadas: [local],
+    },
+    equipo: {
+      trayectoria: 'Trayectoria',
+      areas: 'Áreas que atiende',
+      comoTrabajamos: 'Cómo trabajamos',
+      botones: (nombre) => ({ llamar: { etiqueta: `Llamar a ${nombre}` }, whatsapp: { etiqueta: `WhatsApp a ${nombre}` } }),
+      cruzado: { texto: 'También atendemos amparos de salud →' },
+    },
+    contacto: {
+      canales: 'Hablá con un abogado',
+      titulosCanales: { whatsapp: 'WhatsApp', llamar: 'Llamar a la guardia', ricardo: 'Ricardo Ginefra', instagram: 'Instagram' },
+      verInstagram: 'Ver Instagram',
+      primerMensaje: 'Qué contarnos en el primer mensaje',
+      visitanos: 'Visitanos',
+      faq: 'Preguntas frecuentes',
+    },
+    error404: {
+      atajos: 'Quizás buscabas',
+      campoArea: 'tituloCorto',
+      guia,
+      contacto,
+    },
   },
 };

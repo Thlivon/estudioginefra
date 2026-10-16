@@ -1,0 +1,34 @@
+---
+// Política de privacidad (docs/estructura.md §3.8). La sección del formulario solo aparece con CONTACTO_EMAIL=true.
+import type { CollectionEntry } from 'astro:content';
+import Migas from '../componentes/Migas.astro';
+import Hero from '../componentes/Hero.astro';
+import JsonLd from '../componentes/JsonLd.astro';
+import { pagina as paginaSchema } from '../schema.mjs';
+import { contactoEmail } from '../site.mjs';
+import { conFormulario, fecha } from '../texto.mjs';
+
+interface Props {
+  pagina: CollectionEntry<'paginas'>;
+  sitio: any;
+}
+const { pagina, sitio } = Astro.props;
+const d = pagina.data;
+const url = '/privacidad/';
+const html = conFormulario(pagina.rendered?.html ?? '', contactoEmail);
+---
+
+<Migas items={[{ nombre: sitio.plantillas.migas.privacidad, href: url }]} />
+<Hero variante="compacto" h1={d.h1} bajada={d.bajada} meta={d.actualizado && `Última actualización: ${fecha(d.actualizado)}`} />
+
+<div class="contenedor">
+  <div class="prosa privacidad" set:html={html} />
+</div>
+
+<JsonLd datos={paginaSchema({ site: Astro.site, tipo: 'WebPage', url, nombre: d.h1, descripcion: d.seo.description })} />
+
+<style>
+  .privacidad {
+    padding-block: var(--esp-6) var(--esp-seccion);
+  }
+</style>

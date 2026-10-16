@@ -1,0 +1,96 @@
+---
+// Página no encontrada (docs/estructura.md §3.9): sin migas, caja de urgencia y atajos (incluye el sitio hermano).
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Hero from '../componentes/Hero.astro';
+import BotonContacto from '../componentes/BotonContacto.astro';
+import { botones } from '../enlaces.mjs';
+import { sitioHermano } from '../site.mjs';
+import { bloque, enLinea } from '../texto.mjs';
+
+interface Props {
+  pagina: CollectionEntry<'paginas'>;
+  sitio: any;
+}
+const { pagina, sitio } = Astro.props;
+const d = pagina.data;
+const t = sitio.plantillas.error404;
+const urgencia = d.urgencia ? `<p>${enLinea(d.urgencia)}</p>` : bloque(pagina.rendered?.html, 'caja de urgencia');
+const ctas = botones(sitio, 'error404', d.mensajeWhatsapp);
+const areas = (await getCollection('areas')).sort((a, b) => a.data.orden - b.data.orden);
+const atajos = [
+  { texto: 'Inicio', href: '/' },
+  ...areas.map((a) => ({ texto: a.data[t.campoArea], href: `/${a.id}/` })),
+  { texto: t.guia.texto, href: t.guia.href },
+  { texto: t.contacto.texto, href: t.contacto.href },
+];
+---
+
+<Hero variante="compacto" h1={d.h1} bajada={d.bajada} />
+
+<div class="contenedor">
+  <div class="urgencia">
+    <div class="urgencia__texto" set:html={urgencia} />
+    <div class="urgencia__botones">
+      {ctas.map((c) => <BotonContacto {...c} />)}
+    </div>
+  </div>
+</div>
+
+<section class="seccion" aria-labelledby="atajos">
+  <div class="contenedor">
+    <h2 id="atajos" class="titulo-bloque">{t.atajos}</h2>
+    <ul class="atajos" role="list">
+      {
+        atajos.map((a) => (
+          <li>
+            <a href={a.href}>{a.texto}</a>
+          </li>
+        ))
+      }
+      <li>
+        {sitio.footer.enlaceCruzado}{' '}<a href={sitioHermano}>{new URL(sitioHermano).host}</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .urgencia {
+    display: grid;
+    gap: var(--esp-4);
+    max-width: 48rem;
+    margin-top: var(--esp-6);
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-top: 3px solid var(--acento);
+    border-radius: var(--radio-2);
+    font-size: var(--paso-1);
+  }
+  .urgencia__botones {
+    display: grid;
+    gap: var(--esp-2);
+  }
+  .atajos {
+    display: grid;
+    max-width: 36rem;
+  }
+  .atajos li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 var(--esp-2);
+    border-bottom: 1px solid var(--linea);
+  }
+  .atajos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+  }
+  @media (min-width: 48em) {
+    .urgencia__botones {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+</style>

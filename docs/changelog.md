@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-10-16 · Hito 5 · `feat/paginas`
+
+**Hecho**
+- Logo definitivo: propuesta 2 (wordmark) en `packages/ui/marca/logo-{horizontal,simbolo}.svg`; propuestas 1 y 3 y `/propuestas-logo/` eliminadas. `favicon.svg` en `public/` de cada app (tinta del sitio; papel en pestañas oscuras).
+- Penal: 13 páginas. Se suman 6 áreas y la guía (`[slug].astro`), página local, equipo, contacto, privacidad y 404.
+- Amparos: 10 páginas. Inicio completo (§3.2), 4 áreas, guía, equipo, contacto, privacidad y 404.
+- Colecciones compartidas en `packages/ui/colecciones.ts` (cada `content.config.ts` las reexporta). Plantillas en `packages/ui/plantillas/` (área, guía, equipo, contacto, privacidad, 404). Componentes nuevos: `Migas` (con `BreadcrumbList`), `BloqueContacto`, `DatosEstudio` y `TarjetaAbogado` completa.
+- JSON-LD: `Service` (áreas), `Article` (guías), `BreadcrumbList` (internas), `FAQPage` (solo preguntas visibles), `AboutPage` + `Person` (equipo), `ContactPage`, `WebPage` (privacidad), `LegalService` con localidades (página local).
+- Delitos económicos con el orden de CTA invertido y sus etiquetas ("Consultar por WhatsApp" · "Llamar"), también en la barra fija.
+- `CONTACTO_EMAIL` se lee en build (`site.mjs` → `contactoEmail`): en privacidad oculta la sección `solo-con-formulario`; en contacto reserva el lugar del formulario (`#formulario`).
+- Verificado: build sin advertencias, `npm test` (5 tests), sin JS de cliente, un H1 por página, jerarquía sin saltos, migas en todas las internas y ningún enlace interno ni ancla rota en los dos sitios. Lighthouse mobile 99 / 100 / 100 en área, guía y contacto penal y en inicio, área y guía de amparos; SEO 63–66 solo por el noindex de pruebas.
+
+**Decisiones**
+- Títulos fijos de bloque y etiquetas de botón por sitio en `sitio.plantillas` / `sitio.textos` (microcopy), para que las plantillas sean una sola.
+- Los cuerpos con marcas (`<!-- bloque: … -->`, dos H2 en `local.md`) se parten sobre el HTML que renderiza Astro (`texto.mjs`, con test).
+- El índice de la guía (`<details>`) arranca cerrado en todos los tamaños: sin JS no se puede abrir solo en desktop.
+- La primera foto de la página de equipo se carga sin lazy (es el LCP).
+
+**Pendiente**
+- Hito 6: formulario de contacto, endpoint y `/contacto/enviado`; enlace terciario "o dejanos tu consulta" en el CTA final del inicio.
+- Hito 7: imágenes OG, `robots.txt`/sitemap, `geo` y código postal en `LegalService`.
+- Siguen visibles los marcadores `{A CONFIRMAR}` y `{VERIFICAR}` del copy (FAQ, bios, horarios de amparos, plazos de la guía penal) y el colegio de las matrículas.
+
+**Revisión del líder**
+- Revisé en navegador (375 px): inicio de amparos, área de allanamientos, guía penal, contacto penal y menú mobile sin JS. Sin problemas.
+- Chequeo propio sobre `dist/`: 13 páginas penal y 10 amparos, 0 enlaces internos rotos, 0 scripts de cliente, un H1 por página.
+- Sin dependencias nuevas.
 ## 2026-10-15 · Hito 4 · `feat/diseno`
 
 **Hecho**
