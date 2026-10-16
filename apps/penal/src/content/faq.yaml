@@ -4,7 +4,7 @@
 # ── Inicio ──────────────────────────────────────────────
 - id: cuanto-cuesta-la-consulta
   pregunta: "¿Cuánto cuesta la consulta con un abogado penalista?"
-  respuesta: "La primera conversación con la guardia sirve para entender qué pasó y decirte qué hay que hacer ya. Los honorarios dependen del tipo de causa, de la etapa y de la jurisdicción, y te los informamos claros antes de empezar, sin letra chica. Lo urgente no espera al presupuesto: mientras hablamos, ya estamos actuando. {A CONFIRMAR: si la primera consulta tiene costo y formas de pago}"
+  respuesta: "La primera conversación con la guardia sirve para entender qué pasó y decirte qué hay que hacer ya. Los honorarios dependen del tipo de causa, de la etapa y de la jurisdicción, y te los informamos claros antes de empezar, sin letra chica. Lo urgente no espera al presupuesto: mientras hablamos, ya estamos actuando. La primera consulta tiene costo y aceptamos efectivo y transferencia."
   paginas: [inicio]
   orden: 1
 
@@ -41,13 +41,13 @@
 # ── Página local (San Justo / La Matanza) ───────────────
 - id: cuanto-tardan-en-llegar
   pregunta: "¿Cuánto tardan en llegar a una comisaría de La Matanza?"
-  respuesta: "Salimos desde San Justo, la cabecera del partido, así que llegamos rápido a cualquier comisaría de La Matanza. {A CONFIRMAR: tiempo de llegada habitual} Y no hace falta esperar a estar ahí: apenas nos llamás, nos comunicamos con la comisaría y con la fiscalía de turno para presentarnos como defensores y frenar cualquier declaración sin abogado."
+  respuesta: "Salimos desde San Justo, la cabecera del partido, así que llegamos a cualquier comisaría de La Matanza en alrededor de una hora. Y no hace falta esperar a estar ahí: apenas nos llamás, nos comunicamos con la comisaría y con la fiscalía de turno para presentarnos como defensores y frenar cualquier declaración sin abogado."
   paginas: [local]
   orden: 1
 
 - id: donde-quedan-los-tribunales
   pregunta: "¿Dónde quedan los tribunales penales de La Matanza?"
-  respuesta: "Las fiscalías, los juzgados de garantías y los tribunales orales del Departamento Judicial La Matanza funcionan en San Justo, la misma localidad donde está nuestro estudio. {VERIFICAR: direcciones de las sedes penales del Departamento Judicial La Matanza} Esa cercanía nos permite estar presentes en audiencias, consultar expedientes y resolver trámites sin perder tiempo en traslados."
+  respuesta: "Las fiscalías, los juzgados de garantías y los tribunales orales del Departamento Judicial La Matanza funcionan en San Justo, la misma localidad donde está nuestro estudio. Esa cercanía nos permite estar presentes en audiencias, consultar expedientes y resolver trámites sin perder tiempo en traslados."
   paginas: [local]
   orden: 2
 

@@ -17,7 +17,7 @@ primerMensaje:
   - "Si hay una citación o una audiencia, y para qué fecha."
   - "Si ya interviene un abogado o un defensor oficial."
   - "Fotos de cualquier papel que les hayan dado: citación, acta o notificación."
-visitanos: "Te recibimos en el estudio con turno previo; la guardia penal atiende las 24 horas, todos los días. {A CONFIRMAR: días y horario de atención presencial}"
+visitanos: "Te recibimos en el estudio con turno previo; la guardia penal atiende las 24 horas, todos los días."
 confidencialidad: "Tu consulta es confidencial y está protegida por el secreto profesional. Para saber cómo tratamos tus datos, leé nuestra [política de privacidad](/privacidad/)."
 mensajeWhatsapp: "Hola, escribo desde la web (Contacto). Necesito hablar con un abogado penalista, es urgente."
 ---

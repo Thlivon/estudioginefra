@@ -17,7 +17,7 @@ export const sitio = {
   mensajeWhatsappPorDefecto:
     'Hola, quiero consultar por un amparo de salud. Les envío el rechazo de mi prepaga u obra social y la orden médica. (Web amparos)',
   mostrarInstagram: false,
-  guardia24: false,
+  guardia24: true,
   areaServed: ['Argentina'],
 
   nav: {
@@ -56,7 +56,7 @@ export const sitio = {
     posicionamiento: 'Amparos de salud y medidas cautelares contra prepagas y obras sociales, en el fuero federal.',
     etiquetaPrincipal: 'WhatsApp y teléfono',
     mostrarCorreo: true,
-    horarios: ['Atención: {A CONFIRMAR: días y horario de atención}', 'En el estudio, con turno previo'],
+    horarios: ['Urgencias de salud: 24 h, todos los días', 'En el estudio, con turno previo'],
     areasExtra: [guiaLarga],
     enlaceCruzado: '¿Necesitás un abogado penalista?',
   },

@@ -60,7 +60,7 @@ ctaFinal:
 
 ### Antes de declarar, estrategia
 
-En la Provincia de Buenos Aires, la declaración del imputado se toma ante el fiscal: es la conocida "declaración del 308". En los tribunales nacionales y federales, según el sistema procesal que se aplique, la indagatoria puede tomarse ante el juez o la declaración ante el fiscal. {VERIFICAR: estado de implementación del sistema acusatorio federal (CPPF) en Comodoro Py a la fecha de publicación}
+En la Provincia de Buenos Aires, la declaración del imputado se toma ante el fiscal: es la conocida "declaración del 308". En los tribunales nacionales y federales, según el sistema procesal que se aplique, la indagatoria puede tomarse ante el juez o la declaración ante el fiscal.
 
 En todos los casos tenés derecho a saber de qué se te acusa y qué pruebas hay antes de hablar, y a no declarar. Leemos la causa, te explicamos con palabras simples dónde estás parado y decidimos juntos si conviene declarar, presentar un escrito o guardar silencio.
 
@@ -72,7 +72,7 @@ Durante la investigación proponemos pruebas, pedimos peritajes, controlamos los
 
 No todas las causas tienen que terminar en un juicio. Según el delito y tu situación, evaluamos con vos la suspensión del juicio a prueba (probation), un juicio abreviado o, si la acusación es débil, ir a juicio oral a discutir cada prueba frente al tribunal.
 
-En la Provincia, los delitos más graves se juzgan por jurados, y preparamos el caso para convencer a un jurado de ciudadanos. {VERIFICAR: alcance del juicio por jurados en PBA, Ley 14.543} Te explicamos cada opción con sus riesgos reales antes de que decidas.
+En la Provincia, los delitos más graves se juzgan por jurados, y preparamos el caso para convencer a un jurado de ciudadanos. Te explicamos cada opción con sus riesgos reales antes de que decidas.
 
 ### Recursos y cambio de abogado
 

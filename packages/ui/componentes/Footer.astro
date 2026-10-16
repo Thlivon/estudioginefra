@@ -82,7 +82,7 @@ const nuevaPestana = ' (se abre en una pestaña nueva)';
         estudio.matriculas.map((m) => (
           <li>
             {m.nombre} · Abogado · T° {m.tomo} F° {m.folio}
-            {m.colegio && ` ${m.colegio}`}
+            {m.colegio && ` · ${m.colegio}`}
           </li>
         ))
       }

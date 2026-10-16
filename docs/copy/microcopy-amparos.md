@@ -136,7 +136,7 @@ Ambos usan el `mensajeWhatsapp` de la página actual (§9) o, si no tiene, el me
 | Elemento | Texto |
 |---|---|
 | H3 en cada tarjeta | Trayectoria · Áreas |
-| Etiqueta de matrícula | Matrícula: T° {tomo} F° {folio} · {COLEGIO A CONFIRMAR} |
+| Etiqueta de matrícula | Matrícula: T° {tomo} F° {folio} · {colegio} |
 | Facundo · botones | Escribir a Facundo (WhatsApp, número principal) · Llamar a Facundo (`tel:` principal) |
 | Ricardo · botones | Escribir a Ricardo (WhatsApp 11 5927-1122) · Llamar a Ricardo (`tel:` 11 5927-1122) |
 | `alt` de fotos | Lo define `fotoAlt` en el archivo de equipo compartido. |
@@ -155,7 +155,7 @@ Ambos usan el `mensajeWhatsapp` de la página actual (§9) o, si no tiene, el me
 | H3 Ricardo | Ricardo Ginefra · 11 5927-1122 — Contacto directo con el abogado fundador del estudio, por WhatsApp o llamada. · Botones: WhatsApp · ☎ Llamar |
 | H2 documentación / primer mensaje | Qué enviarnos en el primer mensaje · Texto: Con esto te respondemos más rápido y con una evaluación concreta. (Lista: `primerMensaje`; debajo, "Documentación que suma": `documentacion`) |
 | H2 Visitanos | Visitanos (texto en el cuerpo de `paginas/contacto.md`) · Enlace: Cómo llegar |
-| Horario | {A CONFIRMAR: días y horario de atención} |
+| Horario | Urgencias de salud: 24 h, todos los días |
 | Confidencialidad | (párrafo en el cuerpo de `paginas/contacto.md`) |
 
 ### 404
@@ -186,8 +186,8 @@ Ambos usan el `mensajeWhatsapp` de la página actual (§9) o, si no tiene, el me
 | Columna áreas | Las 4 áreas (`titulo`) + Qué hacer si la prepaga rechaza |
 | Título columna contacto | Contacto |
 | Contacto · líneas | WhatsApp y teléfono: 11 5126-1499 · Ricardo Ginefra: 11 5927-1122 · Correo: estudiolosdefensores@hotmail.com |
-| Horario | Atención: {A CONFIRMAR: días y horario de atención} · En el estudio, con turno previo |
-| Legal · matrículas | Facundo Ginefra · Abogado · T° 13 F° 277 {COLEGIO A CONFIRMAR} · Ricardo Ginefra · Abogado · T° 10 F° 254 {COLEGIO A CONFIRMAR} |
+| Horario | Urgencias de salud: 24 h, todos los días · En el estudio, con turno previo |
+| Legal · matrículas | Facundo Ginefra · Abogado · T° 13 F° 277 · Colegio de Abogados de La Matanza · Ricardo Ginefra · Abogado · T° 10 F° 254 · Colegio de Abogados de La Matanza |
 | Legal · copyright | © {año} Ginefra & Asociados |
 | Legal · privacidad | Política de privacidad |
 | Enlace cruzado | ¿Necesitás un abogado penalista? estudioginefra.com.ar |

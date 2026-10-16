@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-10-16 · Respuestas del estudio · `content/respuestas-estudio`
+
+Respuestas tomadas de la página «Lanzamiento Ginefra» (22 de 22 respondidas).
+
+**Hecho**
+- Validación jurídica: el estudio aprobó los 8 textos tal como estaban; se quitan los marcadores `{VERIFICAR}`. En la guía de amparos, la pregunta del plazo de respuesta queda con su respuesta general.
+- Primera consulta: tiene costo; efectivo y transferencia (detenciones y preguntas frecuentes del inicio penal).
+- Llegada a comisarías del partido: alrededor de una hora.
+- Atención presencial: solo con turno previo. Cómo llegar: sin indicaciones por ahora.
+- **Guardia 24 h también en amparos**: `guardia24: true` (horario 24/7 en `LegalService`), pie y contacto con "Urgencias de salud: 24 h, todos los días" y sello "Urgencias 24 h" en el inicio.
+- Conservación de consultas que no se convierten en casos: 12 meses (privacidad de ambos sitios; en penal se nombra a Resend como servicio de envío).
+- Equipo: Facundo y Ricardo, abogados recibidos en la Universidad Nacional de Lomas de Zamora (único dato de formación que debe figurar). Ricardo atiende todas las áreas.
+- Se confirman: violencia de género solo como defensa, los claims del sitio actual, la foto actual de Facundo y la aprobación de ambos sitios.
+- 0 marcadores en el código y en las 23 páginas generadas.
+- **Colegio de las matrículas**: Colegio de Abogados de La Matanza (confirmado por el dueño). Se muestra en el pie de ambos sitios, en las tarjetas del equipo y en los datos estructurados (`recognizedBy` de cada `Person`).
+
 ## 2026-10-16 · Hito 9 (preparación) · `docs/lanzamiento`
 
 **Hecho**

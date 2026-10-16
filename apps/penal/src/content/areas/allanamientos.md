@@ -40,7 +40,7 @@ faq:
   - pregunta: "¿Pueden allanar sin orden judicial?"
     respuesta: "Como regla, no. Para entrar a una vivienda hace falta una orden escrita y fundada de un juez. La ley solo permite entrar sin orden en situaciones urgentes y puntuales, como un incendio, una persecución en curso o pedidos de auxilio desde adentro. Si entraron sin orden y no había ninguna de esas situaciones, el procedimiento puede ser nulo, y la prueba obtenida también."
   - pregunta: "¿Pueden allanar de noche?"
-    respuesta: "La regla es que el allanamiento de una vivienda se haga de día. Puede hacerse a cualquier hora si quien vive ahí lo consiente o en casos graves y urgentes que el juez justifique. Si entraron de noche sin esas condiciones, es un punto que revisamos para plantear la nulidad. {VERIFICAR: régimen horario del allanamiento de morada en el CPP bonaerense (Ley 11.922) y en el código federal}"
+    respuesta: "La regla es que el allanamiento de una vivienda se haga de día. Puede hacerse a cualquier hora si quien vive ahí lo consiente o en casos graves y urgentes que el juez justifique. Si entraron de noche sin esas condiciones, es un punto que revisamos para plantear la nulidad."
   - pregunta: "¿Tengo que firmar el acta del allanamiento?"
     respuesta: "Tenés derecho a leerla completa antes de firmar. Si algo no coincide con lo que pasó, podés pedir que se deje constancia o negarte a firmar, y esa negativa también queda registrada. Nunca firmes algo que no leíste. Lo mejor es llamar a un abogado en ese mismo momento: te indicamos qué hacer mientras el procedimiento sigue."
   - pregunta: "¿Cómo recupero lo que se llevaron en un allanamiento?"

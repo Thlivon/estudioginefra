@@ -46,7 +46,7 @@ El titular de los datos personales tiene la facultad de ejercer el derecho de ac
 <!-- solo-con-formulario -->
 ## Formulario de contacto
 
-Si usás el formulario de la página de contacto, nos enviás tu nombre, tu teléfono, tu correo electrónico (si decidís darlo), el tipo de consulta y tu mensaje. Esos datos llegan a la casilla de correo del estudio a través de un servicio de envío de correo {A CONFIRMAR: proveedor del servicio de envío del formulario} y se usan solo para responderte. Los conservamos mientras sea necesario para atender tu consulta y, si se convierte en un caso, durante la relación profesional y los plazos legales que correspondan. El formulario incluye un campo oculto contra el spam que no recaba datos tuyos.
+Si usás el formulario de la página de contacto, nos enviás tu nombre, tu teléfono, tu correo electrónico (si decidís darlo), el tipo de consulta y tu mensaje. Esos datos llegan a la casilla de correo del estudio a través de un servicio de envío de correo (Resend) y se usan solo para responderte. Los conservamos mientras sea necesario para atender tu consulta y, si se convierte en un caso, durante la relación profesional y los plazos legales que correspondan. Las consultas que no se convierten en un caso se eliminan a los 12 meses. El formulario incluye un campo oculto contra el spam que no recaba datos tuyos.
 <!-- /solo-con-formulario -->
 
 ## Cambios en esta política

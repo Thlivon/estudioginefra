@@ -47,7 +47,7 @@ const { Content } = completa ? await render(persona) : { Content: null };
   <div class="abogado__texto">
     <Titulo>{nombre}</Titulo>
     <p class="abogado__rol">{rol}</p>
-    <p class="abogado__matricula">Matrícula T° {matricula.tomo} F° {matricula.folio}</p>
+    <p class="abogado__matricula">Matrícula T° {matricula.tomo} F° {matricula.folio}{matricula.colegio && ` · ${matricula.colegio}`}</p>
     <p class="abogado__enfoque">{enfoque[sitio]}</p>
     {
       completa && (

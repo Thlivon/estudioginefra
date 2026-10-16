@@ -48,7 +48,7 @@ faq:
   - pregunta: "¿Qué pasa si le niegan la excarcelación?"
     respuesta: "Se puede apelar: en la Provincia, ante la Cámara de Apelación y Garantías; en CABA y en el fuero federal, ante la cámara que corresponda. También se pueden pedir alternativas a la prisión, como arresto domiciliario, monitoreo electrónico, presentaciones periódicas o cauciones. Un rechazo no es el final: es el momento de ajustar la estrategia y reforzar la prueba."
   - pregunta: "¿Cuánto cobra un abogado por una excarcelación?"
-    respuesta: "Los honorarios dependen del tipo de causa, de la etapa y de la jurisdicción. Te los decimos claros en la primera conversación, antes de empezar, para que decidas con toda la información y sin sorpresas. Lo urgente no espera al presupuesto: mientras hablamos, ya podemos estar ubicando a tu familiar. {A CONFIRMAR: formas de pago y si la primera consulta tiene costo}"
+    respuesta: "Los honorarios dependen del tipo de causa, de la etapa y de la jurisdicción. Te los decimos claros en la primera conversación, antes de empezar, para que decidas con toda la información y sin sorpresas. Lo urgente no espera al presupuesto: mientras hablamos, ya podemos estar ubicando a tu familiar. La primera consulta tiene costo y aceptamos efectivo y transferencia."
 relacionadas:
   - "allanamientos"
   - "estupefacientes"
