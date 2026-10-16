@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-16 · Hito 9 (preparación) · `docs/lanzamiento`
+
+**Hecho**
+- `docs/lanzamiento.md`: checklist de lanzamiento con lo que resuelve el estudio (9 datos, 8 validaciones jurídicas, 4 decisiones y la aprobación), lo que hace falta del dueño (Vercel Pro, Cloudflare, Resend, Search Console, Business Profile) y los pasos y verificaciones del día del lanzamiento, con plan de vuelta atrás.
+- Página «Lanzamiento Ginefra» para que el estudio responda los pendientes desde el celular; las respuestas quedan en la base del artifact para pasarlas al contenido.
+
+**Pendiente**
+- Respuestas del estudio → PR de contenido sin marcadores.
+- Vercel Pro y el resto de la sección 2 de `docs/lanzamiento.md`.
+
 ## 2026-10-16 · Hito 8 · `feat/seguridad`
 
 **Hecho**
