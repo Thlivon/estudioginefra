@@ -13,6 +13,7 @@ import BloqueCTA from '@ginefra/ui/componentes/BloqueCTA.astro';
 import Icono from '@ginefra/ui/componentes/Icono.astro';
 import { botones } from '@ginefra/ui/enlaces.mjs';
 import { webSite } from '@ginefra/ui/schema.mjs';
+import { contactoEmail } from '@ginefra/ui/site.mjs';
 import { sitio } from '../sitio.mjs';
 
 const pagina = (await getEntry('paginas', 'inicio'))!;
@@ -29,6 +30,10 @@ const enviarDocumentacion = botones(sitio, 'documentacion', inicio.mensajeWhatsa
 const iconosSellos = ['balanza', 'escudo', 'candado'];
 const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i] ?? 'check', texto }));
 const guia = sitio.plantillas.error404.guia;
+// Enlace terciario al formulario en el CTA final, solo con el formulario encendido.
+const ctasFinal = contactoEmail
+  ? [...ctas, { tipo: 'formulario' as const, variante: 'texto' as const, etiqueta: sitio.plantillas.formulario.enlaceTerciario }]
+  : ctas;
 ---
 
 <LayoutAmparos
@@ -111,7 +116,7 @@ const guia = sitio.plantillas.error404.guia;
   </section>
 
   <!-- 9 · CTA final -->
-  <BloqueCTA id="cta-final" titulo={t.ctaFinal.titulo} texto={t.ctaFinal.texto} ctas={ctas} />
+  <BloqueCTA id="cta-final" titulo={t.ctaFinal.titulo} texto={t.ctaFinal.texto} ctas={ctasFinal} />
 </LayoutAmparos>
 
 <style>

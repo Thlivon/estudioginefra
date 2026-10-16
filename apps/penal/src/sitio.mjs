@@ -99,6 +99,41 @@ export const sitio = {
       visitanos: 'Visitanos',
       faq: 'Preguntas frecuentes',
     },
+    // Formulario de contacto (hito 6, solo con CONTACTO_EMAIL=true). microcopy-penal.md §8.
+    formulario: {
+      sitioAsunto: 'Defensa penal',
+      titulo: 'Preferís escribirnos',
+      bajada: 'Para consultas que pueden esperar. Te contactamos al teléfono que nos dejes.',
+      aviso: { texto: 'Si es urgente, no uses el formulario: llamá ahora a la guardia.', destacado: true, boton: 'Llamar a la guardia' },
+      leyenda: 'Los campos con * son obligatorios.',
+      campos: {
+        nombre: { etiqueta: 'Nombre y apellido', placeholder: 'Ej.: Juan Pérez', error: 'Escribí tu nombre.' },
+        telefono: {
+          etiqueta: 'Teléfono o WhatsApp',
+          placeholder: 'Ej.: 11 2345-6789',
+          ayuda: 'Te llamamos o escribimos a este número.',
+          error: 'Escribí un teléfono para que podamos contactarte.',
+          errorFormato: 'Revisá el número: usá solo números, espacios o guiones.',
+        },
+        email: { etiqueta: 'Correo electrónico (opcional)', placeholder: 'nombre@correo.com', error: 'Revisá el correo: parece que falta la @ o el dominio.' },
+        tipo: { etiqueta: '¿Sobre qué es tu consulta?', vacio: 'Elegí una opción', otra: 'Otra', obligatorio: false, error: 'Elegí una opción de la lista.' },
+        mensaje: { etiqueta: 'Contanos qué pasó', placeholder: 'Qué pasó, dónde y cuándo. Si hay una citación, la fecha.', error: 'Contanos brevemente tu consulta.' },
+        privacidad: { etiqueta: 'Leí y acepto la [política de privacidad](/privacidad/).', error: 'Para enviar la consulta, aceptá la política de privacidad.' },
+        trampa: { etiqueta: 'No completes este campo' },
+      },
+      enviar: 'Enviar consulta',
+      nota: 'Tu consulta es confidencial. Si es urgente, llamá a la guardia.',
+      errorGeneral: 'No pudimos enviar tu consulta. Si es urgente, llamá a la guardia o escribinos por WhatsApp.',
+      enlaceTerciario: 'o dejanos tu consulta',
+    },
+    enviado: {
+      title: 'Consulta enviada | Ginefra & Asociados',
+      h1: 'Recibimos tu consulta',
+      texto:
+        'Gracias por escribirnos. Un abogado del estudio la va a leer y te va a contactar al teléfono que nos dejaste. Si es urgente, no esperes: llamá ahora a la guardia.',
+      botones: { llamar: { etiqueta: 'Llamar a la guardia' } },
+      volver: 'Volver al inicio',
+    },
     error404: {
       atajos: 'Quizás buscabas',
       campoArea: 'tituloCorto',

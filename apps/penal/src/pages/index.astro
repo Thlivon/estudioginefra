@@ -12,6 +12,7 @@ import Icono from '@ginefra/ui/componentes/Icono.astro';
 import DatosEstudio from '@ginefra/ui/componentes/DatosEstudio.astro';
 import { botones } from '@ginefra/ui/enlaces.mjs';
 import { webSite } from '@ginefra/ui/schema.mjs';
+import { contactoEmail } from '@ginefra/ui/site.mjs';
 import { sitio } from '../sitio.mjs';
 import comodoroPy from '../assets/comodoro-py.png';
 
@@ -23,6 +24,10 @@ const faq = (await getCollection('faq', (f) => f.data.paginas.includes('inicio')
 const ctas = botones(sitio, 'contenido', inicio.mensajeWhatsapp);
 const iconosSellos = ['reloj', 'credencial', 'ubicacion', 'persona'];
 const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i] ?? 'check', texto }));
+// Enlace terciario al formulario en el CTA final, solo con el formulario encendido.
+const ctasFinal = contactoEmail
+  ? [...ctas, { tipo: 'formulario' as const, variante: 'texto' as const, etiqueta: sitio.plantillas.formulario.enlaceTerciario }]
+  : ctas;
 ---
 
 <LayoutPenal
@@ -140,7 +145,7 @@ const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i]
   </section>
 
   <!-- 10 · CTA final -->
-  {inicio.ctaFinal && <BloqueCTA id="cta-final" titulo={inicio.ctaFinal.titulo} texto={inicio.ctaFinal.texto} ctas={ctas} />}
+  {inicio.ctaFinal && <BloqueCTA id="cta-final" titulo={inicio.ctaFinal.titulo} texto={inicio.ctaFinal.texto} ctas={ctasFinal} />}
 </LayoutPenal>
 
 <style>

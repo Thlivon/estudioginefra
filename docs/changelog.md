@@ -1,5 +1,33 @@
 # Changelog
 
+## 2026-10-16 · Hito 6 · `feat/formulario`
+
+**Hecho**
+- `@astrojs/vercel` en ambas apps: el sitio sigue estático y solo `POST /api/contacto/` corre como función (`prerender = false`). El build sale en `.vercel/output/`.
+- Endpoint compartido (`packages/ui/contacto-servidor.mjs`):
+  - Flag `CONTACTO_EMAIL` chequeado en runtime (404 si está apagado) y límite de 10 KB.
+  - Honeypot `empresa` con éxito falso, Vercel BotID (`checkBotId`) y validación del lado del servidor (`contacto.mjs`, con test).
+  - Envío por `fetch` a Resend, solo en texto plano, con el asunto saneado y `reply_to` si el visitante dejó correo.
+  - Responde JSON a `fetch` (200/400/403/500) y 303 al POST nativo.
+- Componente `Formulario` (campos y textos del microcopy de cada sitio; en penal, el aviso de urgencia con el botón de llamar). Mejora progresiva: un script chico, solo en `/contacto/` y solo con el flag, envía con `fetch`, marca errores por campo (`aria-invalid` + `aria-describedby`) e inicia BotID.
+- `/contacto/enviado/` (noindex) y el enlace "o dejanos tu consulta" en el CTA final del inicio: solo con el flag.
+- Rewrites de BotID en el `vercel.json` de cada app. `.env.example` y `README.md` explican cómo encender el formulario.
+- Verificado:
+  - Flag apagado: build y `npm test` (9 tests) pasan, ningún HTML carga JS, no existe `/contacto/enviado/` y `POST /api/contacto/` da 404.
+  - Flag encendido en `astro dev` (penal y amparos): envío válido (log en consola + redirección), honeypot (éxito sin log), errores por campo, POST nativo (303 a enviado o a `#error-envio`) y cuerpo > 10 KB rechazado.
+  - Lighthouse mobile de `/contacto/` con el flag: penal 98 / 100 / 100 y amparos 97 / 100 / 100.
+
+**Decisiones**
+- La ruta es `/api/contacto/`, con barra final (`trailingSlash: 'always'`; el adapter redirige con 308 la variante sin barra). BotID protege esa ruta exacta.
+- BotID en Astro: `initBotId` de `botid/client/core` en el script del formulario. `checkBotId` lee los encabezados del contexto de la función de Vercel; además le pasamos los del request (`advancedOptions.headers`), que la librería usa fuera de Vercel. En `astro dev` el cliente no se inicia: sin el proxy de `vercel.json`, el fetch protegido fallaría.
+- El error del POST nativo vuelve a `/contacto/?error=1#error-envio` (en lugar de `#formulario`): la caja de error se muestra con `:target` porque, sin JS, la página estática no puede leer el parámetro.
+- En amparos el tipo de consulta es obligatorio (el microcopy trae mensaje de error); en penal es opcional.
+- Tokens nuevos: `--error` (#A3261C, 7,4:1) y `--borde-campo` (#767D8C, 4,1:1 sobre blanco).
+
+**Pendiente**
+- Probar en un preview con el flag: que las rewrites de `vercel.json` convivan con las rutas del adapter, el envío real por Resend con el dominio verificado y que BotID rechace un curl.
+- Con el flag apagado, el JS del formulario igual se genera en `_astro/`, pero ninguna página lo carga.
+
 ## 2026-10-16 · Hito 5 · `feat/paginas`
 
 **Hecho**

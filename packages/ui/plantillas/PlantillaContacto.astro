@@ -1,5 +1,5 @@
 ---
-// Contacto (docs/estructura.md §3.7, variante A). El formulario (variante B) entra en el hito 6 detrás de CONTACTO_EMAIL.
+// Contacto (docs/estructura.md §3.7). Variante A siempre; con CONTACTO_EMAIL=true se suma el formulario (variante B).
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Migas from '../componentes/Migas.astro';
 import Hero from '../componentes/Hero.astro';
@@ -8,6 +8,8 @@ import Checklist from '../componentes/Checklist.astro';
 import DatosEstudio from '../componentes/DatosEstudio.astro';
 import FAQ from '../componentes/FAQ.astro';
 import JsonLd from '../componentes/JsonLd.astro';
+import Formulario from '../componentes/Formulario.astro';
+import { opcionesTipo } from '../opciones.ts';
 import { botones } from '../enlaces.mjs';
 import { estudio } from '../estudio.mjs';
 import { pagina as paginaSchema } from '../schema.mjs';
@@ -25,6 +27,7 @@ const url = '/contacto/';
 const html = pagina.rendered?.html ?? '';
 const faq = (await getCollection('faq', (f) => f.data.paginas.includes('contacto'))).sort((a, b) => a.data.orden - b.data.orden);
 const { principal, ricardo } = estudio.telefonos;
+const opciones = contactoEmail ? await opcionesTipo(sitio) : [];
 const textoCanal = (id: string) => d.canales?.[id] ?? t.textosCanales?.[id] ?? '';
 
 // Un canal por botón del sitio (en su orden), más Ricardo e Instagram.
@@ -75,8 +78,7 @@ const confidencialidad = d.confidencialidad ? `<p>${enLinea(d.confidencialidad)}
 
 <BloqueContacto titulo={t.canales} canales={canales} />
 
-{/* Hito 6: con CONTACTO_EMAIL=true, el formulario (H2 "Preferís escribirnos") va en este lugar. */}
-{contactoEmail && <div id="formulario"></div>}
+{contactoEmail && <Formulario sitio={sitio} opciones={opciones} />}
 
 <section class="seccion" aria-labelledby="primer-mensaje">
   <div class="contenedor">
