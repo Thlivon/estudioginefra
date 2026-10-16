@@ -1,0 +1,12 @@
+{
+  "name": "@ginefra/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./site": "./site.mjs",
+    "./Layout.astro": "./Layout.astro"
+  },
+  "peerDependencies": {
+    "astro": "^7.3.8"
+  }
+}
