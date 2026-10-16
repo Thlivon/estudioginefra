@@ -1,0 +1,316 @@
+---
+// Navegación principal. Sin JS: desplegable de áreas y menú mobile con <details>.
+// < 68em: logo + botón primario corto + menú; ≥ 68em: una fila con todo.
+import Logo from '../marca/propuesta-2-horizontal.svg';
+import Icono from './Icono.astro';
+import BotonContacto from './BotonContacto.astro';
+import { botones, enlaceTel } from '../enlaces.mjs';
+import { estudio } from '../estudio.mjs';
+
+interface Props {
+  sitio: any;
+  areas: { slug: string; tituloCorto: string }[];
+  mensajeWhatsapp?: string;
+}
+const { sitio, areas, mensajeWhatsapp } = Astro.props;
+const { nav } = sitio;
+const ctasHeader = botones(sitio, 'header', mensajeWhatsapp);
+const ctasMenu = botones(sitio, 'menu', mensajeWhatsapp);
+const [primario] = ctasHeader;
+const ricardo = estudio.telefonos.ricardo;
+---
+
+<header class="header sobre-tinta">
+  <div class="contenedor header__fila">
+    <a class="header__logo" href="/" aria-label={`${estudio.nombre}, ir al inicio`}>
+      <Logo aria-hidden="true" />
+    </a>
+
+    <nav class="header__nav" aria-label="Navegación principal">
+      <ul role="list">
+        {
+          areas.length > 0 && (
+            <li>
+              <details class="desplegable">
+                <summary class="header__enlace">
+                  {nav.desplegable}
+                  <Icono nombre="chevron" tamano={18} />
+                </summary>
+                <div class="desplegable__panel sobre-papel">
+                  <ul role="list">
+                    {areas.map((a) => (
+                      <li>
+                        <a href={`/${a.slug}/`}>{a.tituloCorto}</a>
+                      </li>
+                    ))}
+                  </ul>
+                  {nav.pieDesplegable && (
+                    <a class="desplegable__pie" href={nav.pieDesplegable.href}>
+                      {nav.pieDesplegable.texto}
+                    </a>
+                  )}
+                </div>
+              </details>
+            </li>
+          )
+        }
+        {
+          nav.enlaces.map((e) => (
+            <li>
+              <a class:list={['header__enlace', { 'header__enlace--acento': e.acento }]} href={e.href}>
+                {e.texto}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header__ctas">
+      {ctasHeader.map((c) => <BotonContacto {...c} etiquetaMovil={undefined} />)}
+    </div>
+
+    <div class="header__movil">
+      <BotonContacto {...primario} etiqueta={primario.etiquetaMovil ?? primario.etiqueta} etiquetaMovil={undefined} class="header__corto" />
+      <details class="menu">
+        <summary class="menu__boton">
+          <span class="menu__abrir"><Icono nombre="menu" tamano={26} /><span>Menú</span></span>
+          <span class="menu__cerrar"><Icono nombre="cerrar" tamano={26} /><span>Cerrar</span></span>
+        </summary>
+        <div class="menu__panel">
+          <nav aria-label="Navegación principal">
+            {
+              areas.length > 0 && (
+                <>
+                  <p class="menu__titulo" id="menu-areas">
+                    {nav.tituloAreasMovil}
+                  </p>
+                  <ul role="list" aria-labelledby="menu-areas">
+                    {areas.map((a) => (
+                      <li>
+                        <a href={`/${a.slug}/`}>{a.tituloCorto}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )
+            }
+            <ul role="list" class="menu__principal">
+              {
+                nav.enlacesMovil.map((e) => (
+                  <li>
+                    <a href={e.href}>{e.texto}</a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+          <div class="menu__ctas">
+            {ctasMenu.map((c) => <BotonContacto {...c} />)}
+          </div>
+          <a class="menu__ricardo" href={enlaceTel(ricardo.internacional)}>
+            <span class="solo-lectores">Llamar a </span>
+            Ricardo Ginefra: {ricardo.visible}
+          </a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--c-borde);
+  }
+  .header__fila {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-3);
+    height: var(--alto-header);
+  }
+  .header__logo {
+    display: flex;
+    align-items: center;
+    min-height: var(--tactil);
+    margin-right: auto;
+    color: var(--papel);
+  }
+  .header__logo :global(svg) {
+    height: 34px;
+    width: auto;
+  }
+
+  /* ── Mobile / tablet ── */
+  .header__nav,
+  .header__ctas {
+    display: none;
+  }
+  .header__movil {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-2);
+  }
+  .header__movil :global(.header__corto) {
+    padding-inline: var(--esp-3);
+    font-size: var(--paso--1);
+  }
+  .menu__boton {
+    display: grid;
+    place-items: center;
+    min-width: var(--tactil);
+    min-height: var(--tactil);
+    color: var(--papel);
+  }
+  .menu__abrir,
+  .menu__cerrar {
+    display: grid;
+    justify-items: center;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    gap: 2px;
+  }
+  .menu[open] .menu__abrir,
+  .menu:not([open]) .menu__cerrar {
+    display: none;
+  }
+  .menu__panel {
+    position: fixed;
+    inset: var(--alto-header) 0 0;
+    z-index: 60;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: grid;
+    align-content: start;
+    gap: var(--esp-6);
+    padding: var(--esp-5) var(--margen) var(--esp-7);
+    background: var(--tinta);
+    border-top: 1px solid var(--c-borde);
+  }
+  .menu__titulo {
+    font-size: var(--paso--1);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-enlace);
+    margin-bottom: var(--esp-2);
+  }
+  .menu__panel ul a {
+    display: flex;
+    align-items: center;
+    min-height: var(--tactil);
+    border-bottom: 1px solid var(--c-borde);
+    color: var(--papel);
+    text-decoration: none;
+    font-size: var(--paso-1);
+  }
+  .menu__principal {
+    margin-top: var(--esp-5);
+  }
+  .menu__principal a {
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+  }
+  .menu__ctas {
+    display: grid;
+    gap: var(--esp-3);
+  }
+  .menu__ricardo {
+    display: flex;
+    align-items: center;
+    min-height: var(--tactil);
+    color: var(--c-suave);
+  }
+
+  /* ── Desktop ── */
+  @media (min-width: 68em) {
+    .header__fila {
+      height: 76px;
+      gap: var(--esp-5);
+    }
+    .header__logo {
+      margin-right: var(--esp-4);
+    }
+    .header__logo :global(svg) {
+      height: 40px;
+    }
+    .header__movil {
+      display: none;
+    }
+    .header__nav {
+      display: block;
+      margin-right: auto;
+    }
+    .header__nav > ul {
+      display: flex;
+      align-items: center;
+      gap: var(--esp-2);
+    }
+    .header__ctas {
+      display: flex;
+      gap: var(--esp-2);
+    }
+    .header__ctas :global(.boton) {
+      padding-inline: var(--esp-4);
+      font-size: var(--paso--1);
+    }
+  }
+  .header__enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--esp-1);
+    min-height: var(--tactil);
+    padding-inline: var(--esp-3);
+    color: var(--papel);
+    font-size: var(--paso--1);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .header__enlace:hover {
+    text-decoration: underline;
+  }
+  .header__enlace--acento {
+    color: var(--acento-sobre-tinta);
+    font-weight: 600;
+  }
+  .desplegable {
+    position: relative;
+  }
+  .desplegable[open] summary :global(.icono) {
+    transform: rotate(180deg);
+  }
+  .desplegable__panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 0;
+    min-width: 19rem;
+    padding: var(--esp-3);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-2);
+    box-shadow: var(--sombra-2);
+  }
+  .desplegable__panel a {
+    display: flex;
+    align-items: center;
+    min-height: var(--tactil);
+    padding-inline: var(--esp-3);
+    color: var(--texto);
+    text-decoration: none;
+    border-radius: var(--radio-1);
+  }
+  .desplegable__panel a:hover {
+    background: color-mix(in srgb, var(--linea) 45%, transparent);
+  }
+  .desplegable__pie {
+    margin-top: var(--esp-2);
+    border-top: 1px solid var(--linea);
+    border-radius: 0 !important;
+    color: var(--acento-texto) !important;
+    font-weight: 600;
+  }
+</style>

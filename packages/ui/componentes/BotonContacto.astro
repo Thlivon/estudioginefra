@@ -1,0 +1,118 @@
+---
+// Botón atómico de contacto. Arma wa.me / tel: desde estudio.mjs; nunca recibe un número escrito a mano.
+import Icono from './Icono.astro';
+import { estudio } from '../estudio.mjs';
+import { enlaceTel, enlaceWhatsApp } from '../enlaces.mjs';
+
+export interface Props {
+  tipo: 'llamar' | 'whatsapp' | 'formulario';
+  numero?: 'principal' | 'ricardo';
+  mensaje?: string;
+  variante?: 'primario' | 'secundario' | 'texto';
+  /** Texto visible (desktop, y mobile si no hay etiquetaMovil). */
+  etiqueta?: string;
+  /** Texto visible en < 768 px. */
+  etiquetaMovil?: string;
+  /** Muestra el número como etiqueta (desktop). */
+  mostrarNumero?: boolean;
+  ariaLabel?: string;
+  icono?: boolean;
+  class?: string;
+}
+
+const {
+  tipo,
+  numero = 'principal',
+  mensaje,
+  variante = 'primario',
+  etiquetaMovil,
+  mostrarNumero = false,
+  ariaLabel,
+  icono = tipo !== 'formulario',
+  class: clase,
+} = Astro.props;
+const tel = estudio.telefonos[numero];
+const etiqueta = mostrarNumero ? tel.visible : (Astro.props.etiqueta ?? tel.visible);
+const externo = tipo === 'whatsapp';
+const href =
+  tipo === 'llamar' ? enlaceTel(tel.internacional) : tipo === 'whatsapp' ? enlaceWhatsApp(tel.internacional, mensaje) : '/contacto/#formulario';
+const descripcion = ariaLabel && (externo ? `${ariaLabel} (se abre en una pestaña nueva)` : ariaLabel);
+// WCAG 2.5.3: el nombre accesible tiene que contener el texto visible. Si la descripción ya lo contiene, va como
+// aria-label; si no ("Llamar ahora"), se suma al texto visible como texto solo para lectores.
+const contiene = (t?: string) => !t || descripcion?.toLowerCase().includes(t.toLowerCase());
+const usarAria = descripcion && contiene(etiqueta) && contiene(etiquetaMovil);
+const extra = descripcion && !usarAria ? descripcion : undefined;
+---
+
+<a
+  class:list={['boton', `boton--${variante}`, clase]}
+  href={href}
+  aria-label={usarAria ? descripcion : undefined}
+  {...externo && { target: '_blank', rel: 'noopener' }}
+>
+  {icono && <Icono nombre={tipo === 'llamar' ? 'telefono' : 'whatsapp'} tamano={20} />}
+  {
+    etiquetaMovil ? (
+      <>
+        <span class="solo-movil">{etiquetaMovil}</span>
+        <span class="solo-escritorio">{etiqueta}</span>
+      </>
+    ) : (
+      <span>{etiqueta}</span>
+    )
+  }
+  {extra && <span class="solo-lectores">: {extra}</span>}
+</a>
+
+<style>
+  .boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--esp-2);
+    min-height: var(--tactil);
+    padding: var(--esp-2) var(--esp-5);
+    border: 1px solid transparent;
+    border-radius: var(--radio-1);
+    font-family: var(--fuente-texto);
+    font-size: var(--paso-0);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .boton--primario {
+    background: var(--acento);
+    color: var(--sobre-acento);
+  }
+  .boton--secundario {
+    border-color: currentColor;
+    color: var(--c-texto);
+  }
+  .boton--texto {
+    min-height: auto;
+    padding: 0;
+    color: var(--c-enlace);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .boton {
+      transition:
+        background-color 0.15s,
+        color 0.15s,
+        transform 0.15s;
+    }
+    .boton:active {
+      transform: translateY(1px);
+    }
+  }
+  .boton--primario:hover {
+    background: color-mix(in srgb, var(--acento) 85%, var(--papel));
+  }
+  .boton--secundario:hover {
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+</style>

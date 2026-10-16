@@ -65,15 +65,15 @@ Destrabamos las autorizaciones para cirugías programadas, prótesis importadas 
 
 ## Imágenes
 
-Descargadas en `docs/legacy/`. Son originales: en el sitio nuevo se usan convertidas a AVIF/WebP en el build, nunca estos archivos directo.
+Originales descargadas en `docs/legacy/`; las que se usan en el sitio se movieron a su ubicación definitiva (hito 4). Son originales: en el sitio nuevo se usan convertidas a AVIF/WebP en el build, nunca estos archivos directo.
 
 | Archivo | Tamaño | Peso | Veredicto |
 |---|---|---|---|
-| `fondos/comodoro-py.png` | 2747×1177 | 7,2 MB | **Usable.** Licencia confirmada. Fachada de Comodoro Py (tribunales federales penales): hero del sitio penal. En pantallas retina anchas queda algo justa; recortar en lugar de estirar. |
-| `equipo/ricardo-ginefra.png` | 1005×1121 | 1,8 MB | **Usable.** Buena calidad, plano medio. Pesa mucho por ser PNG: se convierte en el build. |
-| `equipo/facundo-ginefra.jpg` | 900×900 | 72 KB | **Usable con límite.** Alcanza para tarjetas de hasta ~450 px; **no sirve para hero ni plano grande**. Aspecto retocado. Conviene una foto nueva. |
-| `marca/logo-provisorio.png` | 1551×1472 | 2,8 MB | **Solo referencia.** Logo provisorio en raster con fondo negro. Se rediseña en SVG (hito 4). |
-| `og/card.jpg` | 1280×800 | 8 KB | **Inutilizable.** Es un rectángulo negro. Se crean imágenes OG nuevas (hito 7). |
+| `apps/penal/src/assets/comodoro-py.png` | 2747×1177 | 7,2 MB | **Usable.** Licencia confirmada. Fachada de Comodoro Py (tribunales federales penales): hero del sitio penal. En pantallas retina anchas queda algo justa; recortar en lugar de estirar. |
+| `packages/ui/contenido/equipo/ricardo-ginefra.png` | 1005×1121 | 1,8 MB | **Usable.** Buena calidad, plano medio. Pesa mucho por ser PNG: se convierte en el build. |
+| `packages/ui/contenido/equipo/facundo-ginefra.jpg` | 900×900 | 72 KB | **Usable con límite.** Alcanza para tarjetas de hasta ~450 px; **no sirve para hero ni plano grande**. Aspecto retocado. Conviene una foto nueva. |
+| `docs/legacy/marca/logo-provisorio.png` | 1551×1472 | 2,8 MB | **Solo referencia.** Logo provisorio en raster con fondo negro. Se rediseña en SVG (hito 4). |
+| `docs/legacy/og/card.jpg` | 1280×800 | 8 KB | **Inutilizable.** Es un rectángulo negro. Se crean imágenes OG nuevas (hito 7). |
 
 ## SEO actual
 

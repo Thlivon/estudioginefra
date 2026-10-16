@@ -1,0 +1,9 @@
+---
+// Imprime datos estructurados. Escapa "<" para que ningún texto pueda cerrar el <script>.
+interface Props {
+  datos: unknown;
+}
+const json = JSON.stringify(Astro.props.datos).replace(/</g, '\u003c');
+---
+
+<script type="application/ld+json" is:inline set:html={json} />

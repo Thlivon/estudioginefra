@@ -6,6 +6,7 @@ matricula:
   folio: 254
   colegio: "{COLEGIO A CONFIRMAR}"
 telefono: "ricardo"
+foto: "./ricardo-ginefra.png"
 fotoAlt: "Ricardo Ginefra, abogado fundador de Ginefra & Asociados, de pie con traje oscuro y corbata azul en un salón con paneles de madera"
 orden: 2
 enfoque:

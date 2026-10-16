@@ -1,0 +1,78 @@
+---
+// Esqueleto común: meta, canonical, noindex, fuentes, JSON-LD del estudio, Header, Footer, barra mobile y flotante.
+// El tema (penal.css / amparos.css) lo importa cada app.
+import '../estilos/base.css';
+import { Font } from 'astro:assets';
+import simbolo from '../marca/propuesta-2-simbolo.svg?raw';
+import { indexar, sitioHermano } from '../site.mjs';
+import { legalService } from '../schema.mjs';
+import Sprite from './Sprite.astro';
+import JsonLd from './JsonLd.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import BarraContactoMovil from './BarraContactoMovil.astro';
+import BotonWhatsAppFlotante from './BotonWhatsAppFlotante.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Config del sitio (apps/{sitio}/src/sitio.mjs) */
+  sitio: any;
+  /** Áreas del sitio ordenadas, para header, footer y schema */
+  areas?: { slug: string; titulo: string; tituloCorto: string }[];
+  mensajeWhatsapp?: string;
+  ordenCtas?: 'llamar-primero' | 'whatsapp-primero';
+  noindex?: boolean;
+  /** Nodos JSON-LD extra de la página */
+  schema?: object[];
+}
+
+const { title, description, sitio, areas = [], ordenCtas, noindex = false, schema = [] } = Astro.props;
+const mensajeWhatsapp = Astro.props.mensajeWhatsapp ?? sitio.mensajeWhatsappPorDefecto;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// Favicon provisorio: símbolo de la propuesta 2 con color fijo (en la pestaña no hay currentColor que heredar).
+const favicon = `data:image/svg+xml,${encodeURIComponent(
+  simbolo.replace('<svg ', `<svg style="color:#0e1726;background:#f7f5f0" `),
+)}`;
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {(!indexar || noindex) && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#0e1726" />
+    <link rel="icon" href={favicon} type="image/svg+xml" />
+    <Font cssVariable="--fuente-titulos" preload />
+    <Font cssVariable="--fuente-texto" preload />
+    <JsonLd datos={legalService({ site: Astro.site, sitio, areas, sitioHermano })} />
+    {schema.map((datos) => <JsonLd datos={datos} />)}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <Sprite />
+    <Header sitio={sitio} areas={areas} mensajeWhatsapp={mensajeWhatsapp} />
+    <main id="contenido" tabindex="-1">
+      <slot />
+    </main>
+    <Footer sitio={sitio} areas={areas} />
+    <BarraContactoMovil sitio={sitio} orden={ordenCtas} mensajeWhatsapp={mensajeWhatsapp} />
+    <BotonWhatsAppFlotante mensaje={mensajeWhatsapp} ariaLabel={sitio.flotante.aria} titulo={sitio.flotante.titulo} />
+  </body>
+</html>
+
+<style>
+  @media (max-width: 47.99em) {
+    body {
+      padding-bottom: calc(var(--alto-barra) + env(safe-area-inset-bottom));
+    }
+  }
+  main:focus {
+    outline: none;
+  }
+</style>

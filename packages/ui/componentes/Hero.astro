@@ -1,0 +1,167 @@
+---
+// Cabecera de página. `imagen`: foto de fondo con velo (inicio penal); `texto`: banda oscura sin foto (inicio amparos);
+// `compacto`: páginas internas.
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import BotonContacto, { type Props as Boton } from './BotonContacto.astro';
+import Sellos from './Sellos.astro';
+
+interface Props {
+  variante: 'imagen' | 'texto' | 'compacto';
+  h1: string;
+  bajada?: string;
+  ctas?: Boton[];
+  imagen?: ImageMetadata;
+  imagenAlt?: string;
+  sellos?: { icono: string; texto: string }[];
+}
+const { variante, h1, bajada, ctas = [], imagen, imagenAlt = '', sellos } = Astro.props;
+
+// Dirección de arte: en mobile, recorte vertical al centro de la fachada; en desktop, la foto completa.
+// (<Picture> no admite fuentes por media query, por eso getImage.)
+let foto;
+if (variante === 'imagen' && imagen) {
+  // Bajo el velo el detalle no se ve: calidad baja y anchos chicos (2:3) para que el LCP sea liviano.
+  const movil = [400, 600];
+  const recorte = (formato: 'avif' | 'webp') =>
+    Promise.all(
+      movil.map((w) => getImage({ src: imagen, width: w, height: Math.round(w * 1.5), fit: 'cover', position: 'center', format: formato, quality: 45 })),
+    ).then((imgs) => imgs.map((i, n) => `${i.src} ${movil[n]}w`).join(', '));
+  const ancha = (formato: 'avif' | 'webp') =>
+    getImage({ src: imagen, widths: [1024, 1440, 1920, imagen.width], format: formato, quality: 55 }).then((i) => i.srcSet.attribute);
+  const [movilAvif, movilWebp, anchaAvif, anchaWebp, base] = await Promise.all([
+    recorte('avif'),
+    recorte('webp'),
+    ancha('avif'),
+    ancha('webp'),
+    getImage({ src: imagen, width: 1440, format: 'webp', quality: 55 }),
+  ]);
+  foto = { movilAvif, movilWebp, anchaAvif, anchaWebp, base };
+}
+const oscuro = variante !== 'compacto';
+---
+
+<section class:list={['hero', `hero--${variante}`, { 'sobre-tinta': oscuro }]} aria-labelledby="hero-titulo">
+  {
+    foto && (
+      <picture class="hero__foto">
+        <source media="(max-width: 47.99em)" type="image/avif" srcset={foto.movilAvif} sizes="100vw" />
+        <source media="(max-width: 47.99em)" type="image/webp" srcset={foto.movilWebp} sizes="100vw" />
+        <source type="image/avif" srcset={foto.anchaAvif} sizes="100vw" />
+        <source type="image/webp" srcset={foto.anchaWebp} sizes="100vw" />
+        <img
+          src={foto.base.src}
+          alt={imagenAlt}
+          width={foto.base.attributes.width}
+          height={foto.base.attributes.height}
+          fetchpriority="high"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
+    )
+  }
+  <div class="contenedor hero__contenido">
+    <h1 id="hero-titulo">{h1}</h1>
+    {bajada && <p class="hero__bajada">{bajada}</p>}
+    {
+      ctas.length > 0 && (
+        <div class="hero__ctas">
+          {ctas.map((c) => (
+            <BotonContacto {...c} />
+          ))}
+        </div>
+      )
+    }
+    {sellos && <Sellos items={sellos} />}
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .hero__contenido {
+    display: grid;
+    gap: var(--esp-5);
+    padding-block: var(--esp-7) var(--esp-6);
+  }
+  h1 {
+    max-width: 18ch;
+  }
+  .hero__bajada {
+    max-width: 38rem;
+    font-size: var(--paso-1);
+    color: var(--c-suave);
+  }
+  .hero__ctas {
+    display: grid;
+    gap: var(--esp-3);
+  }
+  .hero :global(.sellos) {
+    margin-top: var(--esp-3);
+  }
+
+  /* Imagen con velo: el velo garantiza el contraste del texto sobre cualquier zona de la foto */
+  .hero__foto,
+  .hero__foto img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+  .hero__foto img {
+    object-fit: cover;
+    object-position: center;
+  }
+  .hero--imagen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--tinta) 80%, transparent) 0%,
+      color-mix(in srgb, var(--tinta) 86%, transparent) 55%,
+      color-mix(in srgb, var(--tinta) 95%, transparent) 100%
+    );
+  }
+  .hero--imagen .hero__contenido {
+    min-height: min(85svh, 46rem);
+    align-content: center;
+  }
+
+  .hero--compacto {
+    border-bottom: 1px solid var(--linea);
+  }
+  .hero--compacto h1 {
+    font-size: var(--paso-3);
+    max-width: 24ch;
+  }
+
+  @media (max-width: 47.99em) {
+    .hero__ctas :global(.boton) {
+      width: 100%;
+    }
+  }
+  @media (min-width: 48em) {
+    .hero__contenido {
+      padding-block: var(--esp-seccion);
+    }
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .hero--imagen::before {
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--tinta) 94%, transparent) 0%,
+        color-mix(in srgb, var(--tinta) 84%, transparent) 50%,
+        color-mix(in srgb, var(--tinta) 60%, transparent) 100%
+      );
+    }
+  }
+</style>

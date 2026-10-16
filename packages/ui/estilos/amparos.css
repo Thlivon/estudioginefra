@@ -1,0 +1,14 @@
+/* Tema amparos (se usa a partir del hito 5). Misma base que penal. */
+:root {
+  --tinta: #10232a;
+  --papel: #f7f5f0;
+  --superficie: #ffffff;
+  --texto: #1a1f2b;
+  --texto-suave: #4a5263;
+  --linea: #d9d4c7;
+  --acento: #1f6f6b; /* verde petróleo: fondo del CTA principal con texto --papel */
+  --acento-texto: #175451;
+  --acento-sobre-tinta: #6fbfb8; /* #1F6F6B sobre --tinta no llega a 3:1 */
+  --sobre-acento: var(--papel);
+  --sobre-tinta-suave: #b9c4c7;
+}

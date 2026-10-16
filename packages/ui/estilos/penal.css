@@ -1,0 +1,14 @@
+/* Tema penal. Contrastes WCAG medidos en docs/diseno.md. */
+:root {
+  --tinta: #0e1726;
+  --papel: #f7f5f0;
+  --superficie: #ffffff;
+  --texto: #1a1f2b;
+  --texto-suave: #4a5263;
+  --linea: #d9d4c7;
+  --acento: #b8893b; /* latón: sobre --tinta y como fondo del CTA principal */
+  --acento-texto: #7a5a1e; /* acento como texto o ícono sobre --papel */
+  --acento-sobre-tinta: var(--acento);
+  --sobre-acento: var(--tinta);
+  --sobre-tinta-suave: #b9bfcb;
+}

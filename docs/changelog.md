@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-10-15 · Hito 4 · `feat/diseno`
+
+**Hecho**
+- Sistema de diseño (`docs/diseno.md`): tokens en `packages/ui/estilos/` (base + tema penal y amparos), Source Serif 4 e Inter autoalojadas con la Fonts API.
+- Tres propuestas de logo en SVG (`packages/ui/marca/`) y página temporal `/propuestas-logo/` (noindex). El header usa la propuesta 2 provisoriamente.
+- Datos únicos en `packages/ui/estudio.mjs`; enlaces en `enlaces.mjs` con test (`npm test`). Enlace al sitio hermano por Related Projects (`@vercel/related-projects`).
+- Content Collections del sitio penal con todos los campos del copy; fotos del equipo y Comodoro Py movidas a su ubicación definitiva.
+- Componentes compartidos en `packages/ui/componentes/` y portada penal completa (10 bloques, sin JS de cliente). Lighthouse mobile: 99 / 100 / 100 / 66 (SEO 100 con `INDEXAR=true`; baja solo por el noindex de pruebas).
+- `trailingSlash` en Astro y `vercel.json` de ambas apps.
+
+**Decisiones**
+- Hero con dirección de arte vía `getImage` (recorte vertical en mobile): `<Picture>` no admite fuentes por media query.
+- Amparos: `--acento-sobre-tinta: #6FBFB8` porque el petróleo sobre tinta no llega a 3:1.
+- Botones: si el aria-label del microcopy no contiene el texto visible, se agrega como texto oculto (WCAG 2.5.3).
+
+**Revisión del líder**
+- Revisé la portada en mobile (375 px) y desktop (1440 px), y la página de logos: sin problemas de diseño ni de contraste.
+- Lighthouse mobile repetido de forma independiente: 99 / 100 / 100 / 66, LCP 2,3 s, CLS 0, TBT 10 ms.
+- HTML: un solo H1, sin JS de cliente (solo JSON-LD), canonical y noindex correctos.
+- Cerré un servidor de preview que el agente dejó corriendo.
+
+**Pendiente (hito 5)**
+- Resto de páginas y plantillas (áreas, guía, local, equipo con `TarjetaAbogado` completa, contacto, privacidad, 404, Migas, BloqueContacto) e inicio de amparos con su `content.config.ts`.
+- Elegir logo y borrar `/propuestas-logo/`. Favicon e imagen OG definitivos (hito 7).
+- Las FAQ del inicio muestran marcadores `{A CONFIRMAR}` del copy.
+
 ## 2026-10-15 · Hito 3 · `feat/copy`
 
 **Hecho**

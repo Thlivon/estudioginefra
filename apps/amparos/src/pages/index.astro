@@ -1,10 +1,15 @@
 ---
-import Layout from '@ginefra/ui/Layout.astro';
+// Provisoria: el inicio de amparos se construye en el hito 5.
+import '@ginefra/ui/estilos/amparos.css';
+import Layout from '@ginefra/ui/componentes/Layout.astro';
+import Hero from '@ginefra/ui/componentes/Hero.astro';
+import { sitio } from '../sitio.mjs';
 ---
 
-<Layout title="Ginefra & Asociados | Amparos de salud" description="Estudio Ginefra & Asociados: amparos de salud y medidas cautelares frente a prepagas y obras sociales.">
-  <main>
-    <h1>Ginefra &amp; Asociados</h1>
-    <p>Amparos de salud. Sitio en construcción.</p>
-  </main>
+<Layout
+  title="Ginefra & Asociados | Amparos de salud"
+  description="Estudio Ginefra & Asociados: amparos de salud y medidas cautelares frente a prepagas y obras sociales."
+  sitio={sitio}
+>
+  <Hero variante="texto" h1="Ginefra & Asociados" bajada="Amparos de salud. Sitio en construcción." />
 </Layout>
