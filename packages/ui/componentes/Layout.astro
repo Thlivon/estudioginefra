@@ -3,7 +3,7 @@
 // El tema (penal.css / amparos.css) lo importa cada app.
 import '../estilos/base.css';
 import { Font } from 'astro:assets';
-import { indexar, sitioHermano } from '../site.mjs';
+import { analitica, indexar, sitioHermano } from '../site.mjs';
 import { legalService } from '../schema.mjs';
 import { estudio } from '../estudio.mjs';
 import Sprite from './Sprite.astro';
@@ -61,6 +61,7 @@ const ogImagen = new URL('/og.jpg', Astro.site);
     <Font cssVariable="--fuente-texto" preload />
     <JsonLd datos={legalService({ site: Astro.site, sitio, areas, sitioHermano })} />
     {schema.map((datos) => <JsonLd datos={datos} />)}
+    {analitica && <script is:inline defer src="/_vercel/insights/script.js"></script>}
     <slot name="head" />
   </head>
   <body>

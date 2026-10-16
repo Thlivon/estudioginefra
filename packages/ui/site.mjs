@@ -28,3 +28,6 @@ export const robotsTxt = (url) =>
   indexar
     ? `User-agent: *\nAllow: /\n\nSitemap: ${new URL('/sitemap-index.xml', url).href}\n`
     : 'User-agent: *\nDisallow: /\n';
+
+// Vercel Web Analytics (sin cookies): su script solo existe en los deployments de Vercel, no en local.
+export const analitica = Boolean(env.VERCEL);

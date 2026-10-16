@@ -3,6 +3,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 import { site } from '@ginefra/ui/site.mjs';
 import { fuentes } from '@ginefra/ui/fuentes.mjs';
+import { csp } from '@ginefra/ui/seguridad.mjs';
 
 export default defineConfig({
   site,
@@ -10,6 +11,9 @@ export default defineConfig({
   adapter: vercel(),
   trailingSlash: 'always',
   fonts: fuentes,
+  security: { csp },
+  // Sin bloques de código: Shiki usa estilos en línea que la CSP bloquearía.
+  markdown: { syntaxHighlight: false },
   // La confirmación del formulario no se indexa.
   integrations: [sitemap({ filter: (pagina) => !pagina.endsWith('/contacto/enviado/') })],
   // El CSS total es chico: inline evita una petición que bloquea el render.
