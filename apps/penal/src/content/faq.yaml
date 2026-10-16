@@ -1,0 +1,83 @@
+# Preguntas generales del sitio penal (no pertenecen a un área).
+# paginas: dónde se muestra cada una (inicio / local / contacto). orden: dentro de cada página.
+
+# ── Inicio ──────────────────────────────────────────────
+- id: cuanto-cuesta-la-consulta
+  pregunta: "¿Cuánto cuesta la consulta con un abogado penalista?"
+  respuesta: "La primera conversación con la guardia sirve para entender qué pasó y decirte qué hay que hacer ya. Los honorarios dependen del tipo de causa, de la etapa y de la jurisdicción, y te los informamos claros antes de empezar, sin letra chica. Lo urgente no espera al presupuesto: mientras hablamos, ya estamos actuando. {A CONFIRMAR: si la primera consulta tiene costo y formas de pago}"
+  paginas: [inicio]
+  orden: 1
+
+- id: pueden-ir-a-la-comisaria-ahora
+  pregunta: "¿Pueden ir a la comisaría ahora mismo?"
+  respuesta: "Sí. La guardia penal funciona las 24 horas, todos los días. Cuando nos llamás, un abogado ubica a tu familiar, se comunica con la comisaría y con la fiscalía de turno y se presenta donde haga falta, en La Matanza, en CABA o en el fuero federal. Tené a mano su nombre completo, su DNI y dónde lo detuvieron: con eso arrancamos."
+  paginas: [inicio]
+  orden: 2
+
+- id: atienden-fines-de-semana
+  pregunta: "¿Atienden fines de semana y feriados?"
+  respuesta: "Sí. Las detenciones y los allanamientos no respetan horarios, y nuestra guardia tampoco: atendemos las 24 horas, los 7 días, fines de semana y feriados incluidos. Llamá o escribí por WhatsApp y te responde un abogado del estudio. Para reuniones en el estudio de San Justo coordinamos un turno, pero la urgencia se atiende en el momento."
+  paginas: [inicio]
+  orden: 3
+
+- id: ya-tengo-abogado
+  pregunta: "¿Qué pasa si ya tengo abogado o defensor oficial?"
+  respuesta: "Podés cambiar de abogado en cualquier momento de la causa, aunque tengas un abogado particular o un defensor oficial. Solo hay que designar al nuevo defensor, que se presenta en el expediente y sigue desde donde está. Si dudás de cómo se está llevando tu caso, también podemos revisar la causa y darte una segunda opinión clara y honesta."
+  paginas: [inicio]
+  orden: 4
+
+- id: es-confidencial
+  pregunta: "¿Lo que les cuento es confidencial?"
+  respuesta: "Totalmente. Todo lo que nos contás está protegido por el secreto profesional: no lo compartimos con nadie y no puede usarse en tu contra. Podés hablar con tranquilidad desde el primer mensaje, incluso si todavía no decidiste contratarnos. Cuanto más claro nos cuentes lo que pasó, mejor vamos a poder defenderte."
+  paginas: [inicio, contacto]
+  orden: 5
+
+- id: solo-la-matanza
+  pregunta: "¿Solo atienden causas en La Matanza?"
+  respuesta: "No. El estudio está en San Justo y conocemos a fondo el Departamento Judicial La Matanza, pero también actuamos en la Ciudad de Buenos Aires y en el fuero federal, incluidos los tribunales de Comodoro Py. Si tu causa está en otro departamento judicial del conurbano, consultanos igual: te decimos enseguida cómo podemos ayudarte."
+  paginas: [inicio]
+  orden: 6
+
+# ── Página local (San Justo / La Matanza) ───────────────
+- id: cuanto-tardan-en-llegar
+  pregunta: "¿Cuánto tardan en llegar a una comisaría de La Matanza?"
+  respuesta: "Salimos desde San Justo, la cabecera del partido, así que llegamos rápido a cualquier comisaría de La Matanza. {A CONFIRMAR: tiempo de llegada habitual} Y no hace falta esperar a estar ahí: apenas nos llamás, nos comunicamos con la comisaría y con la fiscalía de turno para presentarnos como defensores y frenar cualquier declaración sin abogado."
+  paginas: [local]
+  orden: 1
+
+- id: donde-quedan-los-tribunales
+  pregunta: "¿Dónde quedan los tribunales penales de La Matanza?"
+  respuesta: "Las fiscalías, los juzgados de garantías y los tribunales orales del Departamento Judicial La Matanza funcionan en San Justo, la misma localidad donde está nuestro estudio. {VERIFICAR: direcciones de las sedes penales del Departamento Judicial La Matanza} Esa cercanía nos permite estar presentes en audiencias, consultar expedientes y resolver trámites sin perder tiempo en traslados."
+  paginas: [local]
+  orden: 2
+
+- id: atienden-ramos-mejia-laferrere-catan
+  pregunta: "¿Atienden en Ramos Mejía, Laferrere o González Catán?"
+  respuesta: "Sí. Atendemos en todo el partido de La Matanza: Ramos Mejía, Gregorio de Laferrere, González Catán, Isidro Casanova, Virrey del Pino, Ciudad Evita y el resto de las localidades. Todas dependen del Departamento Judicial La Matanza, donde trabajamos a diario. La guardia 24 h cubre cualquier comisaría del partido, de día o de noche."
+  paginas: [local]
+  orden: 3
+
+- id: ir-al-estudio-sin-turno
+  pregunta: "¿Puedo ir al estudio de San Justo sin turno?"
+  respuesta: "Para reuniones en el estudio coordinamos un turno previo, así te recibe directamente el abogado a cargo de tu caso, sin esperas. Si es urgente, no esperes al turno: llamá a la guardia, que atiende las 24 horas, y resolvemos lo inmediato por teléfono o directamente en la comisaría o la fiscalía."
+  paginas: [local, contacto]
+  orden: 4
+
+# ── Contacto ────────────────────────────────────────────
+- id: llamar-o-whatsapp
+  pregunta: "¿Conviene llamar o escribir por WhatsApp?"
+  respuesta: "Si es una urgencia, como una detención o un allanamiento en curso, llamá: es la forma más rápida de hablar con un abogado en ese mismo momento. Si la consulta puede esperar unas horas, WhatsApp es ideal, porque podés mandar fotos de citaciones, actas o notificaciones. Las dos vías están atendidas por la guardia las 24 horas."
+  paginas: [contacto]
+  orden: 1
+
+- id: consultar-por-otra-persona
+  pregunta: "¿Puedo consultar por otra persona?"
+  respuesta: "Sí, y es lo más común: casi siempre nos llama un familiar o un amigo de la persona detenida o imputada. Contanos qué pasó, dónde está y sus datos. Nosotros nos encargamos de ubicarla y de presentarnos como defensores; después ella confirma la designación. No hace falta que la persona involucrada nos contacte primero."
+  paginas: [contacto]
+  orden: 2
+
+- id: datos-por-whatsapp
+  pregunta: "¿Qué pasa con los datos que envío por WhatsApp?"
+  respuesta: "Los usamos solo para atender tu consulta y quedan protegidos por el secreto profesional. WhatsApp es un servicio de Meta, que tiene sus propias políticas de privacidad. Si preferís no mandar algún documento por ese medio, decinos y coordinamos otra forma de entregarlo. Tenés todos los detalles en nuestra política de privacidad."
+  paginas: [contacto]
+  orden: 3
