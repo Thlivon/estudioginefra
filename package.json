@@ -1,0 +1,16 @@
+{
+  "name": "estudioginefra",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev:penal": "npm run dev -w penal",
+    "dev:amparos": "npm run dev -w amparos",
+    "build": "npm run build --workspaces --if-present"
+  }
+}

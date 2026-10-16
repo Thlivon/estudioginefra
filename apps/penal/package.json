@@ -1,0 +1,14 @@
+{
+  "name": "penal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@ginefra/ui": "*",
+    "astro": "^7.3.8"
+  }
+}
