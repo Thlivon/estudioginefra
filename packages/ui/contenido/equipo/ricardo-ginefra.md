@@ -4,6 +4,7 @@ rol: "Abogado fundador"
 matricula:
   tomo: 10
   folio: 254
+  colegio: "Colegio de Abogados de La Matanza"
 telefono: "ricardo"
 foto: "./ricardo-ginefra.png"
 fotoAlt: "Ricardo Ginefra, abogado fundador de Ginefra & Asociados, de pie con traje oscuro y corbata azul en un salón con paneles de madera"

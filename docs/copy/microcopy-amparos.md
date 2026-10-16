@@ -136,7 +136,7 @@ Ambos usan el `mensajeWhatsapp` de la página actual (§9) o, si no tiene, el me
 | Elemento | Texto |
 |---|---|
 | H3 en cada tarjeta | Trayectoria · Áreas |
-| Etiqueta de matrícula | Matrícula: T° {tomo} F° {folio} |
+| Etiqueta de matrícula | Matrícula: T° {tomo} F° {folio} · {colegio} |
 | Facundo · botones | Escribir a Facundo (WhatsApp, número principal) · Llamar a Facundo (`tel:` principal) |
 | Ricardo · botones | Escribir a Ricardo (WhatsApp 11 5927-1122) · Llamar a Ricardo (`tel:` 11 5927-1122) |
 | `alt` de fotos | Lo define `fotoAlt` en el archivo de equipo compartido. |
@@ -187,7 +187,7 @@ Ambos usan el `mensajeWhatsapp` de la página actual (§9) o, si no tiene, el me
 | Título columna contacto | Contacto |
 | Contacto · líneas | WhatsApp y teléfono: 11 5126-1499 · Ricardo Ginefra: 11 5927-1122 · Correo: estudiolosdefensores@hotmail.com |
 | Horario | Urgencias de salud: 24 h, todos los días · En el estudio, con turno previo |
-| Legal · matrículas | Facundo Ginefra · Abogado · T° 13 F° 277 · Ricardo Ginefra · Abogado · T° 10 F° 254 |
+| Legal · matrículas | Facundo Ginefra · Abogado · T° 13 F° 277 · Colegio de Abogados de La Matanza · Ricardo Ginefra · Abogado · T° 10 F° 254 · Colegio de Abogados de La Matanza |
 | Legal · copyright | © {año} Ginefra & Asociados |
 | Legal · privacidad | Política de privacidad |
 | Enlace cruzado | ¿Necesitás un abogado penalista? estudioginefra.com.ar |

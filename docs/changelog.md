@@ -15,8 +15,7 @@ Respuestas tomadas de la página «Lanzamiento Ginefra» (22 de 22 respondidas).
 - Se confirman: violencia de género solo como defensa, los claims del sitio actual, la foto actual de Facundo y la aprobación de ambos sitios.
 - 0 marcadores en el código y en las 23 páginas generadas.
 
-**Pendiente**
-- **Colegio de las matrículas**: la respuesta fue "Sí", sin indicar cuál. Hasta tenerlo, la matrícula se muestra como "T° 13 F° 277" sin colegio.
+- **Colegio de las matrículas**: Colegio de Abogados de La Matanza (confirmado por el dueño). Se muestra en el pie de ambos sitios, en las tarjetas del equipo y en los datos estructurados (`recognizedBy` de cada `Person`).
 
 ## 2026-10-16 · Hito 8 · `feat/seguridad`
 

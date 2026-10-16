@@ -4,6 +4,7 @@ rol: "Abogado titular"
 matricula:
   tomo: 13
   folio: 277
+  colegio: "Colegio de Abogados de La Matanza"
 telefono: "principal"
 foto: "./facundo-ginefra.jpg"
 fotoAlt: "Facundo Ginefra, abogado titular de Ginefra & Asociados, de traje gris y corbata azul en su despacho, frente a una biblioteca jurídica"
