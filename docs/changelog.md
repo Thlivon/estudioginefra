@@ -30,8 +30,10 @@
 - `CONTACTO_EMAIL=true` activado **solo** en las previews de la rama `feat/formulario` (ambos proyectos) para probar en Vercel; producción sigue apagada.
 - Sin rate limiting propio: BotID + honeypot + límite diario de Resend. Si aparece spam humano, se agrega una regla de rate limit en el firewall de Vercel.
 
+- Probado en la preview de Vercel con el flag encendido: `/contacto/` muestra el formulario; POST desde otro origen → 403 (control de origen); POST del mismo origen por curl → 403 por BotID (log "rechazado por BotID"); el challenge de BotID responde 200 a través de las rewrites; `/contacto/enviado/` existe.
+
 **Pendiente**
-- Probar en un preview con el flag: que las rewrites de `vercel.json` convivan con las rutas del adapter, el envío real por Resend con el dominio verificado y que BotID rechace un curl.
+- Configurar Resend (cuenta, dominio verificado, `RESEND_API_KEY`, `CONTACTO_REMITENTE`) y probar un envío real desde un navegador: confirma que BotID deja pasar a una persona y que el correo llega.
 - Con el flag apagado, el JS del formulario igual se genera en `_astro/`, pero ninguna página lo carga.
 
 ## 2026-10-16 · Hito 5 · `feat/paginas`
