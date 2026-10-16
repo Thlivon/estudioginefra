@@ -1,0 +1,172 @@
+---
+// Pie: contacto, áreas, estudio y fila legal (matrículas, privacidad, enlace cruzado).
+// En el DOM va primero lo urgente (Contacto → Áreas → Estudio); en desktop se reordena visualmente.
+import Logo from '../marca/propuesta-2-horizontal.svg';
+import { estudio } from '../estudio.mjs';
+import { enlaceTel } from '../enlaces.mjs';
+import { sitioHermano } from '../site.mjs';
+
+interface Props {
+  sitio: any;
+  areas: { slug: string; titulo: string }[];
+}
+const { sitio, areas } = Astro.props;
+const f = sitio.footer;
+const { principal, ricardo } = estudio.telefonos;
+const anio = new Date().getFullYear();
+const nuevaPestana = ' (se abre en una pestaña nueva)';
+---
+
+<footer class="footer sobre-tinta" aria-label="Información del estudio">
+  <div class="contenedor footer__grilla">
+    <div class="footer__col footer__contacto">
+      <h2 class="footer__titulo">{f.titulos.contacto}</h2>
+      <ul role="list">
+        <li>{f.etiquetaPrincipal}: <a href={enlaceTel(principal.internacional)}>{principal.visible}</a></li>
+        <li>Ricardo Ginefra: <a href={enlaceTel(ricardo.internacional)} aria-label={sitio.aria.ricardo}>{ricardo.visible}</a></li>
+        {
+          sitio.mostrarInstagram && (
+            <li>
+              Instagram:{' '}
+              <a href={estudio.instagram.url} target="_blank" rel="noopener" aria-label={`Instagram @${estudio.instagram.usuario}${nuevaPestana}`}>
+                @{estudio.instagram.usuario}
+              </a>
+            </li>
+          )
+        }
+        {
+          f.mostrarCorreo && (
+            <li>
+              Correo: <a href={`mailto:${estudio.correo}`}>{estudio.correo}</a>
+            </li>
+          )
+        }
+      </ul>
+      <ul role="list" class="footer__horarios">
+        {f.horarios.map((h) => <li>{h}</li>)}
+      </ul>
+    </div>
+
+    <div class="footer__col footer__areas">
+      <h2 class="footer__titulo">{f.titulos.areas}</h2>
+      <ul role="list">
+        {
+          areas.map((a) => (
+            <li>
+              <a href={`/${a.slug}/`}>{a.titulo}</a>
+            </li>
+          ))
+        }
+        {
+          f.areasExtra.map((e) => (
+            <li>
+              <a href={e.href}>{e.texto}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="footer__col footer__estudio">
+      <h2 class="footer__titulo">{f.titulos.estudio}</h2>
+      <Logo class="footer__logo" aria-hidden="true" />
+      <p>{f.posicionamiento}</p>
+      <address>{estudio.direccion.visible}</address>
+      <a href={estudio.mapa} target="_blank" rel="noopener" aria-label={`Cómo llegar al estudio en Google Maps${nuevaPestana}`}>Cómo llegar</a>
+    </div>
+  </div>
+
+  <div class="contenedor footer__legal">
+    <ul role="list">
+      {
+        estudio.matriculas.map((m) => (
+          <li>
+            {m.nombre} · Abogado · T° {m.tomo} F° {m.folio}
+            {m.colegio && ` ${m.colegio}`}
+          </li>
+        ))
+      }
+      <li>© {anio} {estudio.nombre}</li>
+      <li><a href="/privacidad/">Política de privacidad</a></li>
+      <li>
+        {f.enlaceCruzado}{' '}<a href={sitioHermano}>{new URL(sitioHermano).host}</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--esp-seccion) var(--esp-6);
+    font-size: var(--paso--1);
+    color: var(--c-suave);
+  }
+  .footer a {
+    color: var(--papel);
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+  }
+  .footer__grilla {
+    display: grid;
+    gap: var(--esp-7);
+  }
+  .footer__col {
+    display: grid;
+    align-content: start;
+    gap: var(--esp-3);
+  }
+  .footer__titulo {
+    font-family: var(--fuente-texto);
+    font-size: var(--paso--1);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-enlace);
+  }
+  .footer__horarios {
+    margin-top: var(--esp-3);
+    padding-top: var(--esp-3);
+    border-top: 1px solid var(--c-borde);
+  }
+  .footer :global(.footer__logo) {
+    height: 44px;
+    width: auto;
+    color: var(--papel);
+    margin-bottom: var(--esp-2);
+  }
+  address {
+    font-style: normal;
+  }
+  .footer__legal {
+    margin-top: var(--esp-7);
+    padding-top: var(--esp-5);
+    border-top: 1px solid var(--c-borde);
+  }
+  .footer__legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--esp-5);
+  }
+  .footer__legal li {
+    display: flex;
+    align-items: center;
+    min-height: var(--tactil);
+  }
+  @media (min-width: 48em) {
+    .footer__grilla {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-areas: 'estudio areas contacto';
+    }
+    .footer__estudio {
+      grid-area: estudio;
+      max-width: 22rem;
+    }
+    .footer__areas {
+      grid-area: areas;
+    }
+    .footer__contacto {
+      grid-area: contacto;
+    }
+  }
+</style>

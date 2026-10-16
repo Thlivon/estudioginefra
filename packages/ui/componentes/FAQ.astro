@@ -1,0 +1,66 @@
+---
+// Preguntas frecuentes en <details>. Con `schema`, emite FAQPage con el mismo texto visible.
+import JsonLd from './JsonLd.astro';
+import Icono from './Icono.astro';
+import { faqPage } from '../schema.mjs';
+
+interface Props {
+  items: { pregunta: string; respuesta: string }[];
+  nivelTitulo?: 'h3' | 'h4';
+  schema?: boolean;
+}
+const { items, nivelTitulo: Titulo = 'h3', schema = false } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((i) => (
+      <details>
+        <summary>
+          <Titulo class="faq__pregunta">{i.pregunta}</Titulo>
+          <Icono nombre="chevron" tamano={22} />
+        </summary>
+        <p>{i.respuesta}</p>
+      </details>
+    ))
+  }
+</div>
+{schema && <JsonLd datos={faqPage(items)} />}
+
+<style>
+  .faq {
+    max-width: 48rem;
+    border-top: 1px solid var(--c-borde);
+  }
+  details {
+    border-bottom: 1px solid var(--c-borde);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-4);
+    min-height: var(--tactil);
+    padding-block: var(--esp-4);
+  }
+  .faq__pregunta {
+    font-size: var(--paso-1);
+    font-weight: 600;
+  }
+  summary :global(.icono) {
+    color: var(--c-icono);
+  }
+  details[open] summary :global(.icono) {
+    transform: rotate(180deg);
+  }
+  details p {
+    max-width: var(--ancho-texto);
+    padding-bottom: var(--esp-5);
+    color: var(--c-suave);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    summary :global(.icono) {
+      transition: transform 0.2s;
+    }
+  }
+</style>

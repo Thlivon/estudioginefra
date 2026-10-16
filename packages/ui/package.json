@@ -3,10 +3,12 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./site": "./site.mjs",
-    "./Layout.astro": "./Layout.astro"
+    "./*": "./*"
   },
   "peerDependencies": {
     "astro": "^7.3.8"
+  },
+  "dependencies": {
+    "@vercel/related-projects": "^1.1.1"
   }
 }

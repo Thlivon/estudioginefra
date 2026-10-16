@@ -1,0 +1,132 @@
+---
+// Tarjeta de área (con título y "Ver más"), de situación (la tarjeta entera es el enlace, sin encabezado)
+// o relacionada (versión compacta de la de área).
+import Icono from './Icono.astro';
+
+interface Props {
+  variante?: 'area' | 'situacion' | 'relacionada';
+  titulo: string;
+  resumen?: string;
+  href: string;
+  icono?: string;
+  vinetas?: string[];
+  nivelTitulo?: 'h2' | 'h3' | 'h4';
+  verMas?: string;
+}
+const { variante = 'area', titulo, resumen, href, icono, vinetas, nivelTitulo: Titulo = 'h3', verMas = 'Ver más' } = Astro.props;
+---
+
+{
+  variante === 'situacion' ? (
+    <a class="tarjeta tarjeta--situacion" href={href}>
+      <span>{titulo}</span>
+      <Icono nombre="flecha" tamano={20} />
+    </a>
+  ) : (
+    <div class:list={['tarjeta', `tarjeta--${variante}`]}>
+      {icono && <Icono nombre={icono} tamano={32} class="tarjeta__icono" />}
+      <Titulo class="tarjeta__titulo">{titulo}</Titulo>
+      {resumen && <p>{resumen}</p>}
+      {vinetas && (
+        <ul>
+          {vinetas.map((v) => (
+            <li>{v}</li>
+          ))}
+        </ul>
+      )}
+      <a class="tarjeta__enlace" href={href} aria-label={`${verMas} sobre ${titulo}`}>
+        {verMas}
+        <Icono nombre="flecha" tamano={18} />
+      </a>
+    </div>
+  )
+}
+
+<style>
+  .tarjeta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-3);
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-2);
+    color: var(--texto);
+  }
+  .tarjeta p,
+  .tarjeta li {
+    color: var(--texto-suave);
+  }
+  .tarjeta :global(.tarjeta__icono) {
+    color: var(--acento-texto);
+    margin-bottom: var(--esp-2);
+  }
+  .tarjeta__titulo {
+    font-size: var(--paso-1);
+  }
+  .tarjeta__enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--esp-2);
+    margin-top: auto;
+    min-height: var(--tactil);
+    font-weight: 600;
+    color: var(--acento-texto);
+    text-decoration: none;
+  }
+  /* El enlace cubre toda la tarjeta */
+  .tarjeta__enlace::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .tarjeta:has(.tarjeta__enlace:focus-visible) {
+    outline: 3px solid var(--foco);
+    outline-offset: 3px;
+  }
+  .tarjeta__enlace:focus-visible {
+    outline: none;
+  }
+  .tarjeta:hover {
+    border-color: var(--acento-texto);
+    box-shadow: var(--sombra-1);
+  }
+  .tarjeta:hover .tarjeta__enlace {
+    text-decoration: underline;
+  }
+
+  .tarjeta--situacion {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-3);
+    min-height: 5.5rem;
+    padding: var(--esp-4);
+    font-family: var(--fuente-titulos);
+    font-size: var(--paso-1);
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+  .tarjeta--situacion :global(.icono) {
+    color: var(--acento-texto);
+  }
+  .tarjeta--relacionada {
+    padding: var(--esp-4);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .tarjeta {
+      transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+    }
+    .tarjeta :global(.icono) {
+      transition: transform 0.15s;
+    }
+    .tarjeta:hover .tarjeta__enlace :global(.icono),
+    .tarjeta--situacion:hover :global(.icono) {
+      transform: translateX(3px);
+    }
+  }
+</style>

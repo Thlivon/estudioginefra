@@ -1,10 +1,288 @@
 ---
-import Layout from '@ginefra/ui/Layout.astro';
+// Inicio penal: los 10 bloques de docs/estructura.md §3.1.
+import { getCollection, getEntry } from 'astro:content';
+import LayoutPenal from '../layouts/LayoutPenal.astro';
+import Hero from '@ginefra/ui/componentes/Hero.astro';
+import TarjetaArea from '@ginefra/ui/componentes/TarjetaArea.astro';
+import Pasos from '@ginefra/ui/componentes/Pasos.astro';
+import BloqueCTA from '@ginefra/ui/componentes/BloqueCTA.astro';
+import TarjetaAbogado from '@ginefra/ui/componentes/TarjetaAbogado.astro';
+import FAQ from '@ginefra/ui/componentes/FAQ.astro';
+import Icono from '@ginefra/ui/componentes/Icono.astro';
+import { estudio } from '@ginefra/ui/estudio.mjs';
+import { botones } from '@ginefra/ui/enlaces.mjs';
+import { webSite } from '@ginefra/ui/schema.mjs';
+import { sitio } from '../sitio.mjs';
+import comodoroPy from '../assets/comodoro-py.png';
+
+const inicio = (await getEntry('paginas', 'inicio'))!.data;
+const areas = (await getCollection('areas')).sort((a, b) => a.data.orden - b.data.orden);
+const equipo = (await getCollection('equipo')).sort((a, b) => a.data.orden - b.data.orden);
+const faq = (await getCollection('faq', (f) => f.data.paginas.includes('inicio'))).sort((a, b) => a.data.orden - b.data.orden);
+
+const ctas = botones(sitio, 'contenido', inicio.mensajeWhatsapp);
+const iconosSellos = ['reloj', 'credencial', 'ubicacion', 'persona'];
+const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i] ?? 'check', texto }));
 ---
 
-<Layout title="Ginefra & Asociados | Defensa penal" description="Estudio Ginefra & Asociados: defensa penal en San Justo, La Matanza. Guardia 24 h.">
-  <main>
-    <h1>Ginefra &amp; Asociados</h1>
-    <p>Defensa penal. Sitio en construcción.</p>
-  </main>
-</Layout>
+<LayoutPenal
+  title={inicio.seo.title}
+  description={inicio.seo.description}
+  mensajeWhatsapp={inicio.mensajeWhatsapp}
+  schema={[webSite({ site: Astro.site })]}
+>
+  <!-- 1 · Hero -->
+  <Hero
+    variante="imagen"
+    h1={inicio.h1}
+    bajada={inicio.bajada}
+    ctas={ctas}
+    imagen={comodoroPy}
+    imagenAlt="Fachada de los tribunales federales de Comodoro Py, en Buenos Aires"
+    sellos={sellos}
+  />
+
+  <!-- 2 · ¿Qué está pasando? -->
+  <section class="seccion" aria-labelledby="situaciones">
+    <div class="contenedor">
+      <h2 id="situaciones" class="titulo-bloque">¿Qué está pasando?</h2>
+      <ul class="grilla grilla--situaciones" role="list">
+        {
+          inicio.situaciones?.map((s) => (
+            <li>
+              <TarjetaArea variante="situacion" titulo={s.texto} href={s.href} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · Áreas de práctica -->
+  <section class="seccion" aria-labelledby="areas">
+    <div class="contenedor">
+      <h2 id="areas" class="titulo-bloque">Áreas de práctica</h2>
+      <ul class="grilla grilla--areas" role="list">
+        {
+          areas.map((a) => (
+            <li>
+              <TarjetaArea titulo={a.data.titulo} resumen={a.data.resumen} href={`/${a.id}/`} icono={a.data.icono} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 · Cómo trabajamos -->
+  <section class="seccion" aria-labelledby="como-trabajamos">
+    <div class="contenedor">
+      <h2 id="como-trabajamos" class="titulo-bloque">Cómo trabajamos</h2>
+      <Pasos items={inicio.pasos ?? []} />
+    </div>
+  </section>
+
+  <!-- 5 · CTA urgente -->
+  {inicio.ctaIntermedio && <BloqueCTA id="ahora" titulo={inicio.ctaIntermedio.titulo} texto={inicio.ctaIntermedio.texto} ctas={ctas} />}
+
+  <!-- 6 · Por qué Ginefra -->
+  <section class="seccion" aria-labelledby="por-que">
+    <div class="contenedor">
+      <h2 id="por-que" class="titulo-bloque">Por qué Ginefra</h2>
+      <ol class="diferenciales" role="list">
+        {
+          inicio.diferenciales?.map((d, i) => (
+            <li>
+              <span class="diferenciales__numero" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3>{d.titulo}</h3>
+              <p>{d.texto}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 · Equipo -->
+  <section class="seccion" aria-labelledby="equipo">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2 id="equipo">Nuestro equipo</h2>
+        {inicio.equipoFrase && <p>{inicio.equipoFrase}</p>}
+      </div>
+      <div class="grilla grilla--equipo">
+        {equipo.map((p) => <TarjetaAbogado persona={p} sitio="penal" />)}
+      </div>
+      <a class="enlace-flecha" href="/equipo/">Conocé al equipo <Icono nombre="flecha" tamano={18} /></a>
+    </div>
+  </section>
+
+  <!-- 8 · Dónde estamos -->
+  <section class="seccion donde" aria-labelledby="donde">
+    <div class="contenedor donde__grilla">
+      <div class="donde__texto">
+        <h2 id="donde">Dónde estamos</h2>
+        {inicio.dondeEstamos && <p>{inicio.dondeEstamos}</p>}
+        <a class="enlace-flecha" href="/abogado-penalista-san-justo/">Atendemos en todo La Matanza <Icono nombre="flecha" tamano={18} /></a>
+      </div>
+      <ul class="donde__datos" role="list">
+        <li>
+          <Icono nombre="ubicacion" />
+          <div>
+            <address>{estudio.direccion.visible}</address>
+            <a
+              href={estudio.mapa}
+              target="_blank"
+              rel="noopener"
+              aria-label="Cómo llegar al estudio en Google Maps (se abre en una pestaña nueva)">Cómo llegar</a
+            >
+          </div>
+        </li>
+        {
+          sitio.footer.horarios.map((h, i) => (
+            <li>
+              <Icono nombre={i === 0 ? 'reloj' : 'persona'} />
+              <span>{h}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 · Preguntas frecuentes -->
+  <section class="seccion" aria-labelledby="preguntas">
+    <div class="contenedor">
+      <h2 id="preguntas" class="titulo-bloque">Preguntas frecuentes</h2>
+      <FAQ items={faq.map((f) => f.data)} schema />
+    </div>
+  </section>
+
+  <!-- 10 · CTA final -->
+  {inicio.ctaFinal && <BloqueCTA id="cta-final" titulo={inicio.ctaFinal.titulo} texto={inicio.ctaFinal.texto} ctas={ctas} />}
+</LayoutPenal>
+
+<style>
+  .titulo-bloque {
+    margin-bottom: var(--esp-6);
+  }
+  .grilla {
+    display: grid;
+    gap: var(--esp-4);
+  }
+  .grilla > li {
+    display: grid;
+  }
+  .grilla--situaciones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--esp-3);
+  }
+  .grilla--situaciones :global(.tarjeta--situacion) {
+    font-size: var(--paso-0);
+  }
+  .grilla--equipo {
+    gap: var(--esp-6);
+    margin-bottom: var(--esp-6);
+  }
+  .enlace-flecha {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--esp-2);
+    min-height: var(--tactil);
+    font-weight: 600;
+  }
+
+  .diferenciales {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .diferenciales li {
+    display: grid;
+    gap: var(--esp-2);
+    padding-top: var(--esp-4);
+    border-top: 1px solid var(--linea);
+  }
+  .diferenciales__numero {
+    font-family: var(--fuente-titulos);
+    font-size: var(--paso-1);
+    color: var(--acento-texto);
+    letter-spacing: 0.08em;
+  }
+  .diferenciales p {
+    color: var(--texto-suave);
+  }
+
+  .donde__grilla {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .donde__texto {
+    display: grid;
+    gap: var(--esp-4);
+    align-content: start;
+    max-width: var(--ancho-texto);
+  }
+  .donde__texto p {
+    color: var(--texto-suave);
+    font-size: var(--paso-1);
+  }
+  .donde__datos {
+    display: grid;
+    gap: var(--esp-4);
+    align-content: start;
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-2);
+  }
+  .donde__datos li {
+    display: flex;
+    gap: var(--esp-3);
+    align-items: flex-start;
+  }
+  .donde__datos :global(.icono) {
+    color: var(--acento-texto);
+  }
+  address {
+    font-style: normal;
+  }
+  .donde__datos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tactil);
+    font-weight: 600;
+  }
+
+  @media (min-width: 48em) {
+    .grilla--situaciones {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--esp-4);
+    }
+    .grilla--situaciones :global(.tarjeta--situacion) {
+      font-size: var(--paso-1);
+      min-height: 7rem;
+      align-items: flex-end;
+    }
+    .grilla--areas {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .grilla--equipo {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .diferenciales {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--esp-7);
+    }
+    .donde__grilla {
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--esp-7);
+    }
+  }
+  @media (min-width: 68em) {
+    .grilla--areas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

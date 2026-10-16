@@ -1,0 +1,58 @@
+---
+// Lista con íconos: `si` (tilde), `no` (cruz) o `destacado` (caja de resumen con título visible).
+import Icono from './Icono.astro';
+
+interface Props {
+  items: string[];
+  variante?: 'si' | 'no' | 'destacado';
+  titulo?: string;
+  /** aria-label de la caja destacada */
+  etiqueta?: string;
+}
+const { items, variante = 'si', titulo, etiqueta } = Astro.props;
+---
+
+<div class:list={['checklist', `checklist--${variante}`]} role={etiqueta ? 'region' : undefined} aria-label={etiqueta}>
+  {titulo && <p class="checklist__titulo">{titulo}</p>}
+  <ul role="list">
+    {
+      items.map((i) => (
+        <li>
+          <Icono nombre={variante === 'no' ? 'cerrar' : 'check'} tamano={20} />
+          <span>{i}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <slot />
+</div>
+
+<style>
+  ul {
+    display: grid;
+    gap: var(--esp-3);
+  }
+  li {
+    display: flex;
+    gap: var(--esp-3);
+    align-items: flex-start;
+  }
+  li :global(.icono) {
+    margin-top: 0.2em;
+    color: var(--c-icono);
+  }
+  .checklist--destacado {
+    display: grid;
+    gap: var(--esp-4);
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-top: 3px solid var(--acento);
+    border-radius: var(--radio-2);
+  }
+  .checklist__titulo {
+    font-family: var(--fuente-titulos);
+    font-size: var(--paso-1);
+    font-weight: 600;
+  }
+</style>

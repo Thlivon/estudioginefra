@@ -11,6 +11,7 @@
   "scripts": {
     "dev:penal": "npm run dev -w penal",
     "dev:amparos": "npm run dev -w amparos",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspaces --if-present",
+    "test": "node --test \"packages/**/*.test.mjs\""
   }
 }

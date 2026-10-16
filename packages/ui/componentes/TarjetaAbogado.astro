@@ -1,0 +1,77 @@
+---
+// Persona del equipo. Versión `resumen` (inicio): foto, nombre, rol, matrícula y enfoque del sitio.
+// La versión `completa` (página de equipo: bio y botones por abogado) se suma en el hito 5.
+import type { CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+
+interface Props {
+  persona: CollectionEntry<'equipo'>;
+  sitio: 'penal' | 'amparos';
+  variante?: 'resumen';
+  nivelTitulo?: 'h2' | 'h3';
+}
+const { persona, sitio, nivelTitulo: Titulo = 'h3' } = Astro.props;
+const { nombre, rol, matricula, foto, fotoAlt, enfoque } = persona.data;
+---
+
+<article class="abogado">
+  <Picture
+    src={foto}
+    alt={fotoAlt}
+    formats={['avif', 'webp']}
+    width={352}
+    height={440}
+    fit="cover"
+    position="top"
+    fallbackFormat="jpg"
+    class="abogado__foto"
+  />
+  <div class="abogado__texto">
+    <Titulo>{nombre}</Titulo>
+    <p class="abogado__rol">{rol}</p>
+    <p class="abogado__matricula">Matrícula T° {matricula.tomo} F° {matricula.folio}</p>
+    <p class="abogado__enfoque">{enfoque[sitio]}</p>
+  </div>
+</article>
+
+<style>
+  .abogado {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: var(--esp-4);
+    align-items: start;
+  }
+  .abogado :global(.abogado__foto) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radio-1);
+    background: var(--linea);
+  }
+  .abogado__texto {
+    display: grid;
+    gap: var(--esp-1);
+  }
+  .abogado__rol {
+    font-size: var(--paso--1);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--acento-texto);
+  }
+  .abogado__matricula {
+    font-size: var(--paso--1);
+    color: var(--texto-suave);
+    font-variant-numeric: tabular-nums;
+  }
+  .abogado__enfoque {
+    margin-top: var(--esp-2);
+    color: var(--texto-suave);
+  }
+  @media (min-width: 48em) {
+    .abogado {
+      grid-template-columns: 11rem 1fr;
+      gap: var(--esp-5);
+    }
+  }
+</style>

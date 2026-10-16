@@ -1,0 +1,46 @@
+---
+// Botón flotante de WhatsApp (≥ 768 px). En mobile lo reemplaza la barra fija.
+import Icono from './Icono.astro';
+import { estudio } from '../estudio.mjs';
+import { enlaceWhatsApp } from '../enlaces.mjs';
+
+interface Props {
+  mensaje: string;
+  ariaLabel: string;
+  titulo: string;
+}
+const { mensaje, ariaLabel, titulo } = Astro.props;
+---
+
+<a
+  class="flotante solo-escritorio"
+  href={enlaceWhatsApp(estudio.telefonos.principal.internacional, mensaje)}
+  target="_blank"
+  rel="noopener"
+  aria-label={`${ariaLabel} (se abre en una pestaña nueva)`}
+  title={titulo}
+>
+  <Icono nombre="whatsapp" tamano={30} />
+</a>
+
+<style>
+  .flotante {
+    position: fixed;
+    right: var(--esp-5);
+    bottom: var(--esp-5);
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--tinta);
+    color: var(--papel);
+    border: 1px solid var(--acento);
+    box-shadow: var(--sombra-2);
+    --foco: var(--acento-texto);
+  }
+  .flotante:hover {
+    background: color-mix(in srgb, var(--tinta) 85%, var(--papel));
+  }
+</style>

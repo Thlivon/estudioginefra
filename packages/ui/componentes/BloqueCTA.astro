@@ -1,0 +1,57 @@
+---
+// Banda de llamada a la acción. `urgente`: fondo oscuro con filete de acento; `suave`: fondo claro.
+import BotonContacto, { type Props as Boton } from './BotonContacto.astro';
+
+interface Props {
+  titulo: string;
+  texto?: string;
+  variante?: 'urgente' | 'suave';
+  ctas: Boton[];
+  id?: string;
+}
+const { titulo, texto, variante = 'urgente', ctas, id = 'cta' } = Astro.props;
+---
+
+<section class:list={['cta', 'seccion', `cta--${variante}`, { 'sobre-tinta': variante === 'urgente' }]} aria-labelledby={id}>
+  <div class="contenedor cta__interior">
+    <div class="cta__texto">
+      <h2 id={id}>{titulo}</h2>
+      {texto && <p>{texto}</p>}
+      <slot />
+    </div>
+    <div class="cta__botones">
+      {ctas.map((c) => <BotonContacto {...c} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta__interior {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .cta__texto {
+    display: grid;
+    gap: var(--esp-4);
+    max-width: var(--ancho-texto);
+  }
+  .cta__texto p {
+    font-size: var(--paso-1);
+    color: var(--c-suave);
+  }
+  .cta__botones {
+    display: grid;
+    gap: var(--esp-3);
+    align-content: center;
+  }
+  .cta--urgente {
+    border-top: 3px solid var(--acento);
+  }
+  @media (min-width: 48em) {
+    .cta__interior {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      column-gap: var(--esp-7);
+    }
+  }
+</style>

@@ -6,6 +6,7 @@ matricula:
   folio: 277
   colegio: "{COLEGIO A CONFIRMAR}"
 telefono: "principal"
+foto: "./facundo-ginefra.jpg"
 fotoAlt: "Facundo Ginefra, abogado titular de Ginefra & Asociados, de traje gris y corbata azul en su despacho, frente a una biblioteca jurídica"
 orden: 1
 enfoque:
