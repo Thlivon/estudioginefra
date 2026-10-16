@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 170" fill="currentColor" role="img" aria-label="Ginefra &amp; Asociados">
-<mask id="p1s"><rect width="140" height="170" fill="#fff"/><path transform="translate(76 86) scale(0.55)" d="M70 100L24 41C14 29 14 4 34 4C48 4 53 15 50 24C47 34 36 40 26 47C12 57 8 67 8 78C8 92 20 100 34 100C49 100 61 89 68 66" fill="none" stroke="#000" stroke-width="24"/></mask>
-<rect x="3" y="3" width="134" height="164" fill="none" stroke="currentColor" stroke-width="6"/>
-<g mask="url(#p1s)"><g transform="translate(16 30)"><path d="M64.81 17.86A35 50 0 1 0 71.29 65.45L61.78 64.21A25 46 0 1 1 57.15 20.43z"/><path d="M61 57h10v34h-10z"/><path d="M50 57h24v4h-24z"/></g></g>
-<path transform="translate(76 86) scale(0.55)" d="M70 100L24 41C14 29 14 4 34 4C48 4 53 15 50 24C47 34 36 40 26 47C12 57 8 67 8 78C8 92 20 100 34 100C49 100 61 89 68 66" fill="none" stroke="currentColor" stroke-width="8.5"/>
-</svg>

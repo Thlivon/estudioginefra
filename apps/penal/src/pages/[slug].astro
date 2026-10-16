@@ -1,0 +1,30 @@
+---
+// Áreas y guías en la raíz (/allanamientos/, /que-hacer-si-…/): una ruta, dos plantillas.
+import { getCollection } from 'astro:content';
+import LayoutPenal from '../layouts/LayoutPenal.astro';
+import PlantillaArea from '@ginefra/ui/plantillas/PlantillaArea.astro';
+import PlantillaGuia from '@ginefra/ui/plantillas/PlantillaGuia.astro';
+import { sitio } from '../sitio.mjs';
+
+export async function getStaticPaths() {
+  const areas = await getCollection('areas');
+  const guias = await getCollection('guias');
+  return [
+    ...areas.map((entrada) => ({ params: { slug: entrada.id }, props: { area: entrada, guia: undefined } })),
+    ...guias.map((entrada) => ({ params: { slug: entrada.id }, props: { area: undefined, guia: entrada } })),
+  ];
+}
+
+const { area, guia } = Astro.props;
+const d = (area ?? guia)!.data;
+---
+
+<LayoutPenal
+  title={d.seo.title}
+  description={d.seo.description}
+  mensajeWhatsapp={d.mensajeWhatsapp}
+  ordenCtas={area?.data.ordenCtas}
+>
+  {area && <PlantillaArea area={area} sitio={sitio} />}
+  {guia && <PlantillaGuia guia={guia} sitio={sitio} />}
+</LayoutPenal>

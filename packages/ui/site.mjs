@@ -12,6 +12,9 @@ export const site =
 // Solo producción real lleva INDEXAR=true; en pruebas todo sale con noindex.
 export const indexar = env.INDEXAR === 'true';
 
+// Formulario de contacto (hito 6): apagado salvo CONTACTO_EMAIL=true.
+export const contactoEmail = env.CONTACTO_EMAIL === 'true';
+
 // URL del sitio hermano, desde Related Projects de Vercel (`relatedProjects` en el vercel.json de cada app).
 // Cada app declara un solo proyecto relacionado: producción → su dominio, preview → la preview de la misma rama.
 const hermano = relacionados.relatedProjects({ noThrow: true })[0];

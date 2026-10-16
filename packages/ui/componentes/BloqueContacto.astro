@@ -1,0 +1,101 @@
+---
+// Canales de contacto de la página de contacto: una tarjeta por canal, con H3, para qué conviene y sus botones.
+// El orden y los textos los arma la plantilla según el sitio.
+import BotonContacto, { type Props as Boton } from './BotonContacto.astro';
+import Icono from './Icono.astro';
+
+export interface Canal {
+  titulo: string;
+  icono: string;
+  dato?: string;
+  texto: string;
+  botones?: Boton[];
+  enlace?: { texto: string; href: string; ariaLabel?: string };
+}
+interface Props {
+  titulo: string;
+  canales: Canal[];
+}
+const { titulo, canales } = Astro.props;
+---
+
+<section class="seccion" aria-labelledby="canales">
+  <div class="contenedor">
+    <h2 id="canales" class="canales__titulo">{titulo}</h2>
+    <ul class="canales" role="list">
+      {
+        canales.map((c) => (
+          <li class="canal">
+            <Icono nombre={c.icono} tamano={28} class="canal__icono" />
+            <h3>{c.titulo}</h3>
+            {c.dato && <p class="canal__dato">{c.dato}</p>}
+            <p>{c.texto}</p>
+            <div class="canal__botones">
+              {c.botones?.map((b) => (
+                <BotonContacto {...b} />
+              ))}
+              {c.enlace && (
+                <a class="canal__enlace" href={c.enlace.href} target="_blank" rel="noopener" aria-label={c.enlace.ariaLabel}>
+                  {c.enlace.texto}
+                </a>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .canales__titulo {
+    margin-bottom: var(--esp-6);
+  }
+  .canales {
+    display: grid;
+    gap: var(--esp-4);
+  }
+  .canal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-2);
+    padding: var(--esp-5);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-2);
+  }
+  .canal :global(.canal__icono) {
+    color: var(--acento-texto);
+    margin-bottom: var(--esp-2);
+  }
+  .canal__dato {
+    font-size: var(--paso-1);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .canal p:not(.canal__dato) {
+    color: var(--texto-suave);
+  }
+  .canal__botones {
+    display: grid;
+    gap: var(--esp-2);
+    margin-top: auto;
+    padding-top: var(--esp-3);
+  }
+  .canal__enlace {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tactil);
+    border: 1px solid currentColor;
+    border-radius: var(--radio-1);
+    color: var(--texto);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  @media (min-width: 48em) {
+    .canales {
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+  }
+</style>

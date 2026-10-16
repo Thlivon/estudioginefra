@@ -1,0 +1,18 @@
+---
+// Layout compartido con el tema, la config y las áreas del sitio amparos.
+import '@ginefra/ui/estilos/amparos.css';
+import Layout from '@ginefra/ui/componentes/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sitio } from '../sitio.mjs';
+
+type Props = Omit<Parameters<typeof Layout>[0], 'sitio' | 'areas'>;
+
+const areas = (await getCollection('areas'))
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .map((a) => ({ slug: a.id, titulo: a.data.titulo, tituloCorto: a.data.tituloCorto }));
+---
+
+<Layout {...Astro.props} sitio={sitio} areas={areas}>
+  <slot name="head" slot="head" />
+  <slot />
+</Layout>

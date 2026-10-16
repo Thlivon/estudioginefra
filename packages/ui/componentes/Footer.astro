@@ -1,7 +1,7 @@
 ---
 // Pie: contacto, áreas, estudio y fila legal (matrículas, privacidad, enlace cruzado).
 // En el DOM va primero lo urgente (Contacto → Áreas → Estudio); en desktop se reordena visualmente.
-import Logo from '../marca/propuesta-2-horizontal.svg';
+import Logo from '../marca/logo-horizontal.svg';
 import { estudio } from '../estudio.mjs';
 import { enlaceTel } from '../enlaces.mjs';
 import { sitioHermano } from '../site.mjs';
@@ -150,7 +150,9 @@ const nuevaPestana = ' (se abre en una pestaña nueva)';
   }
   .footer__legal li {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    column-gap: 0.3em;
     min-height: var(--tactil);
   }
   @media (min-width: 48em) {

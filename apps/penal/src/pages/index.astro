@@ -9,7 +9,7 @@ import BloqueCTA from '@ginefra/ui/componentes/BloqueCTA.astro';
 import TarjetaAbogado from '@ginefra/ui/componentes/TarjetaAbogado.astro';
 import FAQ from '@ginefra/ui/componentes/FAQ.astro';
 import Icono from '@ginefra/ui/componentes/Icono.astro';
-import { estudio } from '@ginefra/ui/estudio.mjs';
+import DatosEstudio from '@ginefra/ui/componentes/DatosEstudio.astro';
 import { botones } from '@ginefra/ui/enlaces.mjs';
 import { webSite } from '@ginefra/ui/schema.mjs';
 import { sitio } from '../sitio.mjs';
@@ -127,28 +127,7 @@ const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i]
         {inicio.dondeEstamos && <p>{inicio.dondeEstamos}</p>}
         <a class="enlace-flecha" href="/abogado-penalista-san-justo/">Atendemos en todo La Matanza <Icono nombre="flecha" tamano={18} /></a>
       </div>
-      <ul class="donde__datos" role="list">
-        <li>
-          <Icono nombre="ubicacion" />
-          <div>
-            <address>{estudio.direccion.visible}</address>
-            <a
-              href={estudio.mapa}
-              target="_blank"
-              rel="noopener"
-              aria-label="Cómo llegar al estudio en Google Maps (se abre en una pestaña nueva)">Cómo llegar</a
-            >
-          </div>
-        </li>
-        {
-          sitio.footer.horarios.map((h, i) => (
-            <li>
-              <Icono nombre={i === 0 ? 'reloj' : 'persona'} />
-              <span>{h}</span>
-            </li>
-          ))
-        }
-      </ul>
+      <DatosEstudio horarios={sitio.footer.horarios} />
     </div>
   </section>
 
@@ -165,16 +144,6 @@ const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i]
 </LayoutPenal>
 
 <style>
-  .titulo-bloque {
-    margin-bottom: var(--esp-6);
-  }
-  .grilla {
-    display: grid;
-    gap: var(--esp-4);
-  }
-  .grilla > li {
-    display: grid;
-  }
   .grilla--situaciones {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--esp-3);
@@ -185,13 +154,6 @@ const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i]
   .grilla--equipo {
     gap: var(--esp-6);
     margin-bottom: var(--esp-6);
-  }
-  .enlace-flecha {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--esp-2);
-    min-height: var(--tactil);
-    font-weight: 600;
   }
 
   .diferenciales {
@@ -227,32 +189,6 @@ const sellos = (inicio.sellos ?? []).map((texto, i) => ({ icono: iconosSellos[i]
   .donde__texto p {
     color: var(--texto-suave);
     font-size: var(--paso-1);
-  }
-  .donde__datos {
-    display: grid;
-    gap: var(--esp-4);
-    align-content: start;
-    padding: var(--esp-5);
-    background: var(--superficie);
-    border: 1px solid var(--linea);
-    border-radius: var(--radio-2);
-  }
-  .donde__datos li {
-    display: flex;
-    gap: var(--esp-3);
-    align-items: flex-start;
-  }
-  .donde__datos :global(.icono) {
-    color: var(--acento-texto);
-  }
-  address {
-    font-style: normal;
-  }
-  .donde__datos a {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--tactil);
-    font-weight: 600;
   }
 
   @media (min-width: 48em) {

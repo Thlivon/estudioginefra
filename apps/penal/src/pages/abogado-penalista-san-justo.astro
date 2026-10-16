@@ -1,0 +1,111 @@
+---
+// Página local (docs/estructura.md §3.5). El cuerpo de local.md trae dos H2: "Dónde actuamos" y "Por qué un
+// penalista de la zona"; "Áreas en La Matanza" va entre los dos.
+import { getCollection, getEntry } from 'astro:content';
+import LayoutPenal from '../layouts/LayoutPenal.astro';
+import Migas from '@ginefra/ui/componentes/Migas.astro';
+import Hero from '@ginefra/ui/componentes/Hero.astro';
+import DatosEstudio from '@ginefra/ui/componentes/DatosEstudio.astro';
+import TarjetaArea from '@ginefra/ui/componentes/TarjetaArea.astro';
+import FAQ from '@ginefra/ui/componentes/FAQ.astro';
+import BloqueCTA from '@ginefra/ui/componentes/BloqueCTA.astro';
+import { botones } from '@ginefra/ui/enlaces.mjs';
+import { secciones } from '@ginefra/ui/texto.mjs';
+import { sitio } from '../sitio.mjs';
+
+const url = '/abogado-penalista-san-justo/';
+const pagina = (await getEntry('paginas', 'local'))!;
+const d = pagina.data;
+const [dondeActuamos, porQue] = secciones(pagina.rendered?.html);
+const areas = new Map((await getCollection('areas')).map((a) => [a.id, a]));
+const areasLocal = (d.areasLocal ?? []).map((l) => ({ area: areas.get(l.area.id)!, texto: l.texto }));
+const faq = (await getCollection('faq', (f) => f.data.paginas.includes('local'))).sort((a, b) => a.data.orden - b.data.orden);
+const ctas = botones(sitio, 'contenido', d.mensajeWhatsapp);
+// Refuerza el LegalService del Layout (mismo @id) con las localidades atendidas.
+const areaServed = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  '@id': `${new URL('/', Astro.site).href}#estudio`,
+  areaServed: (d.localidades ?? []).map((l) => ({ '@type': 'Place', name: `${l}, La Matanza, Buenos Aires` })),
+};
+---
+
+<LayoutPenal title={d.seo.title} description={d.seo.description} mensajeWhatsapp={d.mensajeWhatsapp} schema={[areaServed]}>
+  <Migas items={[{ nombre: sitio.plantillas.migas.local, href: url }]} />
+  <Hero variante="compacto" h1={d.h1} bajada={d.bajada} ctas={ctas} />
+
+  <section class="seccion" aria-labelledby="estudio">
+    <div class="contenedor dos-columnas">
+      <div class="prosa">
+        <h2 id="estudio">El estudio en San Justo</h2>
+        {d.estudio && <p>{d.estudio}</p>}
+      </div>
+      <DatosEstudio horarios={sitio.footer.horarios} />
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="prosa" set:html={dondeActuamos} />
+      <ul class="localidades" role="list" aria-label="Localidades del partido de La Matanza">
+        {d.localidades?.map((l) => <li>{l}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="areas-local">
+    <div class="contenedor">
+      <h2 id="areas-local" class="titulo-bloque">Áreas en La Matanza</h2>
+      <ul class="grilla grilla--3" role="list">
+        {
+          areasLocal.map(({ area, texto }) => (
+            <li>
+              <TarjetaArea titulo={area.data.titulo} resumen={texto} href={`/${area.id}/`} icono={area.data.icono} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="prosa" set:html={porQue} />
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="preguntas">
+    <div class="contenedor">
+      <h2 id="preguntas" class="titulo-bloque">Preguntas frecuentes</h2>
+      <FAQ items={faq.map((f) => f.data)} schema />
+    </div>
+  </section>
+
+  {d.ctaFinal && <BloqueCTA id="cta-final" titulo={d.ctaFinal.titulo} texto={d.ctaFinal.texto} ctas={ctas} />}
+</LayoutPenal>
+
+<style>
+  .dos-columnas {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .localidades {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--esp-2) var(--esp-5);
+    max-width: var(--ancho-texto);
+    margin-top: var(--esp-6);
+    padding-top: var(--esp-5);
+    border-top: 1px solid var(--linea);
+    color: var(--texto-suave);
+  }
+  @media (min-width: 48em) {
+    .dos-columnas {
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--esp-7);
+    }
+    .localidades {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,13 @@
+---
+import { getEntry } from 'astro:content';
+import LayoutAmparos from '../layouts/LayoutAmparos.astro';
+import PlantillaEquipo from '@ginefra/ui/plantillas/PlantillaEquipo.astro';
+import { sitio } from '../sitio.mjs';
+
+const pagina = (await getEntry('paginas', 'equipo'))!;
+const { seo, mensajeWhatsapp } = pagina.data;
+---
+
+<LayoutAmparos title={seo.title} description={seo.description} mensajeWhatsapp={mensajeWhatsapp}>
+  <PlantillaEquipo pagina={pagina} sitio={sitio} />
+</LayoutAmparos>

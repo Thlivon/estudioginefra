@@ -1,0 +1,125 @@
+---
+// Equipo (docs/estructura.md §3.6): una tarjeta completa por abogado, con botones a su propio número.
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Migas from '../componentes/Migas.astro';
+import Hero from '../componentes/Hero.astro';
+import TarjetaAbogado from '../componentes/TarjetaAbogado.astro';
+import BloqueCTA from '../componentes/BloqueCTA.astro';
+import JsonLd from '../componentes/JsonLd.astro';
+import { botones } from '../enlaces.mjs';
+import { estudio } from '../estudio.mjs';
+import { pagina as paginaSchema, person } from '../schema.mjs';
+import { sitioHermano } from '../site.mjs';
+
+interface Props {
+  pagina: CollectionEntry<'paginas'>;
+  sitio: any;
+}
+const { pagina, sitio } = Astro.props;
+const d = pagina.data;
+const t = sitio.plantillas.equipo;
+const url = '/equipo/';
+const equipo = (await getCollection('equipo')).sort((a, b) => a.data.orden - b.data.orden);
+const areas = new Map((await getCollection('areas')).map((a) => [a.id, a.data.titulo]));
+const { Content } = await render(pagina);
+const ctaFinal = d.ctaFinal ?? t.ctaFinal;
+const ctas = botones(sitio, 'contenido', d.mensajeWhatsapp);
+
+const personas = await Promise.all(
+  equipo.map(async (p) => {
+    const nombreCorto = p.data.nombre.split(' ')[0];
+    const tel = estudio.telefonos[p.data.telefono];
+    const mensaje = p.data.telefono === 'ricardo' ? sitio.mensajeRicardo(d.mensajeWhatsapp, 'Equipo') : d.mensajeWhatsapp;
+    const etiquetas = t.botones(nombreCorto);
+    const tipos = sitio.ordenCtas === 'whatsapp-primero' ? ['whatsapp', 'llamar'] : ['llamar', 'whatsapp'];
+    return {
+      entrada: p,
+      imagen: (await getImage({ src: p.data.foto, width: 720, height: 900, fit: 'cover', position: 'top', format: 'jpg' })).src,
+      areas: (p.data.areas[sitio.id] as string[]).filter((s) => areas.has(s)).map((s) => ({ titulo: areas.get(s)!, href: `/${s}/` })),
+      botones: tipos.map((tipo, i) => ({
+        tipo,
+        numero: p.data.telefono,
+        variante: i === 0 ? 'primario' : 'secundario',
+        mensaje: tipo === 'whatsapp' ? mensaje : undefined,
+        etiqueta: etiquetas[tipo].etiqueta,
+        ariaLabel: tipo === 'llamar' ? `Llamar a ${p.data.nombre} al ${tel.visible}` : `Escribir por WhatsApp a ${p.data.nombre}`,
+      })),
+    };
+  }),
+);
+const cruzado = { antes: t.cruzado.antes, texto: t.cruzado.texto ?? new URL(sitioHermano).host, href: sitioHermano };
+---
+
+<Migas items={[{ nombre: sitio.plantillas.migas.equipo, href: url }]} />
+<Hero variante="compacto" h1={d.h1} bajada={d.bajada} />
+
+{
+  personas.map((p, i) => (
+    <section class="seccion">
+      <div class="contenedor">
+        <TarjetaAbogado
+          persona={p.entrada}
+          sitio={sitio.id}
+          variante="completa"
+          areas={p.areas}
+          botones={p.botones}
+          titulos={{ trayectoria: t.trayectoria, areas: t.areas }}
+          cruzado={cruzado}
+          invertir={i % 2 === 1}
+          prioridad={i === 0}
+        />
+      </div>
+    </section>
+  ))
+}
+
+<section class="seccion" aria-labelledby="como-trabajamos">
+  <div class="contenedor">
+    <h2 id="como-trabajamos" class="titulo-bloque">{t.comoTrabajamos}</h2>
+    {
+      d.diferenciales ? (
+        <ul class="valores" role="list">
+          {d.diferenciales.map((v) => (
+            <li>
+              <h3>{v.titulo}</h3>
+              <p>{v.texto}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="prosa valores">
+          <Content />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+{ctaFinal && <BloqueCTA id="cta-final" titulo={ctaFinal.titulo} texto={ctaFinal.texto} ctas={ctas} />}
+
+<JsonLd
+  datos={paginaSchema({ site: Astro.site, tipo: 'AboutPage', url, nombre: d.h1, descripcion: d.seo.description })}
+/>
+{personas.map((p) => <JsonLd datos={person({ site: Astro.site, id: p.entrada.id, persona: p.entrada.data, imagen: p.imagen })} />)}
+
+<style>
+  .valores {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  ul.valores li {
+    display: grid;
+    gap: var(--esp-2);
+    padding-top: var(--esp-4);
+    border-top: 1px solid var(--linea);
+  }
+  ul.valores p {
+    color: var(--texto-suave);
+  }
+  @media (min-width: 48em) {
+    ul.valores {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>
