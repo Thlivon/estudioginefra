@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-10-15 · Hito 2 · `feat/estructura`
+
+**Hecho**
+- `docs/estructura.md` (agente Estructura): sitemap de ambos sitios, navegación, wireframes textuales de 9 plantillas, 20 componentes compartidos, modelo de contenido, enlazado interno, estrategia de CTA y notas para Copy.
+- Penal: 12 páginas indexables + 404. Amparos: 9 + 404.
+
+**Correcciones de revisión**
+- El enlace al sitio hermano sale de Related Projects de Vercel, no de una variable manual (`URL_SITIO_HERMANO` eliminada): así cambiar dominios no requiere tocar nada.
+- Analítica: Vercel Web Analytics sin cookies (el agente había asumido "sin analítica").
+- Barra final de URLs garantizada en Astro y en `vercel.json`.
+
+**Decisiones**
+- Mobile: barra fija de 2 botones (llamar + WhatsApp); en desktop, WhatsApp flotante.
+- CTA primario: llamar en penal (WhatsApp solo en delitos económicos), WhatsApp en amparos.
+- Voseo en ambos sitios.
+
+**Pendiente (a confirmar por el estudio)**
+- Violencia de género: ¿solo defensa del denunciado o también querella?
+- ¿La guardia 24 h aplica también a amparos?
+- Horario de atención presencial, código postal, coordenadas y colegio de las matrículas.
+- Hito 3: Copy Penal y Copy Amparos en paralelo.
+
 ## 2026-10-15 · Hito 1 · `feat/inventario`
 
 **Hecho**
