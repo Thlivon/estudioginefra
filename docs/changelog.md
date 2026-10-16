@@ -6,7 +6,12 @@
 - Repo público `Thlivon/estudioginefra`, monorepo con npm workspaces: `apps/penal`, `apps/amparos`, `packages/ui`.
 - Astro 7 estático en ambos sitios, con layout compartido y páginas provisorias.
 - URL canónica derivada de `VERCEL_PROJECT_PRODUCTION_URL`; `noindex` mientras `INDEXAR` no sea `true`.
-- Dos proyectos Vercel (team thcodex) conectados al repo, con dominios de prueba en tl256.com.
+- Dos proyectos Vercel (team thcodex) conectados al repo, con dominios de prueba en tl256.com:
+  - `estudioginefra-penal` (`prj_kXtJoj7DieC72tPjckN9vQK6sX7H`), root `apps/penal`.
+  - `estudioginefra-amparos` (`prj_2UsAHMsaW0gQIlXXXt2DcdDNipVp`), root `apps/amparos`.
+  - Variables: `INDEXAR=false`, `CONTACTO_EMAIL=false`. Skip de builds sin cambios activado.
+- `main` protegida: solo entra por PR.
+- `.gitattributes` fija finales de línea LF.
 
 **Decisiones**
 - Producción: `estudioginefra.com.ar` sirve penal; `amparos.estudioginefra.com.ar` sirve amparos; `www.` y `penal.` redirigen (308) al apex.
