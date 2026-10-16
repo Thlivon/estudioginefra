@@ -5,8 +5,10 @@ const direccion = {
   partido: 'La Matanza',
   provincia: 'Buenos Aires',
   visible: 'Mariano Santamaría 2212, San Justo, Pcia. de Buenos Aires',
-  codigoPostal: null, // A CONFIRMAR
+  codigoPostal: 'B1754',
   pais: 'AR',
+  // OpenStreetMap (Nominatim), coincidencia exacta de la altura 2212.
+  geo: { latitud: -34.6737681, longitud: -58.5733949 },
 };
 
 export const estudio = {
