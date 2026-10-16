@@ -5,7 +5,7 @@ keyword: "abogado penalista San Justo"
 seo:
   title: "Abogado penalista en San Justo, La Matanza | Ginefra"
   description: "Abogado penalista en San Justo con guardia 24 h. Comisarías, fiscalías y tribunales de La Matanza: Ramos Mejía, Laferrere, Catán y todo el partido."
-estudio: "Estamos en San Justo, cabecera del partido de La Matanza. Te recibimos en el estudio con turno previo, para que el abogado a cargo de tu caso te atienda sin esperas. La guardia, en cambio, no necesita turno: funciona las 24 horas, todos los días, por teléfono y WhatsApp, y con un abogado presente donde haga falta. {A CONFIRMAR: referencias para llegar al estudio (colectivos, estación, calles cercanas)}"
+estudio: "Estamos en San Justo, cabecera del partido de La Matanza. Te recibimos en el estudio con turno previo, para que el abogado a cargo de tu caso te atienda sin esperas. La guardia, en cambio, no necesita turno: funciona las 24 horas, todos los días, por teléfono y WhatsApp, y con un abogado presente donde haga falta."
 localidades:
   - "San Justo"
   - "Ramos Mejía"

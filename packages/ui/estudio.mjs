@@ -23,7 +23,7 @@ export const estudio = {
   correo: 'estudiolosdefensores@hotmail.com',
   instagram: { usuario: 'ginefra.abogadopenalista', url: 'https://www.instagram.com/ginefra.abogadopenalista/' },
   matriculas: [
-    { nombre: 'Facundo Ginefra', tomo: 13, folio: 277, colegio: null }, // colegio A CONFIRMAR
+    { nombre: 'Facundo Ginefra', tomo: 13, folio: 277, colegio: null }, // colegio: el estudio todavía no lo indicó; sin dato, la matrícula se muestra sin colegio
     { nombre: 'Ricardo Ginefra', tomo: 10, folio: 254, colegio: null },
   ],
   guardia: { horas: 24, texto: 'Guardia penal 24 h, todos los días' },

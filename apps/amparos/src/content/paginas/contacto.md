@@ -23,7 +23,7 @@ mensajeWhatsapp: "Hola, quiero consultar por un amparo de salud. Les envío el r
 ---
 
 <!-- bloque: visitanos -->
-Nuestro estudio está en **Mariano Santamaría 2212, San Justo, Pcia. de Buenos Aires**. Horario de atención: {A CONFIRMAR: días y horario de atención del estudio para amparos}. La atención presencial es con turno previo: escribinos por WhatsApp y coordinamos el día. Para empezar no hace falta que vengas: la evaluación del caso se hace con las fotos de tu documentación.
+Nuestro estudio está en **Mariano Santamaría 2212, San Justo, Pcia. de Buenos Aires**. Atendemos urgencias de salud las 24 horas, todos los días, por WhatsApp y teléfono. La atención presencial es con turno previo: escribinos por WhatsApp y coordinamos el día. Para empezar no hace falta que vengas: la evaluación del caso se hace con las fotos de tu documentación.
 <!-- /bloque: visitanos -->
 
 <!-- bloque: confidencialidad -->

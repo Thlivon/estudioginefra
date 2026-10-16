@@ -4,7 +4,6 @@ rol: "Abogado titular"
 matricula:
   tomo: 13
   folio: 277
-  colegio: "{COLEGIO A CONFIRMAR}"
 telefono: "principal"
 foto: "./facundo-ginefra.jpg"
 fotoAlt: "Facundo Ginefra, abogado titular de Ginefra & Asociados, de traje gris y corbata azul en su despacho, frente a una biblioteca jurídica"
@@ -29,6 +28,6 @@ areas:
 
 Facundo Ginefra es el abogado titular de Ginefra & Asociados, el estudio con sede en San Justo, partido de La Matanza. Conduce personalmente las causas que llegan al estudio y litiga en la justicia de la Provincia de Buenos Aires, en la Ciudad de Buenos Aires y en el fuero federal.
 
-{A CONFIRMAR: universidad, año de egreso y año de matriculación} {A CONFIRMAR: formación de posgrado, cursos o especializaciones} {A CONFIRMAR: trayectoria previa (cargos, estudios donde trabajó, años de ejercicio)}
+Se recibió de abogado en la Universidad Nacional de Lomas de Zamora.
 
 Su forma de trabajar se apoya en tres convicciones: estar presente cuando el cliente lo necesita, explicar cada paso con claridad y defender con firmeza en cada instancia. Atiende de manera directa a cada persona que confía su caso al estudio, sin intermediarios, y sigue cada expediente de cerca hasta el final.

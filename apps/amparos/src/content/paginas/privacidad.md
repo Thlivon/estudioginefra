@@ -50,7 +50,7 @@ Este sitio no utiliza cookies propias ni de terceros. Por eso no vas a ver un av
 
 Si usás el formulario de contacto, nos enviás tu nombre, tu teléfono, tu correo electrónico (opcional), el tipo de consulta y el mensaje que escribas. Esos datos llegan por correo electrónico a la casilla del estudio (estudiolosdefensores@hotmail.com) y se usan solo para responder tu consulta.
 
-Te pedimos que no incluyas en el formulario información médica detallada: si tu caso lo requiere, te vamos a indicar cómo enviarnos la documentación. Conservamos los datos del formulario mientras sean necesarios para atender tu consulta y, si nos encargás el caso, durante el tiempo que exijan nuestras obligaciones profesionales y legales. {A CONFIRMAR: plazo de conservación de las consultas que no se convierten en casos}.
+Te pedimos que no incluyas en el formulario información médica detallada: si tu caso lo requiere, te vamos a indicar cómo enviarnos la documentación. Conservamos los datos del formulario mientras sean necesarios para atender tu consulta y, si nos encargás el caso, durante el tiempo que exijan nuestras obligaciones profesionales y legales. Las consultas que no se convierten en un caso se eliminan a los 12 meses.
 <!-- /solo-con-formulario -->
 
 ## Tus derechos

@@ -4,7 +4,6 @@ rol: "Abogado fundador"
 matricula:
   tomo: 10
   folio: 254
-  colegio: "{COLEGIO A CONFIRMAR}"
 telefono: "ricardo"
 foto: "./ricardo-ginefra.png"
 fotoAlt: "Ricardo Ginefra, abogado fundador de Ginefra & Asociados, de pie con traje oscuro y corbata azul en un salón con paneles de madera"
@@ -13,7 +12,6 @@ enfoque:
   penal: "Fundador del estudio, aporta su experiencia en la estrategia de las causas penales y atiende consultas en su línea directa."
   amparos: "Fundador del estudio, acompaña a pacientes y familias desde la primera consulta y aporta la estrategia para que cada reclamo contra la prepaga llegue a la Justicia sólido y a tiempo."
 areas:
-  # A CONFIRMAR: qué áreas penales atiende Ricardo Ginefra (por ahora, todas).
   penal:
     - "detenciones-y-excarcelaciones"
     - "allanamientos"
@@ -30,6 +28,6 @@ areas:
 
 Ricardo Ginefra es el abogado fundador de Ginefra & Asociados. Sobre su trabajo se construyó el estudio que hoy funciona en San Justo, partido de La Matanza, y que actúa en la justicia bonaerense, en la Ciudad de Buenos Aires y en el fuero federal.
 
-{A CONFIRMAR: año de fundación del estudio} {A CONFIRMAR: universidad, año de egreso y año de matriculación} {A CONFIRMAR: trayectoria, cargos y áreas de mayor experiencia}
+Se recibió de abogado en la Universidad Nacional de Lomas de Zamora.
 
 Junto a Facundo Ginefra, abogado titular, sostiene un modo de trabajo basado en el trato personal, la reserva y el compromiso con cada causa. Recibe consultas en su línea directa y acompaña las decisiones estratégicas de los casos del estudio.

@@ -9,6 +9,7 @@ sellos:
   - "Fuero federal"
   - "Medidas cautelares"
   - "Consulta de viabilidad confidencial"
+  - "Urgencias 24 h"
 pasos:
   - titulo: "Nos enviás la documentación"
     texto: "Por WhatsApp nos mandás una foto del rechazo de la prepaga o del pedido sin respuesta, la orden médica y el informe de tu médico. Sin turnos ni vueltas."

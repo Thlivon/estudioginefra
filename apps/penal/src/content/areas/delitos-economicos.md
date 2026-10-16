@@ -40,7 +40,7 @@ faq:
   - pregunta: "¿Una deuda impaga puede ser estafa?"
     respuesta: "Por sí sola, no. No pagar una deuda o incumplir un contrato es, en principio, un conflicto civil o comercial. Para que haya estafa tiene que existir un engaño previo que llevó a la otra persona a entregar dinero o bienes. Muchas denuncias penales buscan presionar un cobro; demostrar que se trata de un incumplimiento y no de un engaño puede terminar la causa."
   - pregunta: "¿Qué pasa si ARCA me hace una denuncia penal por evasión?"
-    respuesta: "Se abre una causa penal tributaria, separada del reclamo administrativo de la deuda, que suele tramitar en el fuero federal o en el penal económico. La ley fija montos mínimos para que la evasión sea delito y prevé, en ciertos casos, la extinción de la acción si se paga. Hay que revisar números y plazos desde el primer día. {VERIFICAR: montos y condiciones vigentes del Régimen Penal Tributario, Ley 27.430 y reformas}"
+    respuesta: "Se abre una causa penal tributaria, separada del reclamo administrativo de la deuda, que suele tramitar en el fuero federal o en el penal económico. La ley fija montos mínimos para que la evasión sea delito y prevé, en ciertos casos, la extinción de la acción si se paga. Hay que revisar números y plazos desde el primer día."
   - pregunta: "¿Qué es el lavado de activos?"
     respuesta: "Es poner en circulación bienes que provienen de un delito para que parezcan de origen lícito: convertirlos, transferirlos, administrarlos o disimularlos. Lo regula el artículo 303 del Código Penal y se investiga en el fuero federal. Muchas veces la imputación parte de movimientos de dinero que no se explican a primera vista. La defensa consiste en explicar y documentar el origen real de los fondos."
   - pregunta: "¿Se puede arreglar con la víctima en una causa por estafa?"
@@ -69,7 +69,7 @@ Lo mismo pasa con la administración fraudulenta y otras defraudaciones: no alca
 
 ### Penal tributario y lavado de activos
 
-Las causas por evasión, apropiación indebida de tributos o de aportes y lavado de activos tramitan, en general, en el fuero federal o en el penal económico, con reglas propias, montos mínimos y salidas específicas, como la extinción de la acción por pago en determinados supuestos. {VERIFICAR: condiciones vigentes de extinción por pago en el Régimen Penal Tributario} Las evaluamos desde el primer día, porque algunas tienen plazos cortos que no se pueden dejar pasar.
+Las causas por evasión, apropiación indebida de tributos o de aportes y lavado de activos tramitan, en general, en el fuero federal o en el penal económico, con reglas propias, montos mínimos y salidas específicas, como la extinción de la acción por pago en determinados supuestos. Las evaluamos desde el primer día, porque algunas tienen plazos cortos que no se pueden dejar pasar.
 
 ### Reparar, conciliar o ir a juicio
 
