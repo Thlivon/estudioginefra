@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-10-15 · Hito 1 · `feat/inventario`
+
+**Hecho**
+- `docs/inventario.md`: estructura, textos literales, datos del estudio, SEO actual y problemas del sitio en CardPro.
+- Imágenes originales descargadas en `docs/legacy/{marca,equipo,fondos,og}/`.
+- Verificado tras el merge del hito 0: `main` despliega a producción y los dominios de tl256 sirven con `noindex` y canonical propio.
+
+**Decisiones**
+- Comodoro Py (con licencia) es el hero del sitio penal.
+- `og/card.jpg` es inutilizable (negra). El logo provisorio queda solo como referencia.
+
+**Pendiente**
+- Foto nueva de Facundo Ginefra (la actual no alcanza para planos grandes).
+- Colegio de las matrículas.
+- Hito 2: estructura (agente Estructura).
+
 ## 2026-10-15 · Hito 0 · `chore/setup`
 
 **Hecho**
