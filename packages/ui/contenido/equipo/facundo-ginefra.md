@@ -12,6 +12,7 @@ orden: 1
 enfoque:
   penal: "Encabeza la defensa penal del estudio y la guardia 24 h. Asiste a detenidos en comisarías y fiscalías y lleva cada causa en persona, de la primera declaración al juicio oral."
   amparos: "Como abogado titular, diseña y litiga los amparos de salud del estudio en el fuero Civil y Comercial Federal, con medidas cautelares para que prepagas y obras sociales cubran el tratamiento sin demoras."
+  art: "Como abogado titular, lleva personalmente los reclamos por accidentes de trabajo, enfermedades profesionales y accidentes de tránsito: de la Comisión Médica a la justicia laboral y civil, hasta cobrar la indemnización."
 areas:
   penal:
     - "detenciones-y-excarcelaciones"
@@ -25,6 +26,11 @@ areas:
     - "discapacidad-tea-tgd"
     - "internacion-geriatrica-y-cuidados-domiciliarios"
     - "cirugias-protesis-e-insumos"
+  art:
+    - "accidentes-de-trabajo"
+    - "enfermedades-profesionales"
+    - "accidentes-de-transito"
+    - "rechazos-de-art-y-comisiones-medicas"
 ---
 
 Facundo Ginefra es el abogado titular de Ginefra & Asociados, el estudio con sede en San Justo, partido de La Matanza. Conduce personalmente las causas que llegan al estudio y litiga en la justicia de la Provincia de Buenos Aires, en la Ciudad de Buenos Aires y en el fuero federal.

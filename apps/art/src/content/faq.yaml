@@ -1,0 +1,56 @@
+# Preguntas generales del sitio ART (loader file()).
+# paginas: inicio | contacto
+
+- id: "cuanto-me-corresponde"
+  pregunta: "¿Cuánto me corresponde por un accidente de trabajo?"
+  respuesta: "Depende de tu porcentaje de incapacidad, de tu edad y de tu salario. La Ley de Riesgos del Trabajo calcula la indemnización con una fórmula que combina esos tres datos, con pisos mínimos que se actualizan y un adicional del 20 % en la mayoría de los casos. La diferencia entre el porcentaje que propone la ART y el que corresponde de verdad puede ser de millones de pesos: por eso conviene que un abogado revise el cálculo antes de aceptar."
+  paginas: ["inicio"]
+  orden: 1
+
+- id: "in-itinere"
+  pregunta: "¿Si me accidento yendo o volviendo del trabajo me cubre la ART?"
+  respuesta: "Sí. Es el accidente in itinere: el que ocurre en el trayecto entre tu casa y el trabajo, siempre que no hayas desviado el recorrido por un motivo personal. La ART tiene que darte atención médica, pagarte los días caídos e indemnizarte si te queda una incapacidad. Si además intervino otro vehículo, también se puede reclamar a su aseguradora."
+  paginas: ["inicio"]
+  orden: 2
+
+- id: "trabajo-en-negro"
+  pregunta: "¿Puedo reclamar si trabajo en negro?"
+  respuesta: "Sí. Que tu empleador no te haya registrado no te deja sin derechos: si no tenía ART, responde él directamente por el accidente o la enfermedad, con las mismas prestaciones que daría la ART. Además, la falta de registro genera reclamos propios. Contanos tu caso y te decimos cómo probar la relación laboral."
+  paginas: ["inicio", "contacto"]
+  orden: 3
+
+- id: "comision-medica"
+  pregunta: "¿Tengo que ir a la Comisión Médica? ¿Necesito abogado?"
+  respuesta: "En la Provincia de Buenos Aires, la Comisión Médica es el primer paso obligatorio para reclamar a la ART. La ley exige que vayas con patrocinio letrado, y ahí se define tu porcentaje de incapacidad. Llegar con un abogado que conoce los baremos y discute los estudios es la diferencia entre aceptar lo que dice la ART y cobrar lo que te corresponde."
+  paginas: ["inicio", "contacto"]
+  orden: 4
+
+- id: "despido"
+  pregunta: "¿Me pueden despedir por reclamar a la ART?"
+  respuesta: "Reclamar a la ART es un derecho y no es una causa válida de despido. Mientras estás de baja por el accidente, tu empleador no puede despedirte sin consecuencias: un despido en ese período abre reclamos indemnizatorios adicionales. Si te presionan o te despiden, guardá todo por escrito y escribinos."
+  paginas: ["inicio"]
+  orden: 5
+
+- id: "honorarios"
+  pregunta: "¿Cuánto cobran? ¿Tengo que pagar algo para empezar?"
+  respuesta: "No adelantás honorarios. La consulta es confidencial y sin compromiso. Si tomamos tu caso, cobramos un porcentaje de lo que vos cobres, al final del reclamo. Si no hay resultado, no nos pagás."
+  paginas: ["inicio", "contacto"]
+  orden: 6
+
+- id: "plazo-para-reclamar"
+  pregunta: "¿Hasta cuándo puedo reclamar?"
+  respuesta: "Los plazos son cortos: en general, dos años para reclamar a la ART y tres años para reclamar por un accidente de tránsito, contados desde el accidente o desde que conociste tu incapacidad. Pero no conviene esperar: cuanto antes empezás, más fácil es reunir la prueba médica y los testigos."
+  paginas: ["inicio", "contacto"]
+  orden: 7
+
+- id: "como-enviar-documentacion"
+  pregunta: "¿Cómo les envío la documentación?"
+  respuesta: "Lo más rápido es por WhatsApp al 11 5126-1499: una foto clara de cada papel alcanza. Mandanos la denuncia o el número de siniestro, los partes médicos, el alta y tus recibos de sueldo. Si te falta algo, no te frenes: escribinos igual con lo que tengas y te decimos qué conseguir."
+  paginas: ["contacto"]
+  orden: 8
+
+- id: "ir-al-estudio"
+  pregunta: "¿Tengo que ir al estudio?"
+  respuesta: "No hace falta para empezar. La evaluación se hace por WhatsApp o por teléfono. Para la Comisión Médica y las audiencias te acompañamos nosotros. Si preferís una reunión presencial, la coordinamos con turno en nuestro estudio de San Justo."
+  paginas: ["contacto"]
+  orden: 9

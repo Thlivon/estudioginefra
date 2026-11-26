@@ -98,7 +98,7 @@ const paginas = defineCollection({
   }),
 });
 
-// Compartida con amparos: vive en packages/ui.
+// Compartida por los tres sitios: vive en packages/ui.
 const equipo = defineCollection({
   loader: glob({ base: '../../packages/ui/contenido/equipo', pattern: '*.md' }),
   schema: ({ image }) =>
@@ -110,8 +110,8 @@ const equipo = defineCollection({
       foto: image(),
       fotoAlt: z.string(),
       orden: z.number(),
-      enfoque: z.object({ penal: z.string(), amparos: z.string() }),
-      areas: z.object({ penal: z.array(z.string()), amparos: z.array(z.string()) }),
+      enfoque: z.object({ penal: z.string(), amparos: z.string(), art: z.string() }),
+      areas: z.object({ penal: z.array(z.string()), amparos: z.array(z.string()), art: z.array(z.string()) }),
     }),
 });
 

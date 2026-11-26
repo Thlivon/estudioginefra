@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-11-26 · Sitio ART y accidentes · `feat/sitio-art`
+
+**Hecho**
+- Nueva app `apps/art` (copia de la estructura de amparos): inicio, 4 áreas (accidentes de trabajo e in itinere, enfermedades profesionales, accidentes de tránsito, rechazos de ART y Comisiones Médicas), guía "qué hacer después de un accidente de trabajo", equipo, contacto, privacidad y 404.
+- Tema `packages/ui/estilos/art.css` (tinta azul noche + naranja quemado; texto sobre acento 5,4:1). Íconos nuevos `auto` y `casco` en el sprite.
+- Equipo: campos `enfoque.art` y `areas.art` (obligatorios en el esquema) en Facundo y Ricardo.
+- OG propia (`apps/art/public/og.jpg`, Chrome headless, 40 KB).
+- Proyecto Vercel `estudioginefra-art` (root `apps/art`), enlace cruzado al sitio penal por Related Projects.
+- Dominios de pruebas: penal pasa a `estudioginefra-penal.tl256.com`; `estudioginefra.tl256.com` sirve ART hasta el traspaso al dominio del abogado.
+
+**Para revisar con el abogado** (claims y datos que no salen de la ley)
+- Honorarios: "no adelantás honorarios", porcentaje sobre lo que cobra el cliente y "si no hay resultado, no nos pagás".
+- "Consultas por WhatsApp 24 h" (pie y sellos).
+- Plazos de prescripción citados en general: 2 años ART, 3 años tránsito.
+- Comisión Médica como paso obligatorio en PBA (Ley 27.348 / adhesión Ley 14.997) con patrocinio letrado; ILT: 10 primeros días a cargo del empleador.
+- Adicional del 20 % (Ley 26.773) "en la mayoría de los casos" y el ejemplo 8 % vs 18 %.
+- Mediación prejudicial obligatoria en PBA para tránsito.
+- Marca: hoy sale como Ginefra & Asociados con sus teléfonos y matrículas; si el sitio va al dominio de otro abogado, cambiar `estudio.mjs`/equipo para esa app.
+
+- `SITIO_HERMANO_URL` (opcional) pisa el enlace cruzado de Related Projects: ART y amparos lo tienen en `https://estudioginefra-penal.tl256.com/`, porque el dominio de producción de penal (`estudioginefra.com.ar`) todavía no está lanzado.
+
+**Pendiente**
+- Al lanzar `estudioginefra.com.ar`: borrar `SITE_URL` de penal y `SITIO_HERMANO_URL` de ART y amparos.
+- `SITE_URL` del proyecto ART apunta a `https://estudioginefra.tl256.com`; al pasar al dominio definitivo, cambiarlo (o borrarlo) y redeployar.
+
 ## 2026-10-16 · Respuestas del estudio · `content/respuestas-estudio`
 
 Respuestas tomadas de la página «Lanzamiento Ginefra» (22 de 22 respondidas).

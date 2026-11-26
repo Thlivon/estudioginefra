@@ -21,7 +21,8 @@ const hermano = relacionados.relatedProjects({ noThrow: true })[0];
 const hostHermano = hermano
   ? relacionados.withRelatedProject({ projectName: hermano.project.name, defaultHost: '' })
   : '';
-export const sitioHermano = hostHermano ? `${hostHermano}/` : 'http://localhost:4321/';
+// SITIO_HERMANO_URL pisa a Related Projects (mientras el dominio de producción del hermano no es el que se usa).
+export const sitioHermano = env.SITIO_HERMANO_URL || (hostHermano ? `${hostHermano}/` : 'http://localhost:4321/');
 
 // robots.txt: en pruebas bloquea todo; en producción permite y apunta al sitemap.
 export const robotsTxt = (url) =>
