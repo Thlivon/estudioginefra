@@ -19,7 +19,10 @@
 - Mediación prejudicial obligatoria en PBA para tránsito.
 - Marca: hoy sale como Ginefra & Asociados con sus teléfonos y matrículas; si el sitio va al dominio de otro abogado, cambiar `estudio.mjs`/equipo para esa app.
 
+- `SITIO_HERMANO_URL` (opcional) pisa el enlace cruzado de Related Projects: ART y amparos lo tienen en `https://estudioginefra-penal.tl256.com/`, porque el dominio de producción de penal (`estudioginefra.com.ar`) todavía no está lanzado.
+
 **Pendiente**
+- Al lanzar `estudioginefra.com.ar`: borrar `SITE_URL` de penal y `SITIO_HERMANO_URL` de ART y amparos.
 - `SITE_URL` del proyecto ART apunta a `https://estudioginefra.tl256.com`; al pasar al dominio definitivo, cambiarlo (o borrarlo) y redeployar.
 
 ## 2026-10-16 · Respuestas del estudio · `content/respuestas-estudio`
