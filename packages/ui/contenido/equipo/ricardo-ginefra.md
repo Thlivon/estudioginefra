@@ -12,6 +12,7 @@ orden: 2
 enfoque:
   penal: "Fundador del estudio, aporta su experiencia en la estrategia de las causas penales y atiende consultas en su línea directa."
   amparos: "Fundador del estudio, acompaña a pacientes y familias desde la primera consulta y aporta la estrategia para que cada reclamo contra la prepaga llegue a la Justicia sólido y a tiempo."
+  art: "Fundador del estudio, acompaña a trabajadores y víctimas de accidentes desde la primera consulta y aporta su experiencia para que cada reclamo contra la ART o la aseguradora llegue sólido a la instancia que corresponda."
 areas:
   penal:
     - "detenciones-y-excarcelaciones"
@@ -25,6 +26,11 @@ areas:
     - "discapacidad-tea-tgd"
     - "internacion-geriatrica-y-cuidados-domiciliarios"
     - "cirugias-protesis-e-insumos"
+  art:
+    - "accidentes-de-trabajo"
+    - "enfermedades-profesionales"
+    - "accidentes-de-transito"
+    - "rechazos-de-art-y-comisiones-medicas"
 ---
 
 Ricardo Ginefra es el abogado fundador de Ginefra & Asociados. Sobre su trabajo se construyó el estudio que hoy funciona en San Justo, partido de La Matanza, y que actúa en la justicia bonaerense, en la Ciudad de Buenos Aires y en el fuero federal.

@@ -1,0 +1,14 @@
+/* Tema ART y accidentes. Misma base que penal y amparos; contrastes WCAG AA medidos (texto sobre acento 5,4:1). */
+:root {
+  --tinta: #142030;
+  --papel: #f7f5f0;
+  --superficie: #ffffff;
+  --texto: #1a1f2b;
+  --texto-suave: #4a5263;
+  --linea: #d9d4c7;
+  --acento: #a8461a; /* naranja quemado: fondo del CTA principal con texto --papel */
+  --acento-texto: #8a3912;
+  --acento-sobre-tinta: #f0a070; /* #A8461A sobre --tinta no llega a 3:1 */
+  --sobre-acento: var(--papel);
+  --sobre-tinta-suave: #b9c2cc;
+}
