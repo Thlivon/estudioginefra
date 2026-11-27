@@ -11,4 +11,5 @@
   --acento-sobre-tinta: #f0a070; /* #A8461A sobre --tinta no llega a 3:1 */
   --sobre-acento: var(--papel);
   --sobre-tinta-suave: #b9c2cc;
+  --velo: 0.72; /* hero con foto: más visible que en penal */
 }

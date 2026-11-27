@@ -107,7 +107,8 @@ const oscuro = variante !== 'compacto';
     margin-top: var(--esp-3);
   }
 
-  /* Imagen con velo: el velo garantiza el contraste del texto sobre cualquier zona de la foto */
+  /* Imagen con velo: el velo garantiza el contraste del texto sobre cualquier zona de la foto.
+     --velo (por sitio, default 1) escala su opacidad. */
   .hero__foto,
   .hero__foto img {
     position: absolute;
@@ -127,9 +128,9 @@ const oscuro = variante !== 'compacto';
     z-index: -1;
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--tinta) 80%, transparent) 0%,
-      color-mix(in srgb, var(--tinta) 86%, transparent) 55%,
-      color-mix(in srgb, var(--tinta) 95%, transparent) 100%
+      color-mix(in srgb, var(--tinta) calc(80% * var(--velo, 1)), transparent) 0%,
+      color-mix(in srgb, var(--tinta) calc(86% * var(--velo, 1)), transparent) 55%,
+      color-mix(in srgb, var(--tinta) calc(95% * var(--velo, 1)), transparent) 100%
     );
   }
   .hero--imagen .hero__contenido {
@@ -171,9 +172,9 @@ const oscuro = variante !== 'compacto';
     .hero--imagen::before {
       background: linear-gradient(
         90deg,
-        color-mix(in srgb, var(--tinta) 94%, transparent) 0%,
-        color-mix(in srgb, var(--tinta) 84%, transparent) 50%,
-        color-mix(in srgb, var(--tinta) 60%, transparent) 100%
+        color-mix(in srgb, var(--tinta) calc(94% * var(--velo, 1)), transparent) 0%,
+        color-mix(in srgb, var(--tinta) calc(84% * var(--velo, 1)), transparent) 50%,
+        color-mix(in srgb, var(--tinta) calc(60% * var(--velo, 1)), transparent) 100%
       );
     }
   }
