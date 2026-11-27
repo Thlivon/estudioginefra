@@ -48,7 +48,7 @@ const personas = await Promise.all(
     };
   }),
 );
-const cruzado = { antes: t.cruzado.antes, texto: t.cruzado.texto ?? new URL(sitioHermano).host, href: sitioHermano };
+const cruzado = t.cruzado && { antes: t.cruzado.antes, texto: t.cruzado.texto ?? new URL(sitioHermano).host, href: sitioHermano };
 ---
 
 <Migas items={[{ nombre: sitio.plantillas.migas.equipo, href: url }]} />

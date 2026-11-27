@@ -56,7 +56,7 @@ export const sitio = {
     mostrarCorreo: true,
     horarios: ['Consultas por WhatsApp: 24 h, todos los días', 'En el estudio, con turno previo'],
     areasExtra: [guiaLarga],
-    enlaceCruzado: '¿Necesitás un abogado penalista?',
+    // Sin enlaceCruzado: ART no enlaza a ningún otro sitio (footer, 404, equipo ni schema).
   },
 
   plantillas: {
@@ -128,7 +128,6 @@ export const sitio = {
       areas: 'Áreas',
       comoTrabajamos: 'Cómo trabajamos',
       botones: (nombre) => ({ llamar: { etiqueta: `Llamar a ${nombre}` }, whatsapp: { etiqueta: `Escribir a ${nombre}` } }),
-      cruzado: { antes: 'También atendemos defensa penal: ' },
       ctaFinal: {
         titulo: 'Contanos qué te pasó',
         texto: 'Escribinos por WhatsApp y hablás directo con el abogado que va a llevar tu reclamo.',

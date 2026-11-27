@@ -88,9 +88,13 @@ const nuevaPestana = ' (se abre en una pestaña nueva)';
       }
       <li>© {anio} {estudio.nombre}</li>
       <li><a href="/privacidad/">Política de privacidad</a></li>
-      <li>
-        {f.enlaceCruzado}{' '}<a href={sitioHermano}>{new URL(sitioHermano).host}</a>
-      </li>
+      {
+        f.enlaceCruzado && (
+          <li>
+            {f.enlaceCruzado}{' '}<a href={sitioHermano}>{new URL(sitioHermano).host}</a>
+          </li>
+        )
+      }
     </ul>
   </div>
 </footer>
