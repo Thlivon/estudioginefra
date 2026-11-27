@@ -15,6 +15,7 @@ import { botones } from '@ginefra/ui/enlaces.mjs';
 import { webSite } from '@ginefra/ui/schema.mjs';
 import { contactoEmail } from '@ginefra/ui/site.mjs';
 import { sitio } from '../sitio.mjs';
+import comodoroPy from '../assets/comodoro-py.webp';
 
 const pagina = (await getEntry('paginas', 'inicio'))!;
 const inicio = pagina.data;
@@ -42,8 +43,16 @@ const ctasFinal = contactoEmail
   mensajeWhatsapp={inicio.mensajeWhatsapp}
   schema={[webSite({ site: Astro.site })]}
 >
-  <!-- 1 · Hero de texto -->
-  <Hero variante="texto" h1={inicio.h1} bajada={inicio.bajada} ctas={ctasHero} sellos={sellos} />
+  <!-- 1 · Hero con foto -->
+  <Hero
+    variante="imagen"
+    h1={inicio.h1}
+    bajada={inicio.bajada}
+    ctas={ctasHero}
+    imagen={comodoroPy}
+    imagenAlt="Fachada de los tribunales federales de Comodoro Py, en Buenos Aires"
+    sellos={sellos}
+  />
 
   <!-- 2 · ¿Qué te rechazaron? -->
   <section class="seccion" aria-labelledby="coberturas">
