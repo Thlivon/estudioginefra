@@ -59,7 +59,7 @@ const ogImagen = new URL('/og.jpg', Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <Font cssVariable="--fuente-titulos" preload />
     <Font cssVariable="--fuente-texto" preload />
-    <JsonLd datos={legalService({ site: Astro.site, sitio, areas, sitioHermano })} />
+    <JsonLd datos={legalService({ site: Astro.site, sitio, areas, sitioHermano: sitio.footer.enlaceCruzado && sitioHermano })} />
     {schema.map((datos) => <JsonLd datos={datos} />)}
     {analitica && <script is:inline defer src="/_vercel/insights/script.js"></script>}
     <slot name="head" />

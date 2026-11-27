@@ -47,9 +47,13 @@ const atajos = [
           </li>
         ))
       }
-      <li>
-        {sitio.footer.enlaceCruzado}{' '}<a href={sitioHermano}>{new URL(sitioHermano).host}</a>
-      </li>
+      {
+        sitio.footer.enlaceCruzado && (
+          <li>
+            {sitio.footer.enlaceCruzado}{' '}<a href={sitioHermano}>{new URL(sitioHermano).host}</a>
+          </li>
+        )
+      }
     </ul>
   </div>
 </section>

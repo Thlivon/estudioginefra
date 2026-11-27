@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-27 · ART sin enlace al sitio penal
+
+**Hecho**
+- ART ya no enlaza a ningún otro sitio: sin "¿Necesitás un abogado penalista?" en el pie ni en la 404, sin "También atendemos defensa penal" en Equipo y sin el sitio hermano en `sameAs` del schema.
+- `enlaceCruzado` (footer) y `cruzado` (equipo) pasan a ser opcionales en `sitio.mjs`: si faltan, no se muestra nada. Penal y amparos siguen igual.
+
+**Pendiente**
+- `SITIO_HERMANO_URL` y `relatedProjects` del proyecto ART quedan sin uso; se pueden borrar cuando convenga.
+
 ## 2026-11-26 · Sitio ART y accidentes · `feat/sitio-art`
 
 **Hecho**
